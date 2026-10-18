@@ -322,7 +322,7 @@ Resources/
 | Persistencia | **SQLite** vía **EF Core SQLite** (o `sqlite-net-pcl` si el arranque pesa) | Migraciones, LINQ, repositorios testeables. |
 | DI | `Microsoft.Extensions.DependencyInjection` en `MauiProgram` | Nativo de MAUI. |
 | Notificaciones | `AlarmManager` + `NotificationCompat` vía interfaz propia (implementación en `Platforms/Android`) | Control fino de alarmas exactas, acciones y canales. Alternativa rápida: `Plugin.LocalNotification`. |
-| Rutina activa | **Foreground Service** Android (tipo `specialUse`) | El temporizador sobrevive a la app en segundo plano. |
+| Rutina activa | **Notificación persistente** con cronómetro del sistema (`setChronometerCountDown`) y botones | El tiempo se calcula con marcas de tiempo, así que no hace falta un *foreground service*: menos batería y sin fricción con las políticas de Google Play. |
 | TTS | `TextToSpeech` de MAUI Essentials | Ya incluido. |
 | Logging | `Microsoft.Extensions.Logging` | Estándar. |
 | Tests | **xUnit v3** (Microsoft.Testing.Platform) + **Shouldly** + **NSubstitute** + `FakeTimeProvider` | Dominio y casos de uso 100 % testeables sin emulador. |
@@ -348,7 +348,7 @@ Resources/
             └──────────────────────────┘
 ```
 
-**Regla de dependencias:** `Domain` no referencia nada; `Application` solo a `Domain`; `Infrastructure` implementa interfaces de `Application`; la app MAUI compone todo en `MauiProgram`. Las APIs de Android (alarmas, foreground service, widget) son **adaptadores** detrás de interfaces de `Application` (`IReminderScheduler`, `IActiveRoutineHost`, `IHapticFeedback`).
+**Regla de dependencias:** `Domain` no referencia nada; `Application` solo a `Domain`; `Infrastructure` implementa interfaces de `Application`; la app MAUI compone todo en `MauiProgram`. Las APIs de Android (alarmas, foreground service, widget) son **adaptadores** detrás de interfaces de `Application` (`IReminderScheduler`, `IActiveRoutineNotifier`).
 
 ### 6.3 Estructura de la solución
 
@@ -587,15 +587,19 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 | **0. Fundaciones** | 1 semana | Solución y capas, CI, `.editorconfig`, design system (tokens, fuentes, `BentoCard`, `BigActionButton`), Shell con 3 pestañas, DB + migración inicial. |
 | **1. Rutinas** | 2 semanas | CRUD de rutinas y pasos, reordenar, plantillas, programación por días/hora. |
 | **2. Modo Ahora** | 2 semanas | Pantalla de enfoque con re-tematizado por rutina, temporizador visual con gradiente, micro-animaciones y háptica, saltar/posponer, hora estimada de fin, celebración Lottie. |
-| **3. Recordatorios** | 1–2 semanas | Alarmas exactas, acciones en notificación, foreground service, boot receiver, onboarding de permisos. |
+| **3. Recordatorios** | 1–2 semanas | Alarmas exactas, acciones en notificación, notificación persistente de la rutina en curso, boot receiver, onboarding de permisos. |
 | **4. MVP pulido** | 1 semana | Progreso básico, accesibilidad, español/inglés, beta cerrada en Play Console (pista interna). |
 | **5. v1.1** | 3–4 semanas | Versión día malo, sub-pasos, rachas flexibles, aviso a mitad de paso, TTS, widget, ajuste de estimaciones, exportar/importar. |
 | **6. v2** | — | Modo niño, disparadores por contexto, recompensas, check-in de energía, "Rómpelo por mí". |
 
 ### Estado actual
 
-- ✅ **Fase 0 — Fundaciones:** solución en capas, CI, `.editorconfig` y analizadores, design system (tokens de color, tipografía y espaciado, estilos `BentoCard`/`HeroCard`/`Chip`, `BigActionButton`, paleta de acentos), Shell con 3 pestañas, SQLite + migración inicial, textos en español e inglés.
-- 🟡 **Fase 1 — Rutinas (en curso):** dominio completo de rutinas y pasos (crear, editar, reordenar, quitar, horario), plantillas (6, en es/en), crear desde plantilla, pantallas **Hoy** y **Rutinas**. Falta: editor visual (crear/editar/reordenar desde la UI) y selector de horario.
+- ✅ **Fase 0 — Fundaciones:** solución en capas, CI, analizadores, design system, Shell con 3 pestañas, SQLite + migraciones, textos es/en.
+- ✅ **Fase 1 — Rutinas:** editor con vista previa en vivo, emojis, color, días/hora/aviso previo, pasos reordenables (arrastrar o subir/bajar), plantillas, archivar.
+- ✅ **Fase 2 — Modo Ahora:** un paso a la vez, anillo que se vacía, "Terminas a las…", saltar/posponer/pausar/terminar antes, pantalla encendida, voz opcional, celebración con confeti.
+- ✅ **Fase 3 — Recordatorios:** aviso previo y de inicio con acciones (Empezar / En 5 min / Hoy no), alarmas exactas con respaldo inexacto, reprogramación tras reinicio y cambio de hora, notificación persistente con cuenta regresiva y botones Listo/Saltar.
+- ✅ **Fase 4 — MVP pulido:** progreso amable (constancia flexible, mapa de 4 semanas, sugerencias de duración con "Ajustar"), ajustes (bajo estímulo, celebraciones, vibración, voz, tema, permisos), bienvenida en 3 pasos.
+- ⏭️ **Siguiente:** pruebas en dispositivos reales ([`docs/PRUEBAS.md`](PRUEBAS.md)), beta cerrada y v1.1 (versión día malo, sub-pasos, widget, exportar/importar).
 
 ### Definición de "MVP listo"
 - Crear una rutina desde plantilla en < 60 s.

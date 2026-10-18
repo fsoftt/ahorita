@@ -2,6 +2,7 @@
 <common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
                 xmlns:progress="clr-namespace:Ahorita.App.Features.Progress"
                 xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
                 x:Class="Ahorita.App.Features.Progress.ProgressPage"
@@ -12,7 +13,8 @@
     <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
       <Label Text="{x:Static strings:AppResources.Progress_Title}" Style="{StaticResource TextDisplay}" Margin="0,8,0,0" />
 
-      <Border Style="{StaticResource HeroCard}">
+      <!-- Sin actividad todavía -->
+      <Border Style="{StaticResource HeroCard}" IsVisible="{Binding HasActivity, Converter={StaticResource InvertedBool}}">
         <Border.Background>
           <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#B9C2FF" Offset="0" />
@@ -21,12 +23,113 @@
         </Border.Background>
         <VerticalStackLayout Spacing="10">
           <Label Text="🌱" Style="{StaticResource TextEmoji}" FontSize="{StaticResource SizeEmojiHero}" HorizontalOptions="Start" />
-          <Label Text="{x:Static strings:AppResources.Progress_Body}" Style="{StaticResource TextOnAccent}" FontSize="{StaticResource SizeBody}" />
-          <Border StrokeThickness="0" StrokeShape="RoundRectangle 999" Padding="14,6" BackgroundColor="#66FFFFFF" HorizontalOptions="Start">
-            <Label Text="{x:Static strings:AppResources.Common_ComingSoon}" Style="{StaticResource TextOnAccent}" FontFamily="{StaticResource FontBodySemiBold}" TextColor="{StaticResource OnAccent}" />
-          </Border>
+          <Label Text="{x:Static strings:AppResources.Progress_Empty}" Style="{StaticResource TextOnAccent}" FontSize="{StaticResource SizeBody}" />
         </VerticalStackLayout>
       </Border>
+
+      <VerticalStackLayout Spacing="{StaticResource SpaceLg}" IsVisible="{Binding HasActivity}">
+
+        <!-- Constancia flexible -->
+        <Border Style="{StaticResource BentoCard}">
+          <Grid ColumnDefinitions="Auto,*" ColumnSpacing="18">
+            <Grid WidthRequest="96" HeightRequest="96">
+              <controls:VisualTimerView Fraction="{Binding ConsistencyRatio}"
+                                        Thickness="12"
+                                        StartColor="#B9C2FF"
+                                        EndColor="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}"
+                                        TrackColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}" />
+              <Label Text="🔥" Style="{StaticResource TextEmoji}" FontSize="30" />
+            </Grid>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="4">
+              <Label Text="{Binding ConsistencyText}" Style="{StaticResource TextTitle}" />
+              <Label Text="{x:Static strings:AppResources.Progress_ConsistencyHint}" Style="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+          </Grid>
+        </Border>
+
+        <!-- Últimos 7 días -->
+        <VerticalStackLayout Spacing="12">
+          <Label Text="{x:Static strings:AppResources.Progress_ThisWeek}" Style="{StaticResource TextSection}" />
+          <FlexLayout JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding WeekDays}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="progress:DayCell">
+                <VerticalStackLayout Spacing="6" SemanticProperties.Description="{Binding Description}">
+                  <Border WidthRequest="36"
+                          HeightRequest="36"
+                          StrokeThickness="0"
+                          StrokeShape="RoundRectangle 18"
+                          HorizontalOptions="Center"
+                          BackgroundColor="{Binding Level, Converter={StaticResource LevelToColor}}">
+                    <Label Text="✓" IsVisible="{Binding IsActive}" TextColor="White" FontFamily="{StaticResource FontTitle}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                  </Border>
+                  <Label Text="{Binding Label}" Style="{StaticResource TextSecondary}" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </FlexLayout>
+        </VerticalStackLayout>
+
+        <!-- Cifras de la semana -->
+        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+          <Border Style="{StaticResource BentoCard}" Padding="14">
+            <VerticalStackLayout>
+              <Label Text="{Binding RoutinesCompleted}" Style="{StaticResource TextTitle}" />
+              <Label Text="{x:Static strings:AppResources.Progress_Routines}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+            </VerticalStackLayout>
+          </Border>
+          <Border Grid.Column="1" Style="{StaticResource BentoCard}" Padding="14">
+            <VerticalStackLayout>
+              <Label Text="{Binding StepsDone}" Style="{StaticResource TextTitle}" />
+              <Label Text="{x:Static strings:AppResources.Progress_Steps}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+            </VerticalStackLayout>
+          </Border>
+          <Border Grid.Column="2" Style="{StaticResource BentoCard}" Padding="14">
+            <VerticalStackLayout>
+              <Label Text="{Binding MinutesInRoutines}" Style="{StaticResource TextTitle}" />
+              <Label Text="{x:Static strings:AppResources.Progress_Minutes}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+            </VerticalStackLayout>
+          </Border>
+        </Grid>
+
+        <!-- Mapa de 4 semanas -->
+        <VerticalStackLayout Spacing="12">
+          <Label Text="{x:Static strings:AppResources.Progress_Map}" Style="{StaticResource TextSection}" />
+          <FlexLayout Wrap="Wrap" JustifyContent="SpaceBetween" BindableLayout.ItemsSource="{Binding Map}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="progress:DayCell">
+                <Border FlexLayout.Basis="13%"
+                        HeightRequest="34"
+                        Margin="0,0,0,8"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 10"
+                        BackgroundColor="{Binding Level, Converter={StaticResource LevelToColor}}"
+                        SemanticProperties.Description="{Binding Description}" />
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </FlexLayout>
+        </VerticalStackLayout>
+
+        <!-- Sugerencias de tiempo -->
+        <VerticalStackLayout Spacing="12" IsVisible="{Binding Insights.Count, Converter={StaticResource CountToVisible}}">
+          <Label Text="{x:Static strings:AppResources.Progress_Insights}" Style="{StaticResource TextSection}" />
+          <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Insights}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="progress:InsightItem">
+                <Border Style="{StaticResource BentoCard}">
+                  <VerticalStackLayout Spacing="12">
+                    <Label Text="{Binding Text}" FontFamily="{StaticResource FontBodyMedium}" />
+                    <Button Text="{Binding ActionText}"
+                            Style="{StaticResource SecondaryButton}"
+                            HorizontalOptions="Start"
+                            Command="{Binding AdjustCommand, Source={RelativeSource AncestorType={x:Type progress:ProgressViewModel}}, x:DataType=progress:ProgressViewModel}"
+                            CommandParameter="{Binding .}" />
+                  </VerticalStackLayout>
+                </Border>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </VerticalStackLayout>
+        </VerticalStackLayout>
+      </VerticalStackLayout>
     </VerticalStackLayout>
   </ScrollView>
 </common:AppPage>

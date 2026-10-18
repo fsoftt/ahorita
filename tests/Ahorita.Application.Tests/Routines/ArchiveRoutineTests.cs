@@ -34,4 +34,34 @@ public sealed class ArchiveRoutineTests
 
         result.Error.ShouldBe(ApplicationErrors.RoutineNotFound);
     }
+
+    [Fact]
+    public async Task AdjustStepDuration_updates_only_the_duration()
+    {
+        var repository = new InMemoryRoutineRepository();
+        var routine = Fakes.Routines.OnDemand("Mañana", steps: 2);
+        repository.Add(routine);
+        var step = routine.Steps[1];
+
+        var result = await new AdjustStepDuration(repository, repository)
+            .ExecuteAsync(routine.Id, step.Id, TimeSpan.FromMinutes(18), TestContext.Current.CancellationToken);
+
+        result.IsSuccess.ShouldBeTrue();
+        routine.Steps[1].Duration.ShouldBe(TimeSpan.FromMinutes(18));
+        routine.Steps[1].Title.ShouldBe(step.Title);
+        repository.SaveCount.ShouldBe(1);
+    }
+
+    [Fact]
+    public async Task AdjustStepDuration_fails_for_unknown_steps()
+    {
+        var repository = new InMemoryRoutineRepository();
+        var routine = Fakes.Routines.OnDemand("Mañana");
+        repository.Add(routine);
+
+        var result = await new AdjustStepDuration(repository, repository)
+            .ExecuteAsync(routine.Id, Guid.NewGuid(), TimeSpan.FromMinutes(5), TestContext.Current.CancellationToken);
+
+        result.Error.ShouldBe(RoutineErrors.StepNotFound);
+    }
 }

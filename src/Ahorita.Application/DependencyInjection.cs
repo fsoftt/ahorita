@@ -1,4 +1,5 @@
 using Ahorita.Application.Abstractions;
+using Ahorita.Application.Progress;
 using Ahorita.Application.Reminders;
 using Ahorita.Application.Routines;
 using Ahorita.Application.Sessions;
@@ -19,12 +20,15 @@ public static class DependencyInjection
         services.AddScoped<GetRoutineForEditing>();
         services.AddScoped<SaveRoutine>();
         services.AddScoped<ArchiveRoutine>();
+        services.AddScoped<AdjustStepDuration>();
 
         services.AddScoped<StartSession>();
         services.AddScoped<ApplySessionAction>();
         services.AddScoped<GetSession>();
         services.AddScoped<GetActiveSession>();
         services.AddScoped<RestoreSessionNotification>();
+
+        services.AddScoped<GetProgressSummary>();
 
         services.AddScoped<IRemindersRefresher, RemindersRefresher>();
         services.AddScoped<RefreshReminders>();

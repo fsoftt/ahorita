@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:onboarding="clr-namespace:Ahorita.App.Features.Onboarding"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Onboarding.OnboardingPage"
+                x:DataType="onboarding:OnboardingViewModel"
+                Shell.PresentationMode="ModalAnimated"
+                Title="Ahorita">
+
+  <Grid RowDefinitions="Auto,*,Auto" Padding="24,16,24,28">
+    <BoxView Grid.RowSpan="3" Margin="-24,-16,-24,-28" Opacity="0.3">
+      <BoxView.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+          <GradientStop Color="#FFC46B" Offset="0" />
+          <GradientStop Color="#B9C2FF" Offset="0.55" />
+          <GradientStop Color="#FFB8DD" Offset="1" />
+        </LinearGradientBrush>
+      </BoxView.Background>
+    </BoxView>
+
+    <Button Text="{x:Static strings:AppResources.Onboarding_Skip}"
+            Style="{StaticResource TextButton}"
+            HorizontalOptions="End"
+            IsVisible="{Binding IsLastStep, Converter={StaticResource InvertedBool}}"
+            Command="{Binding SkipCommand}" />
+
+    <!-- 1. Bienvenida -->
+    <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="20" IsVisible="{Binding IsWelcome}">
+      <Label Text="⏱️✨" Style="{StaticResource TextEmoji}" FontSize="80" />
+      <Label Text="{x:Static strings:AppResources.Onboarding_WelcomeTitle}" Style="{StaticResource TextDisplay}" HorizontalTextAlignment="Center" />
+      <Label Text="{x:Static strings:AppResources.Onboarding_WelcomeBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" HorizontalTextAlignment="Center" />
+    </VerticalStackLayout>
+
+    <!-- 2. Plantillas -->
+    <ScrollView Grid.Row="1" IsVisible="{Binding IsTemplates}">
+      <VerticalStackLayout Spacing="16" Padding="0,8">
+        <Label Text="{x:Static strings:AppResources.Onboarding_TemplatesTitle}" Style="{StaticResource TextDisplay}" />
+        <Label Text="{x:Static strings:AppResources.Onboarding_TemplatesBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+        <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Templates}">
+          <BindableLayout.ItemTemplate>
+            <DataTemplate x:DataType="onboarding:SelectableTemplate">
+              <Border Style="{StaticResource BentoCard}"
+                      Padding="14"
+                      StrokeThickness="0"
+                      Stroke="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}"
+                      SemanticProperties.Description="{Binding Template.Name}">
+                <Border.Triggers>
+                  <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="StrokeThickness" Value="3" />
+                  </DataTrigger>
+                </Border.Triggers>
+                <Border.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding ToggleTemplateCommand, Source={RelativeSource AncestorType={x:Type onboarding:OnboardingViewModel}}, x:DataType=onboarding:OnboardingViewModel}"
+                                        CommandParameter="{Binding .}" />
+                </Border.GestureRecognizers>
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+                  <Border Style="{StaticResource EmojiBadge}" Background="{Binding Template.Accent, Converter={StaticResource AccentToGradient}}">
+                    <Label Text="{Binding Template.Emoji}" Style="{StaticResource TextEmoji}" FontSize="26" />
+                  </Border>
+                  <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                    <Label Text="{Binding Template.Name}" FontFamily="{StaticResource FontBodySemiBold}" />
+                    <Label Text="{Binding Template.Meta}" Style="{StaticResource TextSecondary}" />
+                  </VerticalStackLayout>
+                  <CheckBox Grid.Column="2" IsChecked="{Binding IsSelected}" InputTransparent="True" VerticalOptions="Center" />
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+      </VerticalStackLayout>
+    </ScrollView>
+
+    <!-- 3. Recordatorios -->
+    <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="20" IsVisible="{Binding IsReminders}">
+      <Label Text="🔔" Style="{StaticResource TextEmoji}" FontSize="80" />
+      <Label Text="{x:Static strings:AppResources.Onboarding_RemindersTitle}" Style="{StaticResource TextDisplay}" HorizontalTextAlignment="Center" />
+      <Label Text="{x:Static strings:AppResources.Onboarding_RemindersBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" HorizontalTextAlignment="Center" />
+    </VerticalStackLayout>
+
+    <!-- Acciones -->
+    <VerticalStackLayout Grid.Row="2" Spacing="12">
+      <controls:BigActionButton Text="{x:Static strings:AppResources.Onboarding_Next}"
+                                Style="{StaticResource BigActionPrimary}"
+                                IsVisible="{Binding IsLastStep, Converter={StaticResource InvertedBool}}"
+                                Command="{Binding NextCommand}" />
+      <controls:BigActionButton Text="{x:Static strings:AppResources.Onboarding_EnableReminders}"
+                                Style="{StaticResource BigActionPrimary}"
+                                Breathes="True"
+                                IsVisible="{Binding IsLastStep}"
+                                Command="{Binding EnableRemindersCommand}" />
+      <Button Text="{x:Static strings:AppResources.Onboarding_NotNow}"
+              Style="{StaticResource TextButton}"
+              IsVisible="{Binding IsLastStep}"
+              Command="{Binding FinishCommand}" />
+    </VerticalStackLayout>
+  </Grid>
+</common:AppPage>

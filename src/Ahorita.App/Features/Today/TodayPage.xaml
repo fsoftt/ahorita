@@ -37,10 +37,19 @@
     <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
 
       <!-- Encabezado -->
-      <VerticalStackLayout Spacing="2" Margin="0,8,0,0">
-        <Label Text="{Binding DateText}" Style="{StaticResource TextSection}" />
-        <Label Text="{Binding Greeting}" Style="{StaticResource TextDisplay}" />
-      </VerticalStackLayout>
+      <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+        <VerticalStackLayout Spacing="2">
+          <Label Text="{Binding DateText}" Style="{StaticResource TextSection}" />
+          <Label Text="{Binding Greeting}" Style="{StaticResource TextDisplay}" />
+        </VerticalStackLayout>
+        <Button Grid.Column="1"
+                Text="⚙"
+                Style="{StaticResource IconButton}"
+                CornerRadius="24"
+                VerticalOptions="Start"
+                Command="{Binding OpenSettingsCommand}"
+                SemanticProperties.Description="{x:Static strings:AppResources.Settings_Open}" />
+      </Grid>
 
       <!-- Tarjeta protagonista -->
       <Border Style="{StaticResource HeroCard}"

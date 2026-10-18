@@ -17,6 +17,7 @@
       <converters:AccentToColorConverter x:Key="AccentToColor" />
       <converters:CountToVisibleConverter x:Key="CountToVisible" />
       <toolkit:InvertedBoolConverter x:Key="InvertedBool" />
+      <converters:LevelToColorConverter x:Key="LevelToColor" />
     </ResourceDictionary>
   </Application.Resources>
 </Application>

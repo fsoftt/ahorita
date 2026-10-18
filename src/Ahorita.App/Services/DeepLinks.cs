@@ -26,7 +26,8 @@ public sealed class DeepLinks(INavigationService navigation)
         _ = NavigateAsync(routineId);
     }
 
-    public void ShellReady()
+    /// <returns>true si había un enlace pendiente y se abrió.</returns>
+    public bool ShellReady()
     {
         Guid? pending;
         lock (_gate)
@@ -36,8 +37,11 @@ public sealed class DeepLinks(INavigationService navigation)
             _pendingRoutine = null;
         }
 
-        if (pending is { } routineId)
-            _ = NavigateAsync(routineId);
+        if (pending is not { } routineId)
+            return false;
+
+        _ = NavigateAsync(routineId);
+        return true;
     }
 
     // Ruta absoluta: deja "Hoy" debajo para que "atrás" tenga sentido.

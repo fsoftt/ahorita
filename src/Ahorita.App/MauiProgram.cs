@@ -1,8 +1,10 @@
 using Ahorita.App.Features.Celebration;
 using Ahorita.App.Features.Editor;
 using Ahorita.App.Features.Focus;
+using Ahorita.App.Features.Onboarding;
 using Ahorita.App.Features.Progress;
 using Ahorita.App.Features.Routines;
+using Ahorita.App.Features.Settings;
 using Ahorita.App.Features.Today;
 using Ahorita.App.Services;
 using Ahorita.App.Theming;
@@ -70,6 +72,8 @@ public static class MauiProgram
         services.AddTransient<StepEditorPage>().AddTransient<StepEditorViewModel>();
         services.AddTransient<FocusPage>().AddTransient<FocusViewModel>();
         services.AddTransient<CelebrationPage>().AddTransient<CelebrationViewModel>();
+        services.AddTransient<SettingsPage>().AddTransient<SettingsViewModel>();
+        services.AddTransient<OnboardingPage>().AddTransient<OnboardingViewModel>();
 
         return services;
     }

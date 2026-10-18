@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:settings="clr-namespace:Ahorita.App.Features.Settings"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Settings.SettingsPage"
+                x:DataType="settings:SettingsViewModel"
+                Title="{x:Static strings:AppResources.Settings_Title}">
+
+  <common:AppPage.Resources>
+    <Style x:Key="SettingRow" TargetType="Grid">
+      <Setter Property="ColumnDefinitions" Value="*,Auto" />
+      <Setter Property="ColumnSpacing" Value="12" />
+      <Setter Property="Padding" Value="0,6" />
+    </Style>
+  </common:AppPage.Resources>
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid Padding="16,8" ColumnDefinitions="Auto,*" ColumnSpacing="12">
+      <Button Text="‹"
+              Style="{StaticResource IconButton}"
+              CornerRadius="24"
+              FontSize="28"
+              Command="{Binding CloseCommand}"
+              SemanticProperties.Description="{x:Static strings:AppResources.Common_Back}" />
+      <Label Grid.Column="1" Text="{x:Static strings:AppResources.Settings_Title}" Style="{StaticResource TextHeadline}" VerticalOptions="Center" />
+    </Grid>
+
+    <ScrollView Grid.Row="1">
+      <VerticalStackLayout Padding="20,8,20,40" Spacing="{StaticResource SpaceLg}">
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_Experience}" Style="{StaticResource TextSection}" />
+          <Border Style="{StaticResource BentoCard}" Padding="16,8">
+            <VerticalStackLayout>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_LowStimulus}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_LowStimulusHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1" IsToggled="{Binding LowStimulus}" VerticalOptions="Center" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_Celebrations}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_CelebrationsHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1" IsToggled="{Binding Celebrations}" VerticalOptions="Center" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_Haptics}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_HapticsHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1" IsToggled="{Binding HapticsEnabled}" VerticalOptions="Center" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_ReadAloud}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_ReadAloudHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1" IsToggled="{Binding ReadStepsAloud}" VerticalOptions="Center" />
+              </Grid>
+            </VerticalStackLayout>
+          </Border>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_Theme}" Style="{StaticResource TextSection}" />
+          <HorizontalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Themes}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="settings:ThemeOption">
+                <controls:ChipView Text="{Binding Label}"
+                                   IsSelected="{Binding IsSelected}"
+                                   Command="{Binding PickThemeCommand, Source={RelativeSource AncestorType={x:Type settings:SettingsViewModel}}, x:DataType=settings:SettingsViewModel}"
+                                   CommandParameter="{Binding .}" />
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_Reminders}" Style="{StaticResource TextSection}" />
+          <Border Style="{StaticResource BentoCard}" Padding="16,8">
+            <VerticalStackLayout>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_Notifications}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{Binding NotificationsStatus}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1"
+                        Text="{x:Static strings:AppResources.Settings_Enable}"
+                        Padding="18,6"
+                        IsVisible="{Binding HasNotifications, Converter={StaticResource InvertedBool}}"
+                        Command="{Binding EnableNotificationsCommand}" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_ExactAlarms}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{Binding ExactAlarmsStatus}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Button Grid.Column="1"
+                        Text="{x:Static strings:AppResources.Settings_Enable}"
+                        Padding="18,6"
+                        IsVisible="{Binding HasExactAlarms, Converter={StaticResource InvertedBool}}"
+                        Command="{Binding EnableExactAlarmsCommand}" />
+              </Grid>
+            </VerticalStackLayout>
+          </Border>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_About}" Style="{StaticResource TextSection}" />
+          <Border Style="{StaticResource BentoCard}">
+            <VerticalStackLayout Spacing="8">
+              <Label Text="🔒 " FontSize="22" />
+              <Label Text="{x:Static strings:AppResources.Settings_Privacy}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+              <Label Text="{Binding Version}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+            </VerticalStackLayout>
+          </Border>
+        </VerticalStackLayout>
+      </VerticalStackLayout>
+    </ScrollView>
+  </Grid>
+</common:AppPage>

@@ -6,7 +6,7 @@ namespace Ahorita.App.Common;
 
 /// <summary>
 /// Página base: sin barra de navegación (cada pantalla tiene su propio título grande),
-/// barra de estado del color del fondo y carga del ViewModel al aparecer.
+/// respeta el área segura, barra de estado del color del fondo y carga del ViewModel al aparecer.
 /// </summary>
 public abstract class AppPage : ContentPage
 {
@@ -14,6 +14,9 @@ public abstract class AppPage : ContentPage
     {
         BindingContext = ViewModel = viewModel;
         Shell.SetNavBarIsVisible(this, false);
+
+        // Android 15+ dibuja de borde a borde: respetamos barras del sistema, recortes y teclado.
+        SafeAreaEdges = SafeAreaEdges.All;
         Behaviors.Add(CreateStatusBarBehavior());
     }
 

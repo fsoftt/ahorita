@@ -22,11 +22,13 @@ public static class AccentPalette
 
 public sealed record AccentColors(Color Start, Color End)
 {
-    /// <summary>Gradiente diagonal para tarjetas protagonistas.</summary>
-    public LinearGradientBrush Gradient => new(
-        [new GradientStop(Start, 0f), new GradientStop(End, 1f)],
-        new Point(0, 0),
-        new Point(1, 1));
+    /// <summary>Gradiente diagonal para tarjetas protagonistas; color plano en bajo estímulo.</summary>
+    public Brush Gradient => Motion.LowStimulus
+        ? new SolidColorBrush(Start)
+        : new LinearGradientBrush(
+            [new GradientStop(Start, 0f), new GradientStop(End, 1f)],
+            new Point(0, 0),
+            new Point(1, 1));
 
     /// <summary>Versión translúcida para fondos de insignias y chips.</summary>
     public Color Soft => End.WithAlpha(0.22f);

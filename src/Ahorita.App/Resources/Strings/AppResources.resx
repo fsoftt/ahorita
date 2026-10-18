@@ -96,32 +96,14 @@
   <data name="Routines_AddFromTemplate" xml:space="preserve">
     <value>Agregar desde plantilla</value>
   </data>
-  <data name="Routines_EditorComingSoon" xml:space="preserve">
-    <value>El editor de rutinas llega muy pronto ✏️</value>
-  </data>
   <data name="Routine_Created" xml:space="preserve">
     <value>¡Listo! Agregamos «{0}» 🎉</value>
-  </data>
-  <data name="Focus_ComingSoon" xml:space="preserve">
-    <value>El modo Ahora llega muy pronto ✨</value>
   </data>
   <data name="Progress_Title" xml:space="preserve">
     <value>Tu progreso</value>
   </data>
-  <data name="Progress_Body" xml:space="preserve">
-    <value>Aquí verás tu constancia de forma amable: sin rachas rotas ni números rojos.</value>
-  </data>
-  <data name="Common_ComingSoon" xml:space="preserve">
-    <value>Muy pronto</value>
-  </data>
   <data name="Error_Generic" xml:space="preserve">
     <value>Algo no salió como esperábamos. Intenta de nuevo.</value>
-  </data>
-  <data name="A11y_StartRoutine" xml:space="preserve">
-    <value>Empezar la rutina {0}</value>
-  </data>
-  <data name="A11y_AddTemplate" xml:space="preserve">
-    <value>Agregar la plantilla {0}</value>
   </data>
   <data name="Step_Minutes" xml:space="preserve">
     <value>{0} min</value>
@@ -493,6 +475,144 @@
     <value>Activar</value>
   </data>
   <data name="Permission_NotNow" xml:space="preserve">
+    <value>Ahora no</value>
+  </data>
+  <data name="Progress_Consistency" xml:space="preserve">
+    <value>{0} de 7 días</value>
+  </data>
+  <data name="Progress_ConsistencyHint" xml:space="preserve">
+    <value>con al menos un paso hecho. Un día libre no borra nada.</value>
+  </data>
+  <data name="Progress_Empty" xml:space="preserve">
+    <value>Cuando completes tu primer paso, aquí verás tu constancia. Sin rachas rotas ni números rojos. 🌱</value>
+  </data>
+  <data name="Progress_ThisWeek" xml:space="preserve">
+    <value>Últimos 7 días</value>
+  </data>
+  <data name="Progress_Routines" xml:space="preserve">
+    <value>rutinas completas</value>
+  </data>
+  <data name="Progress_Steps" xml:space="preserve">
+    <value>pasos hechos</value>
+  </data>
+  <data name="Progress_Minutes" xml:space="preserve">
+    <value>minutos en rutinas</value>
+  </data>
+  <data name="Progress_Map" xml:space="preserve">
+    <value>Últimas 4 semanas</value>
+  </data>
+  <data name="Progress_Insights" xml:space="preserve">
+    <value>Sugerencias de tiempo</value>
+  </data>
+  <data name="Progress_Insight" xml:space="preserve">
+    <value>{0} suele tomarte ~{1} min (planeaste {2}).</value>
+  </data>
+  <data name="Progress_Adjust" xml:space="preserve">
+    <value>Ajustar a {0} min</value>
+  </data>
+  <data name="Progress_Adjusted" xml:space="preserve">
+    <value>¡Ajustado! Tus estimaciones ahora son más realistas ⏱️</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="Settings_Open" xml:space="preserve">
+    <value>Abrir ajustes</value>
+  </data>
+  <data name="Settings_Experience" xml:space="preserve">
+    <value>Experiencia</value>
+  </data>
+  <data name="Settings_LowStimulus" xml:space="preserve">
+    <value>Modo de bajo estímulo</value>
+  </data>
+  <data name="Settings_LowStimulusHint" xml:space="preserve">
+    <value>Sin animaciones, confeti ni gradientes llamativos.</value>
+  </data>
+  <data name="Settings_Celebrations" xml:space="preserve">
+    <value>Celebraciones</value>
+  </data>
+  <data name="Settings_CelebrationsHint" xml:space="preserve">
+    <value>Confeti y vibración al terminar una rutina.</value>
+  </data>
+  <data name="Settings_Haptics" xml:space="preserve">
+    <value>Vibración al tocar</value>
+  </data>
+  <data name="Settings_HapticsHint" xml:space="preserve">
+    <value>Pequeñas vibraciones que confirman cada acción.</value>
+  </data>
+  <data name="Settings_ReadAloud" xml:space="preserve">
+    <value>Leer pasos en voz alta</value>
+  </data>
+  <data name="Settings_ReadAloudHint" xml:space="preserve">
+    <value>Ideal con las manos ocupadas (ducha, cocina).</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings_ThemeSystem" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="Settings_ThemeLight" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="Settings_ThemeDark" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="Settings_Reminders" xml:space="preserve">
+    <value>Recordatorios</value>
+  </data>
+  <data name="Settings_Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="Settings_ExactAlarms" xml:space="preserve">
+    <value>Avisos a la hora exacta</value>
+  </data>
+  <data name="Settings_Enabled" xml:space="preserve">
+    <value>Activadas ✓</value>
+  </data>
+  <data name="Settings_Disabled" xml:space="preserve">
+    <value>Desactivadas</value>
+  </data>
+  <data name="Settings_Enable" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="Settings_About" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="Settings_Privacy" xml:space="preserve">
+    <value>Tus rutinas viven solo en este teléfono. Ahorita no tiene cuentas, anuncios ni rastreo.</value>
+  </data>
+  <data name="Settings_Version" xml:space="preserve">
+    <value>Versión {0}</value>
+  </data>
+  <data name="Onboarding_WelcomeTitle" xml:space="preserve">
+    <value>Rutinas que se adaptan a tu cerebro, no al revés.</value>
+  </data>
+  <data name="Onboarding_WelcomeBody" xml:space="preserve">
+    <value>Un paso a la vez, con tiempo visible y cero culpa. Empezar es lo más difícil: aquí es un solo toque.</value>
+  </data>
+  <data name="Onboarding_TemplatesTitle" xml:space="preserve">
+    <value>¿Con cuál empezamos?</value>
+  </data>
+  <data name="Onboarding_TemplatesBody" xml:space="preserve">
+    <value>Elige una o dos. Podrás cambiar todo después.</value>
+  </data>
+  <data name="Onboarding_RemindersTitle" xml:space="preserve">
+    <value>Te avisamos a tiempo</value>
+  </data>
+  <data name="Onboarding_RemindersBody" xml:space="preserve">
+    <value>Un aviso antes de empezar y otro cuando sea la hora, con un botón para arrancar al instante. Puedes desactivarlos cuando quieras.</value>
+  </data>
+  <data name="Onboarding_EnableReminders" xml:space="preserve">
+    <value>Activar recordatorios</value>
+  </data>
+  <data name="Onboarding_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="Onboarding_Skip" xml:space="preserve">
+    <value>Saltar</value>
+  </data>
+  <data name="Onboarding_NotNow" xml:space="preserve">
     <value>Ahora no</value>
   </data>
 </root>
