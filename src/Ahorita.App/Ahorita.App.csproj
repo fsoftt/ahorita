@@ -21,6 +21,16 @@
     <!-- Textos base en español; el inglés va en un ensamblado satélite. -->
     <NeutralLanguage>es</NeutralLanguage>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+
+    <!-- Llave de depuración versionada (la misma que usa PiccoloReader) en lugar de la
+         que cada máquina o runner de CI genera al azar: así un APK de CI se instala
+         encima de uno compilado en local sin el error de firma distinta.
+         Solo para sideload/QA; Google Play usa otra llave que nunca se versiona. -->
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>debug.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>android</AndroidSigningKeyPass>
+    <AndroidSigningStorePass>android</AndroidSigningStorePass>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

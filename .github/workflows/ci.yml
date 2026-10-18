@@ -61,5 +61,28 @@ jobs:
       - name: Instalar workload MAUI Android
         run: dotnet workload install maui-android
 
-      - name: Compilar
-        run: dotnet build src/Ahorita.App -c Debug -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT"
+      - name: Compilar APK (Release)
+        run: dotnet build src/Ahorita.App -c Release -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT"
+
+      # Si el APK no quedó firmado con la llave versionada, no se podría instalar
+      # encima de versiones anteriores: mejor fallar aquí que en el teléfono.
+      - name: Verificar firma con src/Ahorita.App/debug.keystore
+        run: |
+          KEYSTORE_FINGERPRINT=$(keytool -list -v -keystore src/Ahorita.App/debug.keystore -storepass android -alias androiddebugkey \
+            | grep 'SHA256:' | head -1 | sed 's/.*SHA256: //' | tr -d ':' | tr 'A-F' 'a-f')
+          APK_PATH=$(ls src/Ahorita.App/bin/Release/net10.0-android/*-Signed.apk)
+          APKSIGNER=$(ls "$ANDROID_SDK_ROOT"/build-tools/*/apksigner | sort -V | tail -1)
+          APK_FINGERPRINT=$("$APKSIGNER" verify --print-certs "$APK_PATH" \
+            | grep 'certificate SHA-256 digest:' | head -1 | sed 's/.*digest: //')
+          echo "debug.keystore: $KEYSTORE_FINGERPRINT"
+          echo "APK:            $APK_FINGERPRINT"
+          if [ "$KEYSTORE_FINGERPRINT" != "$APK_FINGERPRINT" ]; then
+            echo "::error::El APK no se firmó con src/Ahorita.App/debug.keystore."
+            exit 1
+          fi
+
+      - name: Subir APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ahorita-apk-${{ github.sha }}
+          path: src/Ahorita.App/bin/Release/net10.0-android/*-Signed.apk

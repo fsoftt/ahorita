@@ -11,3 +11,5 @@ TestResults/
 *.db
 *.db-shm
 *.db-wal
+# Llave de depuración compartida con PiccoloReader: se versiona a propósito.
+!src/Ahorita.App/debug.keystore

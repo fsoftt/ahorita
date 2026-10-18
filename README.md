@@ -37,7 +37,9 @@ dotnet test --project tests/Ahorita.Infrastructure.Tests
 # Compilar e instalar la app en un dispositivo/emulador conectado
 dotnet build src/Ahorita.App -t:Run
 
-# APK/AAB de Release (firmados con la llave de depuración; para Play Store usa tu keystore)
+# APK/AAB de Release, firmados con src/Ahorita.App/debug.keystore (la misma llave de
+# depuración que PiccoloReader: los APK de CI y de local se instalan uno encima de otro).
+# Para Google Play se usa otra llave que nunca se versiona.
 dotnet publish src/Ahorita.App -c Release
 
 # Nueva migración tras cambiar el modelo
