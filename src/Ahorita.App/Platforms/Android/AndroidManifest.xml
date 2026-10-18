@@ -15,7 +15,6 @@
       android:allowBackup="true"
       android:icon="@mipmap/appicon"
       android:roundIcon="@mipmap/appicon_round"
-      android:label="Ahorita"
       android:supportsRtl="true">
     <!-- Id de la app en AdMob: se define en AdMobAppId (Ahorita.App.csproj). -->
     <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="${admobAppId}" />

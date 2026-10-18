@@ -26,9 +26,8 @@
          que cada máquina o runner de CI genera al azar: así un APK de CI se instala
          encima de uno compilado en local sin el error de firma distinta.
          Solo para sideload/QA; Google Play usa otra llave que nunca se versiona. -->
-    <!-- Id de la app en AdMob. Mientras Ahorita no tenga el suyo se usa el de prueba de
-         Google; al configurarlo, completa también AdMobIds.cs. -->
-    <AdMobAppId Condition="'$(AdMobAppId)' == ''">ca-app-pub-3940256099942544~3347511713</AdMobAppId>
+    <!-- Id de la app en AdMob (los bloques de anuncios están en Services/AdMobIds.cs). -->
+    <AdMobAppId>ca-app-pub-5615495156288390~8054286154</AdMobAppId>
     <AndroidManifestPlaceholders>admobAppId=$(AdMobAppId)</AndroidManifestPlaceholders>
 
     <AndroidKeyStore>True</AndroidKeyStore>
@@ -36,6 +35,15 @@
     <AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>android</AndroidSigningKeyPass>
     <AndroidSigningStorePass>android</AndroidSigningStorePass>
+  </PropertyGroup>
+
+  <!-- Flavor QA (dotnet build -c Release -p:AhoritaQa=true): se instala al lado de la app
+       de Google Play con su propio id y nombre, y muestra anuncios de prueba de Google
+       para que probar nunca genere impresiones ni clics reales. -->
+  <PropertyGroup Condition="'$(AhoritaQa)' == 'true'">
+    <ApplicationId>com.fsoftt.ahorita.qa</ApplicationId>
+    <ApplicationTitle>Ahorita QA</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);QA_BUILD</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

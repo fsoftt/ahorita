@@ -22,9 +22,18 @@ App Android (.NET MAUI) para crear y seguir rutinas, diseñada para personas con
 
 ### AdMob
 
-Mientras Ahorita no tenga ids propios se muestran **anuncios de prueba** de Google. Para activar los reales, crea la app en AdMob y completa:
-- `AdMobAppId` en `src/Ahorita.App/Ahorita.App.csproj` (id de la app, `ca-app-pub-…~…`).
-- `Banner` y `Rewarded` en `src/Ahorita.App/Services/AdMobIds.cs` (ids de bloque, `ca-app-pub-…/…`).
+- Ids de Ahorita: `AdMobAppId` en `src/Ahorita.App/Ahorita.App.csproj` y los bloques (banner y bonificado) en `src/Ahorita.App/Services/AdMobIds.cs`.
+- **Debug** y el flavor **QA** muestran **anuncios de prueba** de Google: probar nunca genera impresiones ni clics reales.
+- Solo el Release de Google Play muestra anuncios reales.
+
+### Flavors
+
+| Build | Paquete | Nombre | Anuncios | Firma |
+|---|---|---|---|---|
+| `dotnet build -c Release -p:AhoritaQa=true` (CI) | `com.fsoftt.ahorita.qa` | Ahorita QA | Prueba | `debug.keystore` |
+| Google Play (`.github/workflows/publish-play-store.yml`) | `com.fsoftt.ahorita` | Ahorita | Reales | Keystore de release (secrets) |
+
+Las dos se instalan una al lado de la otra. Publicar: ver [`docs/play-store-release.md`](docs/play-store-release.md).
 
 ## Requisitos
 
@@ -44,10 +53,9 @@ dotnet test --project tests/Ahorita.Infrastructure.Tests
 # Compilar e instalar la app en un dispositivo/emulador conectado
 dotnet build src/Ahorita.App -t:Run
 
-# APK/AAB de Release, firmados con src/Ahorita.App/debug.keystore (la misma llave de
-# depuración que PiccoloReader: los APK de CI y de local se instalan uno encima de otro).
-# Para Google Play se usa otra llave que nunca se versiona.
-dotnet publish src/Ahorita.App -c Release
+# APK QA (com.fsoftt.ahorita.qa, anuncios de prueba), firmado con src/Ahorita.App/debug.keystore
+# (la misma llave de depuración que PiccoloReader: los de CI y los locales se instalan uno encima de otro)
+dotnet publish src/Ahorita.App -c Release -p:AhoritaQa=true
 
 # Nueva migración tras cambiar el modelo
 dotnet tool restore
