@@ -351,6 +351,9 @@
   <data name="Celebrate_Steps" xml:space="preserve">
     <value>{0} steps ✓</value>
   </data>
+  <data name="Celebrate_OneStep" xml:space="preserve">
+    <value>1 step ✓</value>
+  </data>
   <data name="Celebrate_Duration" xml:space="preserve">
     <value>{0} min</value>
   </data>
@@ -492,11 +495,20 @@
   <data name="Progress_Routines" xml:space="preserve">
     <value>full routines</value>
   </data>
+  <data name="Progress_RoutinesOne" xml:space="preserve">
+    <value>full routine</value>
+  </data>
   <data name="Progress_Steps" xml:space="preserve">
     <value>steps done</value>
   </data>
+  <data name="Progress_StepsOne" xml:space="preserve">
+    <value>step done</value>
+  </data>
   <data name="Progress_Minutes" xml:space="preserve">
     <value>minutes in routines</value>
+  </data>
+  <data name="Progress_MinutesOne" xml:space="preserve">
+    <value>minute in routines</value>
   </data>
   <data name="Progress_Map" xml:space="preserve">
     <value>Last 4 weeks</value>
@@ -651,7 +663,7 @@ If you'd like to give me a tip, tap the button below — it'll show a short ad.<
     <value>Support with ads</value>
   </data>
   <data name="Settings_SupportWithAdsHint" xml:space="preserve">
-    <value>A small banner at the bottom of the screens. Never in Focus mode.</value>
+    <value>A small banner at the bottom of the screens. Never in Now mode.</value>
   </data>
   <data name="Settings_AdPrivacyOptions" xml:space="preserve">
     <value>Ad Privacy Options</value>

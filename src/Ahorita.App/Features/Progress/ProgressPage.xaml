@@ -75,19 +75,19 @@
             <Border Style="{StaticResource BentoCard}" Padding="14">
               <VerticalStackLayout>
                 <Label Text="{Binding RoutinesCompleted}" Style="{StaticResource TextTitle}" />
-                <Label Text="{x:Static strings:AppResources.Progress_Routines}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+                <Label Text="{Binding RoutinesLabel}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
               </VerticalStackLayout>
             </Border>
             <Border Grid.Column="1" Style="{StaticResource BentoCard}" Padding="14">
               <VerticalStackLayout>
                 <Label Text="{Binding StepsDone}" Style="{StaticResource TextTitle}" />
-                <Label Text="{x:Static strings:AppResources.Progress_Steps}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+                <Label Text="{Binding StepsLabel}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
               </VerticalStackLayout>
             </Border>
             <Border Grid.Column="2" Style="{StaticResource BentoCard}" Padding="14">
               <VerticalStackLayout>
                 <Label Text="{Binding MinutesInRoutines}" Style="{StaticResource TextTitle}" />
-                <Label Text="{x:Static strings:AppResources.Progress_Minutes}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+                <Label Text="{Binding MinutesLabel}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
               </VerticalStackLayout>
             </Border>
           </Grid>

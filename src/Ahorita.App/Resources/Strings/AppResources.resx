@@ -351,6 +351,9 @@
   <data name="Celebrate_Steps" xml:space="preserve">
     <value>{0} pasos ✓</value>
   </data>
+  <data name="Celebrate_OneStep" xml:space="preserve">
+    <value>1 paso ✓</value>
+  </data>
   <data name="Celebrate_Duration" xml:space="preserve">
     <value>{0} min</value>
   </data>
@@ -492,11 +495,20 @@
   <data name="Progress_Routines" xml:space="preserve">
     <value>rutinas completas</value>
   </data>
+  <data name="Progress_RoutinesOne" xml:space="preserve">
+    <value>rutina completa</value>
+  </data>
   <data name="Progress_Steps" xml:space="preserve">
     <value>pasos hechos</value>
   </data>
+  <data name="Progress_StepsOne" xml:space="preserve">
+    <value>paso hecho</value>
+  </data>
   <data name="Progress_Minutes" xml:space="preserve">
     <value>minutos en rutinas</value>
+  </data>
+  <data name="Progress_MinutesOne" xml:space="preserve">
+    <value>minuto en rutinas</value>
   </data>
   <data name="Progress_Map" xml:space="preserve">
     <value>Últimas 4 semanas</value>

@@ -23,6 +23,9 @@ public sealed partial class ProgressViewModel : ViewModelBase
     {
         _useCases = useCases;
         ConsistencyText = string.Empty;
+        RoutinesLabel = string.Empty;
+        StepsLabel = string.Empty;
+        MinutesLabel = string.Empty;
         WeekDays = [];
         Map = [];
         Insights = [];
@@ -45,6 +48,15 @@ public sealed partial class ProgressViewModel : ViewModelBase
 
     [ObservableProperty]
     public partial int MinutesInRoutines { get; set; }
+
+    [ObservableProperty]
+    public partial string RoutinesLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string StepsLabel { get; set; }
+
+    [ObservableProperty]
+    public partial string MinutesLabel { get; set; }
 
     [ObservableProperty]
     public partial IReadOnlyList<DayCell> WeekDays { get; set; }
@@ -82,6 +94,9 @@ public sealed partial class ProgressViewModel : ViewModelBase
         RoutinesCompleted = summary.RoutinesCompleted;
         StepsDone = summary.StepsDone;
         MinutesInRoutines = summary.MinutesInRoutines;
+        RoutinesLabel = summary.RoutinesCompleted == 1 ? AppResources.Progress_RoutinesOne : AppResources.Progress_Routines;
+        StepsLabel = summary.StepsDone == 1 ? AppResources.Progress_StepsOne : AppResources.Progress_Steps;
+        MinutesLabel = summary.MinutesInRoutines == 1 ? AppResources.Progress_MinutesOne : AppResources.Progress_Minutes;
         Map = summary.Days.Select(DayCell.From).ToArray();
         WeekDays = Map.TakeLast(7).ToArray();
         Insights = summary.Insights.Select(InsightItem.From).ToArray();

@@ -95,7 +95,9 @@ public sealed partial class CelebrationViewModel : ViewModelBase, IQueryAttribut
         Subtitle = complete
             ? string.Format(culture, AppResources.Celebrate_SubtitleComplete, session.RoutineName)
             : string.Format(culture, AppResources.Celebrate_SubtitlePartial, session.DoneSteps, session.TotalSteps);
-        StepsText = string.Format(culture, AppResources.Celebrate_Steps, session.DoneSteps);
+        StepsText = session.DoneSteps == 1
+            ? AppResources.Celebrate_OneStep
+            : string.Format(culture, AppResources.Celebrate_Steps, session.DoneSteps);
         DurationText = string.Format(culture, AppResources.Celebrate_Duration, Math.Max(1, (int)Math.Round(session.TotalElapsed.TotalMinutes)));
 
         Ready?.Invoke(this, EventArgs.Empty);
