@@ -37,10 +37,13 @@
     <AndroidSigningStorePass>android</AndroidSigningStorePass>
   </PropertyGroup>
 
-  <!-- Build de prueba (dotnet build -c Release -p:AhoritaTestAds=true): mismo APK pero con
-       anuncios de prueba de Google, para QA y CI sin impresiones ni clics reales. -->
-  <PropertyGroup Condition="'$(AhoritaTestAds)' == 'true'">
-    <DefineConstants>$(DefineConstants);TEST_ADS</DefineConstants>
+  <!-- Flavor QA (dotnet build -c Release -p:AhoritaQa=true): se instala al lado de la app
+       de Google Play con su propio id y nombre, y muestra anuncios de prueba de Google
+       para que probar nunca genere impresiones ni clics reales. -->
+  <PropertyGroup Condition="'$(AhoritaQa)' == 'true'">
+    <ApplicationId>com.fsoftt.ahorita.qa</ApplicationId>
+    <ApplicationTitle>Ahorita QA</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);QA_BUILD</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

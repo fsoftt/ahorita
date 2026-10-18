@@ -1,0 +1,94 @@
+name: Publicar en Google Play
+
+on:
+  push:
+    branches: [release]
+
+# Compila el Android App Bundle (.aab) de com.fsoftt.ahorita firmado con el keystore de
+# release (distinto de src/Ahorita.App/debug.keystore, que solo firma los APK QA) y lo sube
+# a la pista "internal" de Play Console. Secrets y pasos: docs/play-store-release.md.
+#
+# Solo corre al empujar a `release`: publicar es una decisión explícita, no cada merge a main.
+# Una app nueva no puede ir directo a producción hasta pasar la prueba cerrada obligatoria
+# de Google (12+ testers durante 14 días); se promueve desde Play Console.
+
+concurrency:
+  group: publish-play-store
+  cancel-in-progress: false
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: 1
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      # Sin cuenta de servicio, el .aab firmado queda como artefacto para subirlo a mano.
+      HAS_PLAY_ACCOUNT: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Instalar workload MAUI Android
+        run: dotnet workload install maui-android
+
+      - name: Pruebas
+        run: |
+          dotnet test --project tests/Ahorita.Domain.Tests
+          dotnet test --project tests/Ahorita.Application.Tests
+          dotnet test --project tests/Ahorita.Infrastructure.Tests
+
+      - name: Decodificar keystore de release
+        run: echo "${{ secrets.PLAY_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.keystore"
+
+      - name: Compilar App Bundle firmado
+        run: |
+          dotnet publish src/Ahorita.App -c Release \
+            -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT" \
+            -p:AndroidPackageFormat=aab \
+            -p:AndroidSigningKeyStore="$RUNNER_TEMP/release.keystore" \
+            -p:AndroidSigningKeyAlias="${{ secrets.PLAY_KEYSTORE_ALIAS }}" \
+            -p:AndroidSigningStorePass="${{ secrets.PLAY_KEYSTORE_PASSWORD }}" \
+            -p:AndroidSigningKeyPass="${{ secrets.PLAY_KEY_PASSWORD || secrets.PLAY_KEYSTORE_PASSWORD }}"
+
+      # Si por error se firmara con debug.keystore, Play lo rechazaría (o peor, quedaría
+      # atada a una llave pública): mejor fallar aquí.
+      - name: Verificar que NO se firmó con la llave de depuración
+        run: |
+          DEBUG_FINGERPRINT=$(keytool -list -v -keystore src/Ahorita.App/debug.keystore -storepass android -alias androiddebugkey \
+            | grep 'SHA256:' | head -1 | sed 's/.*SHA256: //')
+          AAB=$(ls src/Ahorita.App/bin/Release/net10.0-android/*-Signed.aab)
+          AAB_FINGERPRINT=$(keytool -printcert -jarfile "$AAB" | grep 'SHA256:' | head -1 | sed 's/.*SHA256: //')
+          echo "AAB: $AAB_FINGERPRINT"
+          if [ -z "$AAB_FINGERPRINT" ] || [ "$AAB_FINGERPRINT" = "$DEBUG_FINGERPRINT" ]; then
+            echo "::error::El .aab no está firmado con el keystore de release."
+            exit 1
+          fi
+
+      - name: Guardar .aab
+        uses: actions/upload-artifact@v4
+        with:
+          name: ahorita-aab-${{ github.sha }}
+          path: src/Ahorita.App/bin/Release/net10.0-android/*-Signed.aab
+
+      - name: Subir a Google Play (pista internal)
+        if: ${{ env.HAS_PLAY_ACCOUNT == 'true' }}
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: com.fsoftt.ahorita
+          releaseFiles: src/Ahorita.App/bin/Release/net10.0-android/*-Signed.aab
+          tracks: internal
+
+      - name: Borrar keystore del runner
+        if: always()
+        run: rm -f "$RUNNER_TEMP/release.keystore"
