@@ -50,8 +50,15 @@ public static class MauiProgram
         services.AddSingleton<IToastService, ToastService>();
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<IReminderScheduler, NoReminderScheduler>();
-        services.AddSingleton<IActiveRoutineNotifier, NoActiveRoutineNotifier>();
+        services.AddSingleton<AppShell>();
+        services.AddSingleton<DeepLinks>();
+        services.AddSingleton<AppStartup>();
+        services.AddSingleton<PermissionPrompts>();
+#if ANDROID
+        services.AddSingleton<IReminderScheduler, Droid.Reminders.AndroidReminderScheduler>();
+        services.AddSingleton<IActiveRoutineNotifier, Droid.ActiveRoutine.AndroidActiveRoutineNotifier>();
+        services.AddSingleton<IDevicePermissions, Droid.AndroidDevicePermissions>();
+#endif
         services.AddSingleton(Preferences.Default);
         services.AddSingleton<PreferencesAppSettings>();
         services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<PreferencesAppSettings>());

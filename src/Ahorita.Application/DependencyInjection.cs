@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<ApplySessionAction>();
         services.AddScoped<GetSession>();
         services.AddScoped<GetActiveSession>();
+        services.AddScoped<RestoreSessionNotification>();
 
         services.AddScoped<IRemindersRefresher, RemindersRefresher>();
         services.AddScoped<RefreshReminders>();

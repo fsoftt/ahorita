@@ -19,9 +19,9 @@ public static class ReminderPlanner
 
             var headsUp = start - routine.Schedule.ReminderLeadTime;
             if (routine.Schedule.ReminderLeadTime > TimeSpan.Zero && headsUp > now)
-                reminders.Add(new(routine.Id, ReminderKind.HeadsUp, headsUp, routine.Name, routine.Emoji));
+                reminders.Add(new(routine.Id, ReminderKind.HeadsUp, headsUp, start, routine.Name, routine.Emoji));
 
-            reminders.Add(new(routine.Id, ReminderKind.Start, start, routine.Name, routine.Emoji));
+            reminders.Add(new(routine.Id, ReminderKind.Start, start, start, routine.Name, routine.Emoji));
         }
 
         return reminders.OrderBy(r => r.FireAt).ToArray();

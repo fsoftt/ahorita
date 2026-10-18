@@ -13,12 +13,14 @@ namespace Ahorita.App.Features.Routines;
 public sealed partial class RoutinesViewModel : ViewModelBase
 {
     private readonly IUseCaseExecutor _useCases;
+    private readonly PermissionPrompts _permissions;
     private readonly INavigationService _navigation;
 
-    public RoutinesViewModel(IUseCaseExecutor useCases, INavigationService navigation, IToastService toast, ILogger<RoutinesViewModel> logger)
+    public RoutinesViewModel(IUseCaseExecutor useCases, PermissionPrompts permissions, INavigationService navigation, IToastService toast, ILogger<RoutinesViewModel> logger)
         : base(toast, logger)
     {
         _useCases = useCases;
+        _permissions = permissions;
         _navigation = navigation;
         Routines = [];
         Templates = [];
@@ -48,7 +50,7 @@ public sealed partial class RoutinesViewModel : ViewModelBase
     [RelayCommand]
     private Task AddTemplateAsync(TemplateCardModel template) => RunSafelyAsync(async () =>
     {
-        if (await TemplateAdding.AddAsync(_useCases, Toast, template))
+        if (await TemplateAdding.AddAsync(_useCases, Toast, _permissions, template))
             await LoadAsync();
     });
 

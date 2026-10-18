@@ -55,7 +55,7 @@ public sealed class CreateRoutineFromTemplateTests
         result.Value.StepCount.ShouldBe(3);
         result.Value.EstimatedDuration.ShouldBe(TimeSpan.FromMinutes(12));
         _repository.SaveCount.ShouldBe(1);
-        await _reminders.Received(1).RefreshAsync(Arg.Any<CancellationToken>());
+        await _reminders.Received(1).RefreshAsync(Arg.Any<DateTimeOffset?>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]

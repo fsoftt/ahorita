@@ -9,4 +9,12 @@ public enum ReminderKind
     Start,
 }
 
-public sealed record ScheduledReminder(Guid RoutineId, ReminderKind Kind, DateTimeOffset FireAt, string RoutineName, string RoutineEmoji);
+/// <param name="FireAt">Cuándo se muestra el aviso.</param>
+/// <param name="StartsAt">Cuándo empieza la rutina (igual a <paramref name="FireAt"/> salvo en el aviso previo).</param>
+public sealed record ScheduledReminder(
+    Guid RoutineId,
+    ReminderKind Kind,
+    DateTimeOffset FireAt,
+    DateTimeOffset StartsAt,
+    string RoutineName,
+    string RoutineEmoji);

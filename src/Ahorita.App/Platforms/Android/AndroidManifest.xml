@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Sin INTERNET: Ahorita es offline y privada por diseño. Los permisos de
-     notificaciones y alarmas llegan en la Fase 3, pedidos en contexto. -->
+<!-- Sin INTERNET: Ahorita es offline y privada por diseño.
+     Los permisos de notificaciones y alarmas se piden en contexto, con explicación. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+
   <application
       android:allowBackup="true"
       android:icon="@mipmap/appicon"
       android:roundIcon="@mipmap/appicon_round"
       android:label="Ahorita"
       android:supportsRtl="true" />
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.TTS_SERVICE" />
+    </intent>
+  </queries>
 </manifest>

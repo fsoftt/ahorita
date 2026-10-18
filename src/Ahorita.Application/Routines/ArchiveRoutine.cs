@@ -14,7 +14,7 @@ public sealed class ArchiveRoutine(IRoutineRepository routines, IUnitOfWork unit
 
         routine.Archive();
         await unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-        await reminders.RefreshAsync(cancellationToken).ConfigureAwait(false);
+        await reminders.RefreshAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
         return Result.Success();
     }
 }

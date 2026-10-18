@@ -16,11 +16,13 @@ namespace Ahorita.App.Features.Today;
 public sealed partial class TodayViewModel : ViewModelBase
 {
     private readonly IUseCaseExecutor _useCases;
+    private readonly PermissionPrompts _permissions;
     private readonly INavigationService _navigation;
     private readonly TimeProvider _time;
 
     public TodayViewModel(
         IUseCaseExecutor useCases,
+        PermissionPrompts permissions,
         INavigationService navigation,
         TimeProvider time,
         IToastService toast,
@@ -28,6 +30,7 @@ public sealed partial class TodayViewModel : ViewModelBase
         : base(toast, logger)
     {
         _useCases = useCases;
+        _permissions = permissions;
         _navigation = navigation;
         _time = time;
         HeroActionText = AppResources.Today_StartNow;
@@ -86,7 +89,7 @@ public sealed partial class TodayViewModel : ViewModelBase
     [RelayCommand]
     private Task AddTemplateAsync(TemplateCardModel template) => RunSafelyAsync(async () =>
     {
-        if (await TemplateAdding.AddAsync(_useCases, Toast, template))
+        if (await TemplateAdding.AddAsync(_useCases, Toast, _permissions, template))
             await LoadAsync();
     });
 

@@ -30,6 +30,7 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
     private readonly IUseCaseExecutor _useCases;
     private readonly INavigationService _navigation;
     private readonly IDialogService _dialogs;
+    private readonly PermissionPrompts _permissions;
     private Guid? _routineId;
     private bool _loaded;
 
@@ -37,6 +38,7 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         IUseCaseExecutor useCases,
         INavigationService navigation,
         IDialogService dialogs,
+        PermissionPrompts permissions,
         IToastService toast,
         ILogger<RoutineEditorViewModel> logger)
         : base(toast, logger)
@@ -44,6 +46,7 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         _useCases = useCases;
         _navigation = navigation;
         _dialogs = dialogs;
+        _permissions = permissions;
 
         Name = string.Empty;
         Emoji = EmojiCatalog.Routines[^1];
@@ -168,7 +171,8 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
     [RelayCommand]
     private Task SaveAsync() => RunSafelyAsync(async () =>
     {
-        var result = await _useCases.ExecuteAsync((SaveRoutine useCase) => useCase.ExecuteAsync(ToDraft()));
+        var draft = ToDraft();
+        var result = await _useCases.ExecuteAsync((SaveRoutine useCase) => useCase.ExecuteAsync(draft));
         if (result.IsFailure)
         {
             await Toast.ShowAsync(ErrorText.For(result.Error));
@@ -176,6 +180,9 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         }
 
         Haptics.Confirm();
+        if (draft.Days != WeekDays.None)
+            await _permissions.EnsureRemindersAsync();
+
         await _navigation.GoBackAsync();
     });
 

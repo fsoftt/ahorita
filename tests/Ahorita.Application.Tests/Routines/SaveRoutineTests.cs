@@ -34,7 +34,7 @@ public sealed class SaveRoutineTests
         routine.CreatedAt.ShouldBe(Now);
         routine.Schedule.ReminderLeadTime.ShouldBe(TimeSpan.FromMinutes(5));
         routine.Steps.Select(s => s.Title).ShouldBe(["Agua", "Ducha"]);
-        await _reminders.Received(1).RefreshAsync(Arg.Any<CancellationToken>());
+        await _reminders.Received(1).RefreshAsync(Arg.Any<DateTimeOffset?>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -77,7 +77,7 @@ public sealed class SaveRoutineTests
 
         result.Error.ShouldBe(RoutineErrors.StepTitleRequired);
         _repository.SaveCount.ShouldBe(0);
-        await _reminders.DidNotReceive().RefreshAsync(Arg.Any<CancellationToken>());
+        await _reminders.DidNotReceive().RefreshAsync(Arg.Any<DateTimeOffset?>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]

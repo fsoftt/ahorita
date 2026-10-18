@@ -9,12 +9,14 @@ internal sealed partial class RemindersRefresher(
     TimeProvider time,
     ILogger<RemindersRefresher> logger) : IRemindersRefresher
 {
-    public async Task RefreshAsync(CancellationToken cancellationToken = default)
+    public async Task RefreshAsync(DateTimeOffset? notBefore = null, CancellationToken cancellationToken = default)
     {
         try
         {
             var active = await routines.ListActiveAsync(cancellationToken).ConfigureAwait(false);
-            var plan = ReminderPlanner.Plan(active, time.GetUtcNow(), time.LocalTimeZone);
+            var now = time.GetUtcNow();
+            var from = notBefore is { } floor && floor > now ? floor : now;
+            var plan = ReminderPlanner.Plan(active, from, time.LocalTimeZone);
             await scheduler.ReplaceAllAsync(plan, cancellationToken).ConfigureAwait(false);
         }
 #pragma warning disable CA1031 // Programar avisos es secundario: nunca debe romper el guardado.

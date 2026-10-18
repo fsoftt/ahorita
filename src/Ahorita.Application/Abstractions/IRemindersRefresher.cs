@@ -6,5 +6,9 @@ namespace Ahorita.Application.Abstractions;
 /// </summary>
 public interface IRemindersRefresher
 {
-    Task RefreshAsync(CancellationToken cancellationToken = default);
+    /// <param name="notBefore">
+    /// Ignora ocurrencias anteriores a este instante. Al dispararse una alarma se pasa su hora,
+    /// así una alarma que llega unos milisegundos antes no se vuelve a programar.
+    /// </param>
+    Task RefreshAsync(DateTimeOffset? notBefore = null, CancellationToken cancellationToken = default);
 }

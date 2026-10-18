@@ -417,4 +417,82 @@
   <data name="Error_Session_NotFound" xml:space="preserve">
     <value>No encontramos esa rutina en curso.</value>
   </data>
+  <data name="Channel_Reminders" xml:space="preserve">
+    <value>Recordatorios de rutinas</value>
+  </data>
+  <data name="Channel_RemindersDescription" xml:space="preserve">
+    <value>Avisos previos y "es hora de empezar".</value>
+  </data>
+  <data name="Channel_ActiveRoutine" xml:space="preserve">
+    <value>Rutina en curso</value>
+  </data>
+  <data name="Channel_ActiveRoutineDescription" xml:space="preserve">
+    <value>Paso actual y cuenta regresiva, sin sonido.</value>
+  </data>
+  <data name="Channel_Celebrations" xml:space="preserve">
+    <value>Celebraciones</value>
+  </data>
+  <data name="Channel_CelebrationsDescription" xml:space="preserve">
+    <value>Cuando terminas una rutina desde la notificación.</value>
+  </data>
+  <data name="Notif_HeadsUpTitle" xml:space="preserve">
+    <value>En {0} min: {1}</value>
+  </data>
+  <data name="Notif_HeadsUpText" xml:space="preserve">
+    <value>Ve cerrando lo que estás haciendo. 🙂</value>
+  </data>
+  <data name="Notif_StartTitle" xml:space="preserve">
+    <value>Es hora: {0}</value>
+  </data>
+  <data name="Notif_StartText" xml:space="preserve">
+    <value>Empieza con un paso pequeño. Solo uno.</value>
+  </data>
+  <data name="Notif_Start" xml:space="preserve">
+    <value>Empezar</value>
+  </data>
+  <data name="Notif_Snooze" xml:space="preserve">
+    <value>En 5 min</value>
+  </data>
+  <data name="Notif_NotToday" xml:space="preserve">
+    <value>Hoy no</value>
+  </data>
+  <data name="Notif_Done" xml:space="preserve">
+    <value>Listo ✓</value>
+  </data>
+  <data name="Notif_Skip" xml:space="preserve">
+    <value>Saltar</value>
+  </data>
+  <data name="Notif_ActiveTitle" xml:space="preserve">
+    <value>{0} · {1}/{2}</value>
+  </data>
+  <data name="Notif_Paused" xml:space="preserve">
+    <value>En pausa</value>
+  </data>
+  <data name="Notif_FinishedTitle" xml:space="preserve">
+    <value>¡Lo lograste! 🎉</value>
+  </data>
+  <data name="Notif_FinishedText" xml:space="preserve">
+    <value>Terminaste «{0}». Tu yo del futuro te lo agradece.</value>
+  </data>
+  <data name="Permission_NotificationsTitle" xml:space="preserve">
+    <value>¿Te avisamos?</value>
+  </data>
+  <data name="Permission_NotificationsForReminders" xml:space="preserve">
+    <value>Para recordarte cuándo empieza esta rutina necesitamos permiso para mostrar notificaciones. Nada de spam: solo tus rutinas.</value>
+  </data>
+  <data name="Permission_NotificationsForFocus" xml:space="preserve">
+    <value>Con notificaciones puedes ver el paso actual y marcarlo como listo sin abrir la app.</value>
+  </data>
+  <data name="Permission_ExactTitle" xml:space="preserve">
+    <value>¿Avisos a la hora exacta?</value>
+  </data>
+  <data name="Permission_ExactMessage" xml:space="preserve">
+    <value>Android puede retrasar los avisos unos minutos. Si activas "Alarmas y recordatorios" para Ahorita, llegarán puntuales.</value>
+  </data>
+  <data name="Permission_Allow" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="Permission_NotNow" xml:space="preserve">
+    <value>Ahora no</value>
+  </data>
 </root>

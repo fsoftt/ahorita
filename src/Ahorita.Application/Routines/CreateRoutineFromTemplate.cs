@@ -36,7 +36,7 @@ public sealed class CreateRoutineFromTemplate(
 
         routines.Add(routine);
         await unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-        await reminders.RefreshAsync(cancellationToken).ConfigureAwait(false);
+        await reminders.RefreshAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 
         return RoutineSummary.From(routine);
     }

@@ -10,7 +10,7 @@ namespace Ahorita.App.Features.Shared;
 /// <summary>Acción compartida "agregar rutina desde plantilla", con su celebración breve.</summary>
 internal static class TemplateAdding
 {
-    public static async Task<bool> AddAsync(IUseCaseExecutor useCases, IToastService toast, TemplateCardModel template)
+    public static async Task<bool> AddAsync(IUseCaseExecutor useCases, IToastService toast, PermissionPrompts permissions, TemplateCardModel template)
     {
         var result = await useCases.ExecuteAsync((CreateRoutineFromTemplate useCase) => useCase.ExecuteAsync(template.Key));
 
@@ -22,6 +22,9 @@ internal static class TemplateAdding
 
         Haptics.Confirm();
         await toast.ShowAsync(string.Format(CultureInfo.CurrentCulture, AppResources.Routine_Created, result.Value.Name));
+        if (!result.Value.IsOnDemand)
+            await permissions.EnsureRemindersAsync();
+
         return true;
     }
 }

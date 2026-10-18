@@ -23,15 +23,22 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 
     private static readonly TimeSpan TickInterval = TimeSpan.FromMilliseconds(250);
 
+    /// <summary>Cada cuántos ticks se relee la sesión (la notificación también puede avanzarla).</summary>
+    private const int TicksPerSync = 12;
+
     private readonly IUseCaseExecutor _useCases;
     private readonly INavigationService _navigation;
     private readonly IDialogService _dialogs;
     private readonly TimeProvider _time;
     private readonly IAppSettings _settings;
+    private readonly PermissionPrompts _permissions;
     private IDispatcherTimer? _timer;
     private SessionSnapshot? _session;
     private Guid _routineId;
     private bool _timeUpNotified;
+    private int _ticks;
+    private bool _syncing;
+    private bool _acting;
 
     public FocusViewModel(
         IUseCaseExecutor useCases,
@@ -39,10 +46,12 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
         IDialogService dialogs,
         TimeProvider time,
         IAppSettings settings,
+        PermissionPrompts permissions,
         IToastService toast,
         ILogger<FocusViewModel> logger)
         : base(toast, logger)
     {
+        _permissions = permissions;
         _useCases = useCases;
         _navigation = navigation;
         _dialogs = dialogs;
@@ -132,6 +141,10 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
         IsReady = true;
         StartTicking();
         await SpeakCurrentStepAsync();
+
+        // La notificación persistente se publicó al empezar; si el permiso llega ahora, se vuelve a mostrar.
+        if (await _permissions.EnsureActiveRoutineAsync())
+            await _useCases.ExecuteAsync((RestoreSessionNotification useCase) => useCase.ExecuteAsync());
     });
 
     public override void OnDisappearing()
@@ -171,10 +184,23 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 
     private Task ActAsync(SessionAction action) => RunSafelyAsync(async () =>
     {
-        if (_session is null)
+        if (_session is null || _acting)
             return;
 
-        var result = await _useCases.ExecuteAsync((ApplySessionAction useCase) => useCase.ExecuteAsync(_session.Id, action));
+        _acting = true;
+        try
+        {
+            await ActCoreAsync(_session.Id, action);
+        }
+        finally
+        {
+            _acting = false;
+        }
+    });
+
+    private async Task ActCoreAsync(Guid sessionId, SessionAction action)
+    {
+        var result = await _useCases.ExecuteAsync((ApplySessionAction useCase) => useCase.ExecuteAsync(sessionId, action));
         if (result.IsFailure)
         {
             await Toast.ShowAsync(ErrorText.For(result.Error));
@@ -184,11 +210,7 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
         var snapshot = result.Value;
         if (snapshot.IsFinished)
         {
-            StopTicking();
-            await _navigation.GoToAsync("../" + Routes.Celebration, new Dictionary<string, object>
-            {
-                [CelebrationViewModel.SessionIdParameter] = snapshot.Id,
-            });
+            await CelebrateAsync(snapshot);
             return;
         }
 
@@ -201,7 +223,45 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 
             await SpeakCurrentStepAsync();
         }
-    });
+    }
+
+    private Task CelebrateAsync(SessionSnapshot snapshot)
+    {
+        StopTicking();
+        return _navigation.GoToAsync("../" + Routes.Celebration, new Dictionary<string, object>
+        {
+            [CelebrationViewModel.SessionIdParameter] = snapshot.Id,
+        });
+    }
+
+    /// <summary>Relee la sesión por si se avanzó desde la notificación.</summary>
+    private async Task SyncAsync()
+    {
+        if (_session is null || _syncing || _acting)
+            return;
+
+        _syncing = true;
+        try
+        {
+            var result = await _useCases.ExecuteAsync((GetSession useCase) => useCase.ExecuteAsync(_session.Id));
+            if (result.IsFailure || _acting)
+                return;
+
+            if (result.Value.IsFinished)
+                await CelebrateAsync(result.Value);
+            else if (result.Value.Position != _session.Position || result.Value.Status != _session.Status)
+                Apply(result.Value, animate: true);
+        }
+#pragma warning disable CA1031 // Sincronización de fondo: si falla, se intenta en el siguiente ciclo.
+        catch (Exception)
+#pragma warning restore CA1031
+        {
+        }
+        finally
+        {
+            _syncing = false;
+        }
+    }
 
     private void Apply(SessionSnapshot snapshot, bool animate)
     {
@@ -271,7 +331,12 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 
         _timer = dispatcher.CreateTimer();
         _timer.Interval = TickInterval;
-        _timer.Tick += (_, _) => Tick();
+        _timer.Tick += (_, _) =>
+        {
+            Tick();
+            if (++_ticks % TicksPerSync == 0)
+                _ = SyncAsync();
+        };
         _timer.Start();
     }
 

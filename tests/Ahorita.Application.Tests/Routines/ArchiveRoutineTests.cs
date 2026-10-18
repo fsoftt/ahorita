@@ -21,7 +21,7 @@ public sealed class ArchiveRoutineTests
         result.IsSuccess.ShouldBeTrue();
         routine.IsArchived.ShouldBeTrue();
         repository.SaveCount.ShouldBe(1);
-        await reminders.Received(1).RefreshAsync(Arg.Any<CancellationToken>());
+        await reminders.Received(1).RefreshAsync(Arg.Any<DateTimeOffset?>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]

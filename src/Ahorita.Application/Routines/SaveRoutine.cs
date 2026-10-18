@@ -49,7 +49,7 @@ public sealed class SaveRoutine(
             return steps.Error;
 
         await unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
-        await reminders.RefreshAsync(cancellationToken).ConfigureAwait(false);
+        await reminders.RefreshAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
         return routine.Id;
     }
 
