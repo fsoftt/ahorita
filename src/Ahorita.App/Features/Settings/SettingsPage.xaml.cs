@@ -33,5 +33,12 @@ public partial class SettingsPage : AppPage
         base.OnDisappearing();
     }
 
+    // Tocar el texto de la fila alterna su interruptor, igual que tocar el interruptor.
+    private void OnSettingRowTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is Grid row && row.Children.OfType<Switch>().FirstOrDefault() is { } toggle)
+            toggle.IsToggled = !toggle.IsToggled;
+    }
+
     private async void OnResumed(object? sender, EventArgs e) => await _viewModel.OnAppearingAsync();
 }

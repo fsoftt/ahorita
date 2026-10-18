@@ -36,32 +36,56 @@
           <Border Style="{StaticResource BentoCard}" Padding="16,8">
             <VerticalStackLayout>
               <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="OnSettingRowTapped" />
+                </Grid.GestureRecognizers>
                 <VerticalStackLayout VerticalOptions="Center">
                   <Label Text="{x:Static strings:AppResources.Settings_LowStimulus}" FontFamily="{StaticResource FontBodySemiBold}" />
                   <Label Text="{x:Static strings:AppResources.Settings_LowStimulusHint}" Style="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
-                <Switch Grid.Column="1" IsToggled="{Binding LowStimulus}" VerticalOptions="Center" />
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding LowStimulus}"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="{x:Static strings:AppResources.Settings_LowStimulus}" />
               </Grid>
               <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="OnSettingRowTapped" />
+                </Grid.GestureRecognizers>
                 <VerticalStackLayout VerticalOptions="Center">
                   <Label Text="{x:Static strings:AppResources.Settings_Celebrations}" FontFamily="{StaticResource FontBodySemiBold}" />
                   <Label Text="{x:Static strings:AppResources.Settings_CelebrationsHint}" Style="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
-                <Switch Grid.Column="1" IsToggled="{Binding Celebrations}" VerticalOptions="Center" />
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding Celebrations}"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="{x:Static strings:AppResources.Settings_Celebrations}" />
               </Grid>
               <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="OnSettingRowTapped" />
+                </Grid.GestureRecognizers>
                 <VerticalStackLayout VerticalOptions="Center">
                   <Label Text="{x:Static strings:AppResources.Settings_Haptics}" FontFamily="{StaticResource FontBodySemiBold}" />
                   <Label Text="{x:Static strings:AppResources.Settings_HapticsHint}" Style="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
-                <Switch Grid.Column="1" IsToggled="{Binding HapticsEnabled}" VerticalOptions="Center" />
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding HapticsEnabled}"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="{x:Static strings:AppResources.Settings_Haptics}" />
               </Grid>
               <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="OnSettingRowTapped" />
+                </Grid.GestureRecognizers>
                 <VerticalStackLayout VerticalOptions="Center">
                   <Label Text="{x:Static strings:AppResources.Settings_ReadAloud}" FontFamily="{StaticResource FontBodySemiBold}" />
                   <Label Text="{x:Static strings:AppResources.Settings_ReadAloudHint}" Style="{StaticResource TextSecondary}" />
                 </VerticalStackLayout>
-                <Switch Grid.Column="1" IsToggled="{Binding ReadStepsAloud}" VerticalOptions="Center" />
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding ReadStepsAloud}"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="{x:Static strings:AppResources.Settings_ReadAloud}" />
               </Grid>
             </VerticalStackLayout>
           </Border>
@@ -137,6 +161,9 @@
                 <Label Grid.Column="1" Text="💜 ›" FontSize="18" VerticalOptions="Center" />
               </Grid>
               <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Tapped="OnSettingRowTapped" />
+                </Grid.GestureRecognizers>
                 <VerticalStackLayout VerticalOptions="Center">
                   <Label Text="{x:Static strings:AppResources.Settings_SupportWithAds}" FontFamily="{StaticResource FontBodySemiBold}" />
                   <Label Text="{x:Static strings:AppResources.Settings_SupportWithAdsHint}" Style="{StaticResource TextSecondary}" />
