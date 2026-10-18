@@ -17,7 +17,7 @@
     </Style>
   </common:AppPage.Resources>
 
-  <Grid RowDefinitions="Auto,*">
+  <Grid RowDefinitions="Auto,*,Auto">
     <Grid Padding="16,8" ColumnDefinitions="Auto,*" ColumnSpacing="12">
       <Button Text="‹"
               Style="{StaticResource IconButton}"
@@ -126,6 +126,41 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_Support}" Style="{StaticResource TextSection}" />
+          <Border Style="{StaticResource BentoCard}" Padding="16,8">
+            <VerticalStackLayout>
+              <Grid Style="{StaticResource SettingRow}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenDonateCommand}" />
+                </Grid.GestureRecognizers>
+                <Label Text="{x:Static strings:AppResources.Donate_Open}" FontFamily="{StaticResource FontBodySemiBold}" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="💜 ›" FontSize="18" VerticalOptions="Center" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}">
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_SupportWithAds}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_SupportWithAdsHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Switch Grid.Column="1"
+                        IsToggled="{Binding SupportWithAds}"
+                        VerticalOptions="Center"
+                        SemanticProperties.Description="{x:Static strings:AppResources.Settings_SupportWithAds}" />
+              </Grid>
+              <Grid Style="{StaticResource SettingRow}" IsVisible="{Binding IsAdPrivacyOptionsRequired}">
+                <Grid.GestureRecognizers>
+                  <TapGestureRecognizer Command="{Binding OpenAdPrivacyOptionsCommand}" />
+                </Grid.GestureRecognizers>
+                <VerticalStackLayout VerticalOptions="Center">
+                  <Label Text="{x:Static strings:AppResources.Settings_AdPrivacyOptions}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{x:Static strings:AppResources.Settings_AdPrivacyOptionsHint}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Label Grid.Column="1" Text="›" FontSize="20" VerticalOptions="Center" />
+              </Grid>
+            </VerticalStackLayout>
+          </Border>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
           <Label Text="{x:Static strings:AppResources.Settings_About}" Style="{StaticResource TextSection}" />
           <Border Style="{StaticResource BentoCard}">
             <VerticalStackLayout Spacing="8">
@@ -137,5 +172,7 @@
         </VerticalStackLayout>
       </VerticalStackLayout>
     </ScrollView>
+
+    <controls:SupportBanner Grid.Row="2" />
   </Grid>
 </common:AppPage>

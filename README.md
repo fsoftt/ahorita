@@ -17,7 +17,14 @@ App Android (.NET MAUI) para crear y seguir rutinas, diseñada para personas con
 - **Progreso amable**: "5 de 7 días" (sin rachas rotas), mapa de 4 semanas y sugerencias de duración basadas en lo que realmente tardas.
 - **Ajustes**: bajo estímulo, celebraciones, vibración, lectura en voz alta, tema claro/oscuro.
 - **Multilenguaje**: español e inglés (interfaz, plantillas, fechas y notificaciones); sigue el idioma del teléfono o se elige en Ajustes.
-- Offline y privada: sin cuentas, sin internet, sin rastreo.
+- **Donar sin suscripciones** (como PiccoloReader): página *Donar* con "Ver anuncio" (anuncio bonificado como propina) y opción *Apoyar con anuncios* en Ajustes, apagada por defecto, que muestra un banner pequeño al pie de las pantallas principales. Nunca en el modo Ahora, editores, celebración ni bienvenida.
+- Privada: sin cuentas ni rastreo; las rutinas nunca salen del teléfono. La red solo la usan los anuncios opcionales.
+
+### AdMob
+
+Mientras Ahorita no tenga ids propios se muestran **anuncios de prueba** de Google. Para activar los reales, crea la app en AdMob y completa:
+- `AdMobAppId` en `src/Ahorita.App/Ahorita.App.csproj` (id de la app, `ca-app-pub-…~…`).
+- `Banner` y `Rewarded` en `src/Ahorita.App/Services/AdMobIds.cs` (ids de bloque, `ca-app-pub-…/…`).
 
 ## Requisitos
 

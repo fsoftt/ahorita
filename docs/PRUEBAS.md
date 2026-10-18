@@ -74,7 +74,20 @@ Usa una rutina programada 3–5 minutos en el futuro con aviso previo de 5 min (
 - [ ] Ajustes → **Idioma** → English / Español / Del teléfono: la app cambia al instante (sin cerrarla) y vuelve a Ajustes.
 - [ ] Tras cambiar el idioma, las notificaciones nuevas y las fechas ("Terminas a las…", días de la semana) usan ese idioma.
 
-## 7. Casos raros
+## 7. Donar y apoyar con anuncios
+
+Por ahora son **anuncios de prueba** de Google (dicen "Test Ad").
+
+- [ ] "Apoyar con anuncios" está **apagado** al instalar: no aparece ningún banner.
+- [ ] Ajustes → *Apoyar con anuncios* encendido: aparece un banner pequeño al pie de Hoy, Rutinas, Progreso y Ajustes, sin tapar contenido.
+- [ ] El banner **no** aparece en el modo Ahora, la celebración, los editores ni la bienvenida.
+- [ ] Al apagarlo, el banner desaparece al momento.
+- [ ] 💜 en Hoy (o Ajustes → Donar) abre la página Donar con el mismo texto que PiccoloReader.
+- [ ] "Ver anuncio" muestra un anuncio bonificado; al cerrarlo: "¡Gracias por tu propina! 💜".
+- [ ] Sin internet, "Ver anuncio" responde con un mensaje amable (no se queda cargando para siempre).
+- [ ] En la UE/RU: aparece el formulario de consentimiento y en Ajustes la fila "Opciones de privacidad de anuncios".
+
+## 8. Casos raros
 
 - [ ] Cambiar la zona horaria o la hora del teléfono: los avisos se reprograman.
 - [ ] Empezar una rutina con otra en curso: la anterior termina (lo hecho cuenta) y empieza la nueva.

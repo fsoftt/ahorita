@@ -1,4 +1,5 @@
 using Ahorita.App.Features.Celebration;
+using Ahorita.App.Features.Donate;
 using Ahorita.App.Features.Editor;
 using Ahorita.App.Features.Focus;
 using Ahorita.App.Features.Onboarding;
@@ -13,6 +14,8 @@ using Ahorita.Application.Abstractions;
 using Ahorita.Infrastructure;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Plugin.AdMob;
+using Plugin.AdMob.Configuration;
 
 namespace Ahorita.App;
 
@@ -27,6 +30,9 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseAdMob(
+                androidDefaultBannerAdUnitId: AdMobIds.BannerOrTest,
+                androidDefaultRewardedAdUnitId: AdMobIds.RewardedOrTest)
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Lexend-Regular.ttf", "LexendRegular");
@@ -47,6 +53,9 @@ public static class MauiProgram
 
         PlatformTweaks.Apply();
 
+        // Sin ids propios configurados, solo anuncios de prueba de Google.
+        AdConfig.UseTestAdUnitIds = !AdMobIds.IsConfigured;
+
         return builder.Build();
     }
 
@@ -60,6 +69,8 @@ public static class MauiProgram
         services.AddSingleton<AppStartup>();
         services.AddSingleton<PermissionPrompts>();
         services.AddSingleton<UiRestarter>();
+        services.AddSingleton<SupportAdsPreference>();
+        services.AddSingleton<IDonateAdService, AdMobDonateAdService>();
 #if ANDROID
         services.AddSingleton<IReminderScheduler, Droid.Reminders.AndroidReminderScheduler>();
         services.AddSingleton<IActiveRoutineNotifier, Droid.ActiveRoutine.AndroidActiveRoutineNotifier>();
@@ -78,6 +89,7 @@ public static class MauiProgram
         services.AddTransient<CelebrationPage>().AddTransient<CelebrationViewModel>();
         services.AddTransient<SettingsPage>().AddTransient<SettingsViewModel>();
         services.AddTransient<OnboardingPage>().AddTransient<OnboardingViewModel>();
+        services.AddTransient<DonatePage>().AddTransient<DonateViewModel>();
 
         return services;
     }
