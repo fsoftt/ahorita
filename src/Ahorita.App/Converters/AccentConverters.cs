@@ -15,7 +15,7 @@ public sealed class AccentToGradientConverter : IValueConverter
 }
 
 /// <summary>
-/// Acento → color. Con <c>ConverterParameter=Soft</c> devuelve la versión translúcida.
+/// Acento → color. Con <c>ConverterParameter</c> <c>Soft</c> o <c>Start</c> devuelve esas variantes.
 /// Sin acento (p. ej. aún no hay rutina) devuelve transparente, nunca null: lo usan sombras.
 /// </summary>
 public sealed class AccentToColorConverter : IValueConverter
@@ -26,7 +26,12 @@ public sealed class AccentToColorConverter : IValueConverter
             return Colors.Transparent;
 
         var colors = AccentPalette.For(accent);
-        return parameter is "Soft" ? colors.Soft : colors.End;
+        return parameter switch
+        {
+            "Soft" => colors.Soft,
+            "Start" => colors.Start,
+            _ => colors.End,
+        };
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>

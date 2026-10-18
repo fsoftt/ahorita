@@ -68,6 +68,60 @@ namespace Ahorita.Infrastructure.Persistence.Migrations
                     b.ToTable("Routines", (string)null);
                 });
 
+            modelBuilder.Entity("Ahorita.Domain.Sessions.RoutineSession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<TimeSpan>("CurrentStepPausedTotal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("CurrentStepStartedAt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("FinishedAt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<long?>("PausedAt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RoutineAccent")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoutineEmoji")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RoutineId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RoutineName")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("StartedAt")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoutineId");
+
+                    b.HasIndex("StartedAt");
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("Sessions", (string)null);
+                });
+
             modelBuilder.Entity("Ahorita.Domain.Routines.Routine", b =>
                 {
                     b.OwnsMany("Ahorita.Domain.Routines.RoutineStep", "Steps", b1 =>
@@ -104,6 +158,61 @@ namespace Ahorita.Infrastructure.Persistence.Migrations
 
                             b1.WithOwner()
                                 .HasForeignKey("RoutineId");
+                        });
+
+                    b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("Ahorita.Domain.Sessions.RoutineSession", b =>
+                {
+                    b.OwnsMany("Ahorita.Domain.Sessions.SessionStep", "Steps", b1 =>
+                        {
+                            b1.Property<Guid>("Id")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<TimeSpan?>("ActualDuration")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Emoji")
+                                .HasMaxLength(16)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<bool>("IsOptional")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<int>("Order")
+                                .HasColumnType("INTEGER");
+
+                            b1.Property<string>("Outcome")
+                                .IsRequired()
+                                .HasMaxLength(16)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<TimeSpan?>("PlannedDuration")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("SessionId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<Guid>("SourceStepId")
+                                .HasColumnType("TEXT");
+
+                            b1.Property<string>("Title")
+                                .IsRequired()
+                                .HasMaxLength(60)
+                                .HasColumnType("TEXT");
+
+                            b1.Property<bool>("WasPostponed")
+                                .HasColumnType("INTEGER");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("SessionId");
+
+                            b1.ToTable("SessionSteps", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("SessionId");
                         });
 
                     b.Navigation("Steps");

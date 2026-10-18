@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:celebration="clr-namespace:Ahorita.App.Features.Celebration"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Celebration.CelebrationPage"
+                x:DataType="celebration:CelebrationViewModel"
+                Title="{Binding Title}">
+
+  <Grid>
+    <BoxView Opacity="0.35" Background="{Binding Accent, Converter={StaticResource AccentToGradient}}" />
+
+    <VerticalStackLayout VerticalOptions="Center" Padding="28,0" Spacing="{StaticResource SpaceLg}">
+      <Label x:Name="EmojiLabel" Text="{Binding Emoji}" Style="{StaticResource TextEmoji}" FontSize="96" />
+
+      <VerticalStackLayout Spacing="8">
+        <Label Text="{Binding Title}" Style="{StaticResource TextDisplay}" FontSize="38" HorizontalTextAlignment="Center" />
+        <Label Text="{Binding Subtitle}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" HorizontalTextAlignment="Center" />
+      </VerticalStackLayout>
+
+      <HorizontalStackLayout HorizontalOptions="Center" Spacing="12">
+        <Border Style="{StaticResource Chip}">
+          <Label Text="{Binding StepsText}" FontFamily="{StaticResource FontBodySemiBold}" />
+        </Border>
+        <Border Style="{StaticResource Chip}">
+          <Label Text="{Binding DurationText}" FontFamily="{StaticResource FontBodySemiBold}" />
+        </Border>
+      </HorizontalStackLayout>
+
+      <Border Style="{StaticResource BentoCard}">
+        <Label Text="{Binding Message}" HorizontalTextAlignment="Center" FontFamily="{StaticResource FontBodyMedium}" />
+      </Border>
+
+      <controls:BigActionButton Text="{x:Static strings:AppResources.Celebrate_BackHome}"
+                                Style="{StaticResource BigActionPrimary}"
+                                Command="{Binding BackHomeCommand}" />
+    </VerticalStackLayout>
+
+    <controls:ConfettiView x:Name="Confetti" />
+  </Grid>
+</common:AppPage>

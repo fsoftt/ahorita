@@ -16,6 +16,7 @@ public static class DependencyInjection
         services.AddDbContext<AhoritaDbContext>(options => options.UseSqlite($"Data Source={databasePath}"));
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<AhoritaDbContext>());
         services.AddScoped<IRoutineRepository, RoutineRepository>();
+        services.AddScoped<ISessionRepository, SessionRepository>();
         services.AddSingleton<IStorageInitializer, DatabaseInitializer>();
 
         services.AddSingleton<IRoutineTemplateProvider, EmbeddedRoutineTemplateProvider>();

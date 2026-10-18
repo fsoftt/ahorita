@@ -1,10 +1,12 @@
 using System.Globalization;
 using Ahorita.App.Common;
+using Ahorita.App.Features.Focus;
 using Ahorita.App.Features.Shared;
 using Ahorita.App.Resources.Strings;
 using Ahorita.App.Services;
 using Ahorita.Application.Abstractions;
 using Ahorita.Application.Routines;
+using Ahorita.Application.Sessions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
@@ -14,13 +16,21 @@ namespace Ahorita.App.Features.Today;
 public sealed partial class TodayViewModel : ViewModelBase
 {
     private readonly IUseCaseExecutor _useCases;
+    private readonly INavigationService _navigation;
     private readonly TimeProvider _time;
 
-    public TodayViewModel(IUseCaseExecutor useCases, TimeProvider time, IToastService toast, ILogger<TodayViewModel> logger)
+    public TodayViewModel(
+        IUseCaseExecutor useCases,
+        INavigationService navigation,
+        TimeProvider time,
+        IToastService toast,
+        ILogger<TodayViewModel> logger)
         : base(toast, logger)
     {
         _useCases = useCases;
+        _navigation = navigation;
         _time = time;
+        HeroActionText = AppResources.Today_StartNow;
         Greeting = string.Empty;
         DateText = string.Empty;
         FeaturedLabel = string.Empty;
@@ -45,6 +55,9 @@ public sealed partial class TodayViewModel : ViewModelBase
     public partial string FeaturedLabel { get; set; }
 
     [ObservableProperty]
+    public partial string HeroActionText { get; set; }
+
+    [ObservableProperty]
     public partial IReadOnlyList<RoutineCardModel> Upcoming { get; set; }
 
     [ObservableProperty]
@@ -63,8 +76,12 @@ public sealed partial class TodayViewModel : ViewModelBase
 
     [RelayCommand]
     private Task StartRoutineAsync(RoutineCardModel? routine) =>
-        // El modo Ahora (Fase 2) se conectará aquí.
-        routine is null ? Task.CompletedTask : Toast.ShowAsync(AppResources.Focus_ComingSoon);
+        routine is null
+            ? Task.CompletedTask
+            : _navigation.GoToAsync(Routes.Focus, new Dictionary<string, object>
+            {
+                [FocusViewModel.RoutineIdParameter] = routine.Id,
+            });
 
     [RelayCommand]
     private Task AddTemplateAsync(TemplateCardModel template) => RunSafelyAsync(async () =>
@@ -78,14 +95,32 @@ public sealed partial class TodayViewModel : ViewModelBase
         UpdateHeader(_time.GetLocalNow());
 
         var overview = await _useCases.ExecuteAsync((GetTodayOverview useCase) => useCase.ExecuteAsync());
+        var active = await _useCases.ExecuteAsync((GetActiveSession useCase) => useCase.ExecuteAsync());
 
-        Featured = overview.Featured is { } featured ? RoutineCardModel.From(featured) : null;
+        if (active is not null)
+        {
+            // Una rutina en curso siempre es la protagonista: retomarla es un toque.
+            Featured = new RoutineCardModel(
+                active.RoutineId, active.RoutineName, active.RoutineEmoji, active.Accent,
+                active.CurrentStep is { } step ? $"{step.Emoji} {step.Title}".Trim() : string.Empty,
+                AppResources.Today_Continue,
+                CanStart: true);
+            FeaturedLabel = string.Format(CultureInfo.CurrentCulture, AppResources.Today_InProgress, active.Position, active.TotalSteps);
+            HeroActionText = AppResources.Today_Continue;
+        }
+        else
+        {
+            Featured = overview.Featured is { } featured ? RoutineCardModel.From(featured) : null;
+            FeaturedLabel = overview.Featured is { IsOnDemand: false } ? AppResources.Today_NextUp : AppResources.Today_AnyTime;
+            HeroActionText = AppResources.Today_StartNow;
+        }
+
         HasFeatured = Featured is not null;
-        FeaturedLabel = overview.Featured is { IsOnDemand: false } ? AppResources.Today_NextUp : AppResources.Today_AnyTime;
-        Upcoming = overview.Upcoming.Select(RoutineCardModel.From).ToArray();
-        AnyTime = overview.AnyTime.Select(RoutineCardModel.From).ToArray();
+        var featuredId = Featured?.Id;
+        Upcoming = overview.Upcoming.Where(r => r.Id != featuredId).Select(RoutineCardModel.From).ToArray();
+        AnyTime = overview.AnyTime.Where(r => r.Id != featuredId).Select(RoutineCardModel.From).ToArray();
         IsFirstRun = overview.IsFirstRun;
-        IsFreeDay = !overview.IsFirstRun && overview.Featured is null;
+        IsFreeDay = !overview.IsFirstRun && Featured is null;
 
         if (IsFirstRun && Templates.Count == 0)
         {

@@ -18,6 +18,6 @@ public class MainActivity : MauiAppCompatActivity
 
         // "Quitar animaciones" de Android pone la escala de animación en 0.
         var scale = Settings.Global.GetFloat(ContentResolver, Settings.Global.AnimatorDurationScale, 1f);
-        Motion.IsReduced = scale == 0f;
+        Motion.SystemReduced = scale == 0f;
     }
 }

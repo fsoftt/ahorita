@@ -1,4 +1,6 @@
+using Ahorita.App.Features.Celebration;
 using Ahorita.App.Features.Editor;
+using Ahorita.App.Features.Focus;
 using Ahorita.App.Features.Progress;
 using Ahorita.App.Features.Routines;
 using Ahorita.App.Features.Today;
@@ -49,12 +51,18 @@ public static class MauiProgram
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<IReminderScheduler, NoReminderScheduler>();
+        services.AddSingleton<IActiveRoutineNotifier, NoActiveRoutineNotifier>();
+        services.AddSingleton(Preferences.Default);
+        services.AddSingleton<PreferencesAppSettings>();
+        services.AddSingleton<IAppSettings>(sp => sp.GetRequiredService<PreferencesAppSettings>());
 
         services.AddTransient<TodayPage>().AddTransient<TodayViewModel>();
         services.AddTransient<RoutinesPage>().AddTransient<RoutinesViewModel>();
         services.AddTransient<ProgressPage>().AddTransient<ProgressViewModel>();
         services.AddTransient<RoutineEditorPage>().AddTransient<RoutineEditorViewModel>();
         services.AddTransient<StepEditorPage>().AddTransient<StepEditorViewModel>();
+        services.AddTransient<FocusPage>().AddTransient<FocusViewModel>();
+        services.AddTransient<CelebrationPage>().AddTransient<CelebrationViewModel>();
 
         return services;
     }

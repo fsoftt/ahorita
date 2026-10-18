@@ -88,7 +88,7 @@
           <controls:BigActionButton Grid.Row="3"
                                     Margin="0,12,0,0"
                                     Style="{StaticResource BigActionOnAccent}"
-                                    Text="{x:Static strings:AppResources.Today_StartNow}"
+                                    Text="{Binding HeroActionText}"
                                     Breathes="True"
                                     Command="{Binding StartRoutineCommand}"
                                     CommandParameter="{Binding Featured}"

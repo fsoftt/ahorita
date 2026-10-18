@@ -1,8 +1,20 @@
+using Ahorita.App.Services;
+
 namespace Ahorita.App;
 
 public partial class App : Microsoft.Maui.Controls.Application
 {
-    public App() => InitializeComponent();
+    private readonly PreferencesAppSettings _settings;
 
-    protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
+    public App(PreferencesAppSettings settings)
+    {
+        _settings = settings;
+        InitializeComponent();
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        _settings.ApplyAll();
+        return new Window(new AppShell());
+    }
 }

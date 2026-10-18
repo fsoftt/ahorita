@@ -25,6 +25,12 @@ public abstract class AppPage : ContentPage
         await ViewModel.OnAppearingAsync();
     }
 
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        ViewModel.OnDisappearing();
+    }
+
     private static StatusBarBehavior CreateStatusBarBehavior()
     {
         var behavior = new StatusBarBehavior();

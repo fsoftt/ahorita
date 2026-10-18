@@ -1,31 +1,13 @@
 using Ahorita.Domain.Routines;
 using Ahorita.Infrastructure.Persistence;
 using Ahorita.Infrastructure.Persistence.Repositories;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ahorita.Infrastructure.Tests.Persistence;
 
-/// <summary>Usa SQLite real en memoria y aplica las migraciones, igual que la app.</summary>
-public sealed class RoutineRepositoryTests : IAsyncLifetime
+public sealed class RoutineRepositoryTests : SqliteTestDatabase
 {
     private static readonly DateTimeOffset Now = new(2026, 10, 19, 8, 0, 0, TimeSpan.Zero);
-
-    private readonly SqliteConnection _connection = new("Data Source=:memory:");
-    private DbContextOptions<AhoritaDbContext> _options = null!;
-
-    public async ValueTask InitializeAsync()
-    {
-        await _connection.OpenAsync();
-        _options = new DbContextOptionsBuilder<AhoritaDbContext>().UseSqlite(_connection).Options;
-
-        await using var db = new AhoritaDbContext(_options);
-        await db.Database.MigrateAsync();
-    }
-
-    public async ValueTask DisposeAsync() => await _connection.DisposeAsync();
-
-    private AhoritaDbContext NewContext() => new(_options);
 
     [Fact]
     public async Task Round_trips_a_routine_with_schedule_and_ordered_steps()

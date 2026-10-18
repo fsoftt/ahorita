@@ -294,4 +294,127 @@
   <data name="Error_Template_NotFound" xml:space="preserve">
     <value>Esa plantilla no existe.</value>
   </data>
+  <data name="Focus_Done" xml:space="preserve">
+    <value>Listo ✓</value>
+  </data>
+  <data name="Focus_Skip" xml:space="preserve">
+    <value>Saltar</value>
+  </data>
+  <data name="Focus_Later" xml:space="preserve">
+    <value>Después</value>
+  </data>
+  <data name="Focus_Pause" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="Focus_Resume" xml:space="preserve">
+    <value>Seguir</value>
+  </data>
+  <data name="Focus_End" xml:space="preserve">
+    <value>Terminar por hoy</value>
+  </data>
+  <data name="Focus_Position" xml:space="preserve">
+    <value>Paso {0} de {1}</value>
+  </data>
+  <data name="Focus_Next" xml:space="preserve">
+    <value>Sigue: {0}</value>
+  </data>
+  <data name="Focus_LastStep" xml:space="preserve">
+    <value>¡Último paso! 🏁</value>
+  </data>
+  <data name="Focus_EndsAt" xml:space="preserve">
+    <value>Terminas a las {0}</value>
+  </data>
+  <data name="Focus_OptionalTag" xml:space="preserve">
+    <value>Opcional: se puede saltar</value>
+  </data>
+  <data name="Focus_Paused" xml:space="preserve">
+    <value>En pausa</value>
+  </data>
+  <data name="Focus_TimeUp" xml:space="preserve">
+    <value>Se acabó el tiempo estimado. Tómate el que necesites 💛</value>
+  </data>
+  <data name="Focus_Postponed" xml:space="preserve">
+    <value>Lo dejamos para el final 👌</value>
+  </data>
+  <data name="Focus_EndTitle" xml:space="preserve">
+    <value>¿Terminar por hoy?</value>
+  </data>
+  <data name="Focus_EndMessage" xml:space="preserve">
+    <value>Lo que ya hiciste cuenta. Puedes retomarla otro día.</value>
+  </data>
+  <data name="Focus_EndConfirm" xml:space="preserve">
+    <value>Terminar</value>
+  </data>
+  <data name="Focus_KeepGoing" xml:space="preserve">
+    <value>Seguir</value>
+  </data>
+  <data name="Focus_Close" xml:space="preserve">
+    <value>Cerrar (la rutina sigue)</value>
+  </data>
+  <data name="Focus_NoTimer" xml:space="preserve">
+    <value>Sin prisa</value>
+  </data>
+  <data name="Celebrate_TitleComplete" xml:space="preserve">
+    <value>¡Lo lograste!</value>
+  </data>
+  <data name="Celebrate_TitlePartial" xml:space="preserve">
+    <value>¡Bien hecho!</value>
+  </data>
+  <data name="Celebrate_SubtitleComplete" xml:space="preserve">
+    <value>Rutina completa: {0}</value>
+  </data>
+  <data name="Celebrate_SubtitlePartial" xml:space="preserve">
+    <value>Hiciste {0} de {1} pasos. Eso cuenta.</value>
+  </data>
+  <data name="Celebrate_Steps" xml:space="preserve">
+    <value>{0} pasos ✓</value>
+  </data>
+  <data name="Celebrate_Duration" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="Celebrate_BackHome" xml:space="preserve">
+    <value>Volver a Hoy</value>
+  </data>
+  <data name="Celebrate_Msg1" xml:space="preserve">
+    <value>Tu yo del futuro te lo agradece 🙌</value>
+  </data>
+  <data name="Celebrate_Msg2" xml:space="preserve">
+    <value>Empezar era lo más difícil, y lo hiciste ✨</value>
+  </data>
+  <data name="Celebrate_Msg3" xml:space="preserve">
+    <value>Paso a paso también se llega 🐢</value>
+  </data>
+  <data name="Celebrate_Msg4" xml:space="preserve">
+    <value>Tu cerebro merece este aplauso 👏</value>
+  </data>
+  <data name="Celebrate_Msg5" xml:space="preserve">
+    <value>Hoy sumaste un ladrillo más 🧱</value>
+  </data>
+  <data name="Celebrate_Msg6" xml:space="preserve">
+    <value>Lo importante es que volviste a intentarlo 💜</value>
+  </data>
+  <data name="Today_InProgress" xml:space="preserve">
+    <value>En curso · paso {0} de {1}</value>
+  </data>
+  <data name="Today_Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="Error_Session_RoutineCannotStart" xml:space="preserve">
+    <value>Agrega al menos un paso para poder empezar.</value>
+  </data>
+  <data name="Error_Session_NotActive" xml:space="preserve">
+    <value>Esta rutina ya terminó.</value>
+  </data>
+  <data name="Error_Session_NotPaused" xml:space="preserve">
+    <value>La rutina no está en pausa.</value>
+  </data>
+  <data name="Error_Session_AlreadyPaused" xml:space="preserve">
+    <value>La rutina ya está en pausa.</value>
+  </data>
+  <data name="Error_Session_CannotPostpone" xml:space="preserve">
+    <value>Este paso ya se pospuso o es el último.</value>
+  </data>
+  <data name="Error_Session_NotFound" xml:space="preserve">
+    <value>No encontramos esa rutina en curso.</value>
+  </data>
 </root>

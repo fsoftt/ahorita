@@ -14,6 +14,11 @@ public static class Motion
     public const double PressedScale = 0.95;
     public const double BreathScale = 1.03;
 
-    /// <summary>Lo actualiza la plataforma (p. ej. <c>MainActivity</c>) al volver a primer plano.</summary>
-    public static bool IsReduced { get; set; }
+    /// <summary>"Quitar animaciones" del sistema; lo actualiza <c>MainActivity</c> al volver a primer plano.</summary>
+    public static bool SystemReduced { get; set; }
+
+    /// <summary>Modo de bajo estímulo elegido en Ajustes.</summary>
+    public static bool LowStimulus { get; set; }
+
+    public static bool IsReduced => SystemReduced || LowStimulus;
 }

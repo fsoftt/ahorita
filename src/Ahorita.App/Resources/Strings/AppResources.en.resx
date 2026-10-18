@@ -294,4 +294,127 @@
   <data name="Error_Template_NotFound" xml:space="preserve">
     <value>That template doesn't exist.</value>
   </data>
+  <data name="Focus_Done" xml:space="preserve">
+    <value>Done ✓</value>
+  </data>
+  <data name="Focus_Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="Focus_Later" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="Focus_Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Focus_Resume" xml:space="preserve">
+    <value>Resume</value>
+  </data>
+  <data name="Focus_End" xml:space="preserve">
+    <value>Finish for today</value>
+  </data>
+  <data name="Focus_Position" xml:space="preserve">
+    <value>Step {0} of {1}</value>
+  </data>
+  <data name="Focus_Next" xml:space="preserve">
+    <value>Next: {0}</value>
+  </data>
+  <data name="Focus_LastStep" xml:space="preserve">
+    <value>Last step! 🏁</value>
+  </data>
+  <data name="Focus_EndsAt" xml:space="preserve">
+    <value>You'll finish at {0}</value>
+  </data>
+  <data name="Focus_OptionalTag" xml:space="preserve">
+    <value>Optional: fine to skip</value>
+  </data>
+  <data name="Focus_Paused" xml:space="preserve">
+    <value>Paused</value>
+  </data>
+  <data name="Focus_TimeUp" xml:space="preserve">
+    <value>Estimated time is up. Take the time you need 💛</value>
+  </data>
+  <data name="Focus_Postponed" xml:space="preserve">
+    <value>Moved to the end 👌</value>
+  </data>
+  <data name="Focus_EndTitle" xml:space="preserve">
+    <value>Finish for today?</value>
+  </data>
+  <data name="Focus_EndMessage" xml:space="preserve">
+    <value>What you already did counts. You can pick it up another day.</value>
+  </data>
+  <data name="Focus_EndConfirm" xml:space="preserve">
+    <value>Finish</value>
+  </data>
+  <data name="Focus_KeepGoing" xml:space="preserve">
+    <value>Keep going</value>
+  </data>
+  <data name="Focus_Close" xml:space="preserve">
+    <value>Close (routine keeps going)</value>
+  </data>
+  <data name="Focus_NoTimer" xml:space="preserve">
+    <value>No rush</value>
+  </data>
+  <data name="Celebrate_TitleComplete" xml:space="preserve">
+    <value>You did it!</value>
+  </data>
+  <data name="Celebrate_TitlePartial" xml:space="preserve">
+    <value>Nice work!</value>
+  </data>
+  <data name="Celebrate_SubtitleComplete" xml:space="preserve">
+    <value>Routine complete: {0}</value>
+  </data>
+  <data name="Celebrate_SubtitlePartial" xml:space="preserve">
+    <value>You did {0} of {1} steps. That counts.</value>
+  </data>
+  <data name="Celebrate_Steps" xml:space="preserve">
+    <value>{0} steps ✓</value>
+  </data>
+  <data name="Celebrate_Duration" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="Celebrate_BackHome" xml:space="preserve">
+    <value>Back to Today</value>
+  </data>
+  <data name="Celebrate_Msg1" xml:space="preserve">
+    <value>Future you says thanks 🙌</value>
+  </data>
+  <data name="Celebrate_Msg2" xml:space="preserve">
+    <value>Starting was the hardest part, and you did it ✨</value>
+  </data>
+  <data name="Celebrate_Msg3" xml:space="preserve">
+    <value>Step by step still gets you there 🐢</value>
+  </data>
+  <data name="Celebrate_Msg4" xml:space="preserve">
+    <value>Your brain deserves this applause 👏</value>
+  </data>
+  <data name="Celebrate_Msg5" xml:space="preserve">
+    <value>You added one more brick today 🧱</value>
+  </data>
+  <data name="Celebrate_Msg6" xml:space="preserve">
+    <value>What matters is you showed up 💜</value>
+  </data>
+  <data name="Today_InProgress" xml:space="preserve">
+    <value>In progress · step {0} of {1}</value>
+  </data>
+  <data name="Today_Continue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="Error_Session_RoutineCannotStart" xml:space="preserve">
+    <value>Add at least one step to get started.</value>
+  </data>
+  <data name="Error_Session_NotActive" xml:space="preserve">
+    <value>This routine has already finished.</value>
+  </data>
+  <data name="Error_Session_NotPaused" xml:space="preserve">
+    <value>The routine isn't paused.</value>
+  </data>
+  <data name="Error_Session_AlreadyPaused" xml:space="preserve">
+    <value>The routine is already paused.</value>
+  </data>
+  <data name="Error_Session_CannotPostpone" xml:space="preserve">
+    <value>This step was already postponed or is the last one.</value>
+  </data>
+  <data name="Error_Session_NotFound" xml:space="preserve">
+    <value>We couldn't find that routine in progress.</value>
+  </data>
 </root>

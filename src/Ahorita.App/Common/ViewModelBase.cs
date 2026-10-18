@@ -15,6 +15,11 @@ public abstract partial class ViewModelBase(IToastService toast, ILogger logger)
     /// <summary>Se llama cada vez que la página aparece.</summary>
     public virtual Task OnAppearingAsync() => Task.CompletedTask;
 
+    /// <summary>Se llama cada vez que la página deja de verse.</summary>
+    public virtual void OnDisappearing()
+    {
+    }
+
     /// <summary>
     /// Ejecuta una acción de UI mostrando un mensaje amable si algo inesperado falla.
     /// La app nunca debe cerrarse por un error en una acción de la persona.
