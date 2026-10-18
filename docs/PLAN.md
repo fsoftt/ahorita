@@ -325,7 +325,7 @@ Resources/
 | Rutina activa | **Foreground Service** Android (tipo `specialUse`) | El temporizador sobrevive a la app en segundo plano. |
 | TTS | `TextToSpeech` de MAUI Essentials | Ya incluido. |
 | Logging | `Microsoft.Extensions.Logging` | Estándar. |
-| Tests | **xUnit** + **FluentAssertions/Shouldly** + **NSubstitute** | Dominio y casos de uso 100 % testeables sin emulador. |
+| Tests | **xUnit v3** (Microsoft.Testing.Platform) + **Shouldly** + **NSubstitute** + `FakeTimeProvider` | Dominio y casos de uso 100 % testeables sin emulador. |
 | CI | GitHub Actions: build, tests, `dotnet format --verify-no-changes`, APK firmado en tags | |
 
 ### 6.2 Clean Architecture
@@ -361,7 +361,7 @@ Ahorita.sln
 │   │   ├── Progress/        ConsistencyScore (racha flexible)
 │   │   └── Common/          Entity, ValueObject, Result<T>, DomainErrors
 │   ├── Ahorita.Application/
-│   │   ├── Abstractions/    IRoutineRepository, ISessionRepository, IClock,
+│   │   ├── Abstractions/    IRoutineRepository, ISessionRepository, IUseCaseExecutor,
 │   │   │                    IReminderScheduler, IActiveRoutineHost, IUnitOfWork
 │   │   ├── Routines/        CreateRoutine, UpdateRoutine, CreateFromTemplate…
 │   │   ├── Sessions/        StartSession, CompleteStep, SkipStep, PostponeStep, FinishSession
@@ -370,7 +370,7 @@ Ahorita.sln
 │   ├── Ahorita.Infrastructure/
 │   │   ├── Persistence/     AhoritaDbContext, Configurations/, Migrations/, Repositories/
 │   │   ├── Templates/       plantillas embebidas (JSON)
-│   │   ├── Time/            SystemClock
+│   │   ├── (TimeProvider.System se registra en DI: no hace falta un reloj propio)
 │   │   └── DependencyInjection.cs
 │   └── Ahorita.App/
 │       ├── Features/
@@ -408,7 +408,7 @@ Routine (aggregate root)
 RoutineSession (aggregate root)  — una ejecución concreta
  ├─ Id, RoutineId, VariantId, StartedAt, FinishedAt?, Status (Running/Paused/Finished/Abandoned)
  └─ StepResults: List<StepResult> (StepId, Outcome: Done/Skipped/Postponed, ActualDuration)
-     → CompletionRatio, EstimatedEnd(IClock)
+     → CompletionRatio, EstimatedEnd(TimeProvider)
 
 ConsistencyScore (value object) — "X de los últimos N días", sin noción de "racha rota"
 ```
@@ -465,7 +465,7 @@ namespace Ahorita.Application.Sessions;
 public sealed class CompleteStep(
     ISessionRepository sessions,
     IActiveRoutineHost activeRoutine,
-    IClock clock,
+    TimeProvider time,
     IUnitOfWork unitOfWork)
 {
     public async Task<Result<SessionSnapshot>> ExecuteAsync(Guid sessionId, CancellationToken ct = default)
@@ -473,12 +473,12 @@ public sealed class CompleteStep(
         var session = await sessions.GetAsync(sessionId, ct);
         if (session is null) return SessionErrors.NotFound;
 
-        var result = session.CompleteCurrentStep(clock.Now);
+        var result = session.CompleteCurrentStep(time.GetUtcNow());
         if (result.IsFailure) return result.Error;
 
         await unitOfWork.SaveChangesAsync(ct);
 
-        var snapshot = SessionSnapshot.From(session, clock);
+        var snapshot = SessionSnapshot.From(session, time);
         await activeRoutine.UpdateAsync(snapshot, ct); // refresca la notificación persistente
         return snapshot;
     }
@@ -495,10 +495,10 @@ public sealed partial class FocusViewModel(
     IHapticFeedback haptics,
     INavigationService navigation) : ViewModelBase, IQueryAttributable
 {
-    [ObservableProperty] private string _stepTitle = string.Empty;
-    [ObservableProperty] private string? _nextStepTitle;
-    [ObservableProperty] private double _remainingFraction = 1;
-    [ObservableProperty] private string _estimatedEndText = string.Empty;
+    [ObservableProperty] public partial string StepTitle { get; set; }
+    [ObservableProperty] public partial string? NextStepTitle { get; set; }
+    [ObservableProperty] public partial double RemainingFraction { get; set; }
+    [ObservableProperty] public partial string EstimatedEndText { get; set; }
 
     private Guid _sessionId;
 
@@ -542,7 +542,8 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 - **SOLID** y **casos de uso pequeños** (un archivo = una intención del usuario). Sin "Services" gigantes.
 - **`Result<T>`** para errores esperados; excepciones solo para lo excepcional.
 - **Sin lógica en code-behind** salvo animaciones puramente visuales.
-- **Nada de `DateTime.Now` directo**: siempre `IClock` (clave para probar temporizadores y recordatorios).
+- **Nada de `DateTime.Now` directo**: siempre `TimeProvider` (en pruebas, `FakeTimeProvider`; clave para temporizadores y recordatorios).
+- **Un scope de DI por caso de uso** con `IUseCaseExecutor`: en MAUI no hay "request", así que cada operación recibe su propio `DbContext`.
 - **Nullable reference types** activado, `TreatWarningsAsErrors` en `Domain` y `Application`.
 - **`.editorconfig`** + `dotnet format` en CI; analizadores `Microsoft.CodeAnalysis.NetAnalyzers` nivel `recommended`.
 - **Async hasta el fondo**, `CancellationToken` en toda la capa de aplicación; nunca `.Result`/`.Wait()`.
@@ -570,7 +571,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 | Nivel | Qué | Herramienta | Meta |
 |---|---|---|---|
 | Unitarias dominio | Sesiones, reglas de pasos, `ConsistencyScore`, `EstimatedEnd` | xUnit | ~100 % de reglas |
-| Unitarias aplicación | Casos de uso con repos falsos e `IClock` controlado | xUnit + NSubstitute | Todos los casos de uso |
+| Unitarias aplicación | Casos de uso con repos falsos y `FakeTimeProvider` | xUnit + NSubstitute | Todos los casos de uso |
 | Integración | Repos con SQLite in-memory, migraciones | xUnit | Cada repositorio |
 | ViewModels | Comandos y estado (no dependen de MAUI gracias a interfaces) | xUnit | Flujos principales |
 | UI / E2E | Crear rutina → ejecutar → celebrar | Appium + emulador en CI (v1.1) | Smoke tests |
@@ -590,6 +591,11 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 | **4. MVP pulido** | 1 semana | Progreso básico, accesibilidad, español/inglés, beta cerrada en Play Console (pista interna). |
 | **5. v1.1** | 3–4 semanas | Versión día malo, sub-pasos, rachas flexibles, aviso a mitad de paso, TTS, widget, ajuste de estimaciones, exportar/importar. |
 | **6. v2** | — | Modo niño, disparadores por contexto, recompensas, check-in de energía, "Rómpelo por mí". |
+
+### Estado actual
+
+- ✅ **Fase 0 — Fundaciones:** solución en capas, CI, `.editorconfig` y analizadores, design system (tokens de color, tipografía y espaciado, estilos `BentoCard`/`HeroCard`/`Chip`, `BigActionButton`, paleta de acentos), Shell con 3 pestañas, SQLite + migración inicial, textos en español e inglés.
+- 🟡 **Fase 1 — Rutinas (en curso):** dominio completo de rutinas y pasos (crear, editar, reordenar, quitar, horario), plantillas (6, en es/en), crear desde plantilla, pantallas **Hoy** y **Rutinas**. Falta: editor visual (crear/editar/reordenar desde la UI) y selector de horario.
 
 ### Definición de "MVP listo"
 - Crear una rutina desde plantilla en < 60 s.

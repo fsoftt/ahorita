@@ -1,0 +1,92 @@
+{
+  "templates": [
+    {
+      "key": "morning",
+      "name": "Rutina de mañana",
+      "emoji": "🌅",
+      "accent": "Tangerine",
+      "days": "Weekdays",
+      "startTime": "07:00",
+      "steps": [
+        { "title": "Tomar un vaso de agua", "emoji": "💧", "minutes": 1 },
+        { "title": "Medicación", "emoji": "💊", "minutes": 1, "optional": true },
+        { "title": "Ducharte", "emoji": "🚿", "minutes": 10 },
+        { "title": "Vestirte", "emoji": "👕", "minutes": 5 },
+        { "title": "Desayunar", "emoji": "🥣", "minutes": 15 },
+        { "title": "Lavarte los dientes", "emoji": "🪥", "minutes": 3 }
+      ]
+    },
+    {
+      "key": "leave-home",
+      "name": "Salir de casa",
+      "emoji": "🎒",
+      "accent": "Sky",
+      "days": "None",
+      "steps": [
+        { "title": "Celular y cargador", "emoji": "📱", "minutes": 1 },
+        { "title": "Llaves", "emoji": "🔑", "minutes": 1 },
+        { "title": "Cartera", "emoji": "👛", "minutes": 1 },
+        { "title": "Audífonos", "emoji": "🎧", "minutes": 1, "optional": true },
+        { "title": "Revisar estufa y luces", "emoji": "💡", "minutes": 2 }
+      ]
+    },
+    {
+      "key": "study",
+      "name": "Bloque de estudio",
+      "emoji": "📚",
+      "accent": "Mint",
+      "days": "Weekdays",
+      "startTime": "16:00",
+      "steps": [
+        { "title": "Despejar el escritorio", "emoji": "🧹", "minutes": 3 },
+        { "title": "Elegir UNA tarea", "emoji": "🎯", "minutes": 2 },
+        { "title": "Enfoque", "emoji": "🍅", "minutes": 25 },
+        { "title": "Pausa: muévete un poco", "emoji": "🚶", "minutes": 5 },
+        { "title": "Enfoque", "emoji": "🍅", "minutes": 25 },
+        { "title": "Pausa larga", "emoji": "🌿", "minutes": 10, "optional": true }
+      ]
+    },
+    {
+      "key": "night",
+      "name": "Rutina de noche",
+      "emoji": "🌙",
+      "accent": "Indigo",
+      "days": "Everyday",
+      "startTime": "22:30",
+      "steps": [
+        { "title": "Celular a cargar lejos de la cama", "emoji": "🔌", "minutes": 1 },
+        { "title": "Dejar lista la ropa de mañana", "emoji": "🧺", "minutes": 5 },
+        { "title": "Lavarte los dientes", "emoji": "🪥", "minutes": 3 },
+        { "title": "Cuidado de la piel", "emoji": "🧴", "minutes": 3, "optional": true },
+        { "title": "Leer un rato", "emoji": "📖", "minutes": 15, "optional": true },
+        { "title": "Luces fuera", "emoji": "😴", "minutes": 1 }
+      ]
+    },
+    {
+      "key": "quick-clean",
+      "name": "Limpieza exprés",
+      "emoji": "🧽",
+      "accent": "Lemon",
+      "days": "None",
+      "steps": [
+        { "title": "Sacar la basura", "emoji": "🗑️", "minutes": 2 },
+        { "title": "Platos al fregadero", "emoji": "🍽️", "minutes": 3 },
+        { "title": "Ropa al cesto", "emoji": "🧦", "minutes": 2 },
+        { "title": "Limpiar una superficie", "emoji": "✨", "minutes": 3 }
+      ]
+    },
+    {
+      "key": "active-break",
+      "name": "Pausa activa",
+      "emoji": "🧘",
+      "accent": "Raspberry",
+      "days": "None",
+      "steps": [
+        { "title": "Ponerte de pie", "emoji": "🧍", "minutes": 1 },
+        { "title": "Tomar agua", "emoji": "💧", "minutes": 1 },
+        { "title": "Estirarte", "emoji": "🙆", "minutes": 3 },
+        { "title": "Mirar a lo lejos", "emoji": "👀", "minutes": 1 }
+      ]
+    }
+  ]
+}

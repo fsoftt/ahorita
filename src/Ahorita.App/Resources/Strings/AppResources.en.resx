@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Tab_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Tab_Routines" xml:space="preserve">
+    <value>Routines</value>
+  </data>
+  <data name="Tab_Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Greeting_Morning" xml:space="preserve">
+    <value>Good morning</value>
+  </data>
+  <data name="Greeting_Afternoon" xml:space="preserve">
+    <value>Good afternoon</value>
+  </data>
+  <data name="Greeting_Evening" xml:space="preserve">
+    <value>Good evening</value>
+  </data>
+  <data name="Today_DateFormat" xml:space="preserve">
+    <value>dddd, MMMM d</value>
+  </data>
+  <data name="Today_StartNow" xml:space="preserve">
+    <value>Start right now</value>
+  </data>
+  <data name="Today_NextUp" xml:space="preserve">
+    <value>Up next</value>
+  </data>
+  <data name="Today_LaterToday" xml:space="preserve">
+    <value>Later today</value>
+  </data>
+  <data name="Today_AnyTime" xml:space="preserve">
+    <value>Whenever you want</value>
+  </data>
+  <data name="Today_FreeDayTitle" xml:space="preserve">
+    <value>Nothing scheduled today</value>
+  </data>
+  <data name="Today_FreeDayBody" xml:space="preserve">
+    <value>Enjoy your day. If you feel like it, start a routine anytime.</value>
+  </data>
+  <data name="Today_FirstRunTitle" xml:space="preserve">
+    <value>Let's start small</value>
+  </data>
+  <data name="Today_FirstRunBody" xml:space="preserve">
+    <value>Pick a template. You can tweak it later, no pressure.</value>
+  </data>
+  <data name="Routine_Steps" xml:space="preserve">
+    <value>{0} steps</value>
+  </data>
+  <data name="Routine_OneStep" xml:space="preserve">
+    <value>1 step</value>
+  </data>
+  <data name="Routine_Minutes" xml:space="preserve">
+    <value>~{0} min</value>
+  </data>
+  <data name="Routine_Separator" xml:space="preserve">
+    <value> · </value>
+  </data>
+  <data name="Routine_OnDemand" xml:space="preserve">
+    <value>On demand</value>
+  </data>
+  <data name="Routine_Draft" xml:space="preserve">
+    <value>Draft: add steps to start</value>
+  </data>
+  <data name="Days_Everyday" xml:space="preserve">
+    <value>Every day</value>
+  </data>
+  <data name="Days_Weekdays" xml:space="preserve">
+    <value>Weekdays</value>
+  </data>
+  <data name="Days_Weekend" xml:space="preserve">
+    <value>Weekends</value>
+  </data>
+  <data name="Routines_Title" xml:space="preserve">
+    <value>Your routines</value>
+  </data>
+  <data name="Routines_Subtitle" xml:space="preserve">
+    <value>Small steps, always in the same order.</value>
+  </data>
+  <data name="Routines_EmptyBody" xml:space="preserve">
+    <value>You don't have any routines yet. Add one from a template.</value>
+  </data>
+  <data name="Routines_AddFromTemplate" xml:space="preserve">
+    <value>Add from a template</value>
+  </data>
+  <data name="Routines_EditorComingSoon" xml:space="preserve">
+    <value>The routine editor is coming soon ✏️</value>
+  </data>
+  <data name="Routine_Created" xml:space="preserve">
+    <value>Done! We added “{0}” 🎉</value>
+  </data>
+  <data name="Focus_ComingSoon" xml:space="preserve">
+    <value>Focus mode is coming soon ✨</value>
+  </data>
+  <data name="Progress_Title" xml:space="preserve">
+    <value>Your progress</value>
+  </data>
+  <data name="Progress_Body" xml:space="preserve">
+    <value>This is where you'll see your consistency, kindly: no broken streaks, no red numbers.</value>
+  </data>
+  <data name="Common_ComingSoon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="Error_Generic" xml:space="preserve">
+    <value>Something didn't go as expected. Please try again.</value>
+  </data>
+  <data name="A11y_StartRoutine" xml:space="preserve">
+    <value>Start the routine {0}</value>
+  </data>
+  <data name="A11y_AddTemplate" xml:space="preserve">
+    <value>Add the template {0}</value>
+  </data>
+</root>

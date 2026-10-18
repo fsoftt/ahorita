@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Fila de plantilla: insignia con emoji, nombre, resumen y botón "+". -->
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shared="clr-namespace:Ahorita.App.Features.Shared"
+             x:Class="Ahorita.App.Features.Shared.TemplateRowView"
+             x:DataType="shared:TemplateCardModel"
+             x:Name="Root">
+
+  <Border Style="{StaticResource BentoCard}"
+          Padding="14"
+          SemanticProperties.Description="{Binding Name}">
+    <Border.GestureRecognizers>
+      <TapGestureRecognizer Command="{Binding Command, Source={x:Reference Root}, x:DataType=shared:TemplateRowView}"
+                            CommandParameter="{Binding .}" />
+    </Border.GestureRecognizers>
+
+    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="14">
+      <Border Style="{StaticResource EmojiBadge}"
+              BackgroundColor="{Binding Accent, Converter={StaticResource AccentToColor}, ConverterParameter=Soft}">
+        <Label Text="{Binding Emoji}" Style="{StaticResource TextEmoji}" FontSize="26" />
+      </Border>
+
+      <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+        <Label Text="{Binding Name}" FontFamily="{StaticResource FontBodySemiBold}" />
+        <Label Text="{Binding Meta}" Style="{StaticResource TextSecondary}" />
+      </VerticalStackLayout>
+
+      <Border Grid.Column="2"
+              WidthRequest="40"
+              HeightRequest="40"
+              StrokeThickness="0"
+              StrokeShape="RoundRectangle 20"
+              VerticalOptions="Center"
+              BackgroundColor="{Binding Accent, Converter={StaticResource AccentToColor}}"
+              AutomationProperties.IsInAccessibleTree="False">
+        <Label Text="+"
+               FontFamily="{StaticResource FontTitle}"
+               FontSize="24"
+               TextColor="{StaticResource OnAccent}"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center" />
+      </Border>
+    </Grid>
+  </Border>
+</ContentView>

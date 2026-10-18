@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:progress="clr-namespace:Ahorita.App.Features.Progress"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Progress.ProgressPage"
+                x:DataType="progress:ProgressViewModel"
+                Title="{x:Static strings:AppResources.Tab_Progress}">
+
+  <ScrollView>
+    <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
+      <Label Text="{x:Static strings:AppResources.Progress_Title}" Style="{StaticResource TextDisplay}" Margin="0,8,0,0" />
+
+      <Border Style="{StaticResource HeroCard}">
+        <Border.Background>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#B9C2FF" Offset="0" />
+            <GradientStop Color="#FFB8DD" Offset="1" />
+          </LinearGradientBrush>
+        </Border.Background>
+        <VerticalStackLayout Spacing="10">
+          <Label Text="🌱" Style="{StaticResource TextEmoji}" FontSize="{StaticResource SizeEmojiHero}" HorizontalOptions="Start" />
+          <Label Text="{x:Static strings:AppResources.Progress_Body}" Style="{StaticResource TextOnAccent}" FontSize="{StaticResource SizeBody}" />
+          <Border StrokeThickness="0" StrokeShape="RoundRectangle 999" Padding="14,6" BackgroundColor="#66FFFFFF" HorizontalOptions="Start">
+            <Label Text="{x:Static strings:AppResources.Common_ComingSoon}" Style="{StaticResource TextOnAccent}" FontFamily="{StaticResource FontBodySemiBold}" TextColor="{StaticResource OnAccent}" />
+          </Border>
+        </VerticalStackLayout>
+      </Border>
+    </VerticalStackLayout>
+  </ScrollView>
+</common:AppPage>

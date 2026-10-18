@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Lexend (cuerpo): diseñada para reducir la fatiga lectora.
+  Outfit (títulos): geométrica, con carácter, en pesos altos.
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <x:String x:Key="FontBody">LexendRegular</x:String>
+  <x:String x:Key="FontBodyMedium">LexendMedium</x:String>
+  <x:String x:Key="FontBodySemiBold">LexendSemiBold</x:String>
+  <x:String x:Key="FontDisplay">OutfitExtraBold</x:String>
+  <x:String x:Key="FontTitle">OutfitBold</x:String>
+
+  <x:Double x:Key="SizeDisplay">34</x:Double>
+  <x:Double x:Key="SizeTitle">26</x:Double>
+  <x:Double x:Key="SizeHeadline">20</x:Double>
+  <x:Double x:Key="SizeBody">16</x:Double>
+  <x:Double x:Key="SizeLabel">14</x:Double>
+  <x:Double x:Key="SizeCaption">13</x:Double>
+  <x:Double x:Key="SizeEmojiHero">56</x:Double>
+  <x:Double x:Key="SizeEmojiCard">30</x:Double>
+</ResourceDictionary>

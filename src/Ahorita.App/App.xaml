@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:Ahorita.App.Converters"
+             x:Class="Ahorita.App.App">
+  <Application.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Resources/Styles/Tokens.Colors.xaml" />
+        <ResourceDictionary Source="Resources/Styles/Tokens.Typography.xaml" />
+        <ResourceDictionary Source="Resources/Styles/Tokens.Spacing.xaml" />
+        <ResourceDictionary Source="Resources/Styles/Components.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+
+      <converters:AccentToGradientConverter x:Key="AccentToGradient" />
+      <converters:AccentToColorConverter x:Key="AccentToColor" />
+      <converters:CountToVisibleConverter x:Key="CountToVisible" />
+    </ResourceDictionary>
+  </Application.Resources>
+</Application>

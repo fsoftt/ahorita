@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:shared="clr-namespace:Ahorita.App.Features.Shared"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                xmlns:today="clr-namespace:Ahorita.App.Features.Today"
+                x:Class="Ahorita.App.Features.Today.TodayPage"
+                x:DataType="today:TodayViewModel"
+                Title="{x:Static strings:AppResources.Tab_Today}">
+
+  <common:AppPage.Resources>
+    <!-- Tarjeta bento pequeña para rutinas de más tarde / a demanda. -->
+    <DataTemplate x:Key="SmallRoutineCard" x:DataType="shared:RoutineCardModel">
+      <Border Style="{StaticResource BentoCard}"
+              FlexLayout.Basis="48%"
+              Margin="0,0,0,14"
+              Padding="16"
+              BackgroundColor="{Binding Accent, Converter={StaticResource AccentToColor}, ConverterParameter=Soft}"
+              SemanticProperties.Description="{Binding Name}">
+        <Border.GestureRecognizers>
+          <TapGestureRecognizer Command="{Binding StartRoutineCommand, Source={RelativeSource AncestorType={x:Type today:TodayViewModel}}, x:DataType=today:TodayViewModel}"
+                                CommandParameter="{Binding .}" />
+        </Border.GestureRecognizers>
+        <VerticalStackLayout Spacing="6">
+          <Label Text="{Binding Emoji}" Style="{StaticResource TextEmoji}" HorizontalOptions="Start" />
+          <Label Text="{Binding Name}" Style="{StaticResource TextHeadline}" FontSize="17" MaxLines="2" LineBreakMode="TailTruncation" />
+          <Label Text="{Binding When}" Style="{StaticResource TextSecondary}" FontFamily="{StaticResource FontBodySemiBold}" />
+          <Label Text="{Binding Meta}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+        </VerticalStackLayout>
+      </Border>
+    </DataTemplate>
+  </common:AppPage.Resources>
+
+  <ScrollView>
+    <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
+
+      <!-- Encabezado -->
+      <VerticalStackLayout Spacing="2" Margin="0,8,0,0">
+        <Label Text="{Binding DateText}" Style="{StaticResource TextSection}" />
+        <Label Text="{Binding Greeting}" Style="{StaticResource TextDisplay}" />
+      </VerticalStackLayout>
+
+      <!-- Tarjeta protagonista -->
+      <Border Style="{StaticResource HeroCard}"
+              IsVisible="{Binding HasFeatured}"
+              Background="{Binding Featured.Accent, Converter={StaticResource AccentToGradient}}">
+        <Border.Shadow>
+          <Shadow Brush="{Binding Featured.Accent, Converter={StaticResource AccentToColor}}"
+                  Offset="0,12"
+                  Radius="28"
+                  Opacity="0.45" />
+        </Border.Shadow>
+
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="{StaticResource SpaceSm}">
+          <Grid ColumnDefinitions="*,Auto">
+            <Label Text="{Binding FeaturedLabel}"
+                   Style="{StaticResource TextOnAccent}"
+                   FontFamily="{StaticResource FontBodySemiBold}"
+                   TextTransform="Uppercase"
+                   CharacterSpacing="1.2"
+                   VerticalOptions="Center" />
+            <Border Grid.Column="1"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 999"
+                    Padding="12,6"
+                    BackgroundColor="#66FFFFFF">
+              <Label Text="{Binding Featured.When}"
+                     Style="{StaticResource TextOnAccent}"
+                     FontFamily="{StaticResource FontBodySemiBold}"
+                     TextColor="{StaticResource OnAccent}" />
+            </Border>
+          </Grid>
+
+          <Label Grid.Row="1"
+                 Text="{Binding Featured.Emoji}"
+                 Style="{StaticResource TextEmoji}"
+                 FontSize="{StaticResource SizeEmojiHero}"
+                 HorizontalOptions="Start"
+                 Margin="0,8,0,0" />
+
+          <VerticalStackLayout Grid.Row="2" Spacing="2">
+            <Label Text="{Binding Featured.Name}" Style="{StaticResource TextOnAccentTitle}" />
+            <Label Text="{Binding Featured.Meta}" Style="{StaticResource TextOnAccent}" />
+          </VerticalStackLayout>
+
+          <controls:BigActionButton Grid.Row="3"
+                                    Margin="0,12,0,0"
+                                    Style="{StaticResource BigActionOnAccent}"
+                                    Text="{x:Static strings:AppResources.Today_StartNow}"
+                                    Breathes="True"
+                                    Command="{Binding StartRoutineCommand}"
+                                    CommandParameter="{Binding Featured}"
+                                    SemanticProperties.Hint="{Binding Featured.Name}" />
+        </Grid>
+      </Border>
+
+      <!-- Día libre: sin culpa -->
+      <Border Style="{StaticResource BentoCard}" IsVisible="{Binding IsFreeDay}">
+        <VerticalStackLayout Spacing="6">
+          <Label Text="🌤️" Style="{StaticResource TextEmoji}" FontSize="40" HorizontalOptions="Start" />
+          <Label Text="{x:Static strings:AppResources.Today_FreeDayTitle}" Style="{StaticResource TextHeadline}" />
+          <Label Text="{x:Static strings:AppResources.Today_FreeDayBody}" Style="{StaticResource TextSecondary}" />
+        </VerticalStackLayout>
+      </Border>
+
+      <!-- Primer uso: plantillas -->
+      <VerticalStackLayout IsVisible="{Binding IsFirstRun}" Spacing="{StaticResource SpaceMd}">
+        <VerticalStackLayout Spacing="4">
+          <Label Text="🌱" Style="{StaticResource TextEmoji}" FontSize="44" HorizontalOptions="Start" />
+          <Label Text="{x:Static strings:AppResources.Today_FirstRunTitle}" Style="{StaticResource TextTitle}" />
+          <Label Text="{x:Static strings:AppResources.Today_FirstRunBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+        </VerticalStackLayout>
+        <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Templates}">
+          <BindableLayout.ItemTemplate>
+            <DataTemplate x:DataType="shared:TemplateCardModel">
+              <shared:TemplateRowView Command="{Binding AddTemplateCommand, Source={RelativeSource AncestorType={x:Type today:TodayViewModel}}, x:DataType=today:TodayViewModel}" />
+            </DataTemplate>
+          </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+      </VerticalStackLayout>
+
+      <!-- Más tarde hoy -->
+      <VerticalStackLayout Spacing="12" IsVisible="{Binding Upcoming.Count, Converter={StaticResource CountToVisible}}">
+        <Label Text="{x:Static strings:AppResources.Today_LaterToday}" Style="{StaticResource TextSection}" />
+        <FlexLayout Wrap="Wrap"
+                    JustifyContent="SpaceBetween"
+                    BindableLayout.ItemsSource="{Binding Upcoming}"
+                    BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
+      </VerticalStackLayout>
+
+      <!-- Cuando quieras -->
+      <VerticalStackLayout Spacing="12" IsVisible="{Binding AnyTime.Count, Converter={StaticResource CountToVisible}}">
+        <Label Text="{x:Static strings:AppResources.Today_AnyTime}" Style="{StaticResource TextSection}" />
+        <FlexLayout Wrap="Wrap"
+                    JustifyContent="SpaceBetween"
+                    BindableLayout.ItemsSource="{Binding AnyTime}"
+                    BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
+      </VerticalStackLayout>
+
+    </VerticalStackLayout>
+  </ScrollView>
+</common:AppPage>

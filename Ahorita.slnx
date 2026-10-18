@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Ahorita.App/Ahorita.App.csproj" />
+    <Project Path="src/Ahorita.Application/Ahorita.Application.csproj" />
+    <Project Path="src/Ahorita.Domain/Ahorita.Domain.csproj" />
+    <Project Path="src/Ahorita.Infrastructure/Ahorita.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Ahorita.Application.Tests/Ahorita.Application.Tests.csproj" />
+    <Project Path="tests/Ahorita.Domain.Tests/Ahorita.Domain.Tests.csproj" />
+    <Project Path="tests/Ahorita.Infrastructure.Tests/Ahorita.Infrastructure.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:routines="clr-namespace:Ahorita.App.Features.Routines"
+                xmlns:shared="clr-namespace:Ahorita.App.Features.Shared"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Routines.RoutinesPage"
+                x:DataType="routines:RoutinesViewModel"
+                Title="{x:Static strings:AppResources.Tab_Routines}">
+
+  <ScrollView>
+    <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
+
+      <VerticalStackLayout Spacing="4" Margin="0,8,0,0">
+        <Label Text="{x:Static strings:AppResources.Routines_Title}" Style="{StaticResource TextDisplay}" />
+        <Label Text="{x:Static strings:AppResources.Routines_Subtitle}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+      </VerticalStackLayout>
+
+      <Border Style="{StaticResource BentoCard}" IsVisible="{Binding IsEmpty}">
+        <Label Text="{x:Static strings:AppResources.Routines_EmptyBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+      </Border>
+
+      <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Routines}">
+        <BindableLayout.ItemTemplate>
+          <DataTemplate x:DataType="routines:RoutineRowModel">
+            <Border Style="{StaticResource BentoCard}" Padding="14" SemanticProperties.Description="{Binding Name}">
+              <Border.Shadow>
+                <Shadow Brush="{Binding Accent, Converter={StaticResource AccentToColor}}" Offset="0,6" Radius="16" Opacity="0.18" />
+              </Border.Shadow>
+              <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding OpenRoutineCommand, Source={RelativeSource AncestorType={x:Type routines:RoutinesViewModel}}, x:DataType=routines:RoutinesViewModel}"
+                                      CommandParameter="{Binding .}" />
+              </Border.GestureRecognizers>
+
+              <Grid ColumnDefinitions="Auto,*" ColumnSpacing="14">
+                <Border Style="{StaticResource EmojiBadge}" Background="{Binding Accent, Converter={StaticResource AccentToGradient}}">
+                  <Label Text="{Binding Emoji}" Style="{StaticResource TextEmoji}" FontSize="26" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                  <Label Text="{Binding Name}" Style="{StaticResource TextHeadline}" FontSize="18" />
+                  <Label Text="{Binding Schedule}" Style="{StaticResource TextSecondary}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{Binding Meta}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeCaption}" />
+                </VerticalStackLayout>
+              </Grid>
+            </Border>
+          </DataTemplate>
+        </BindableLayout.ItemTemplate>
+      </VerticalStackLayout>
+
+      <VerticalStackLayout Spacing="12">
+        <Label Text="{x:Static strings:AppResources.Routines_AddFromTemplate}" Style="{StaticResource TextSection}" />
+        <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Templates}">
+          <BindableLayout.ItemTemplate>
+            <DataTemplate x:DataType="shared:TemplateCardModel">
+              <shared:TemplateRowView Command="{Binding AddTemplateCommand, Source={RelativeSource AncestorType={x:Type routines:RoutinesViewModel}}, x:DataType=routines:RoutinesViewModel}" />
+            </DataTemplate>
+          </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+      </VerticalStackLayout>
+
+    </VerticalStackLayout>
+  </ScrollView>
+</common:AppPage>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="456" height="456" viewBox="0 0 456 456" xmlns="http://www.w3.org/2000/svg">
+  <!-- Anillo de temporizador casi completo + chispa: "empieza ahorita". -->
+  <circle cx="228" cy="228" r="92" fill="none" stroke="#FFFFFF" stroke-opacity="0.25" stroke-width="30" />
+  <path d="M228 136 A92 92 0 1 1 136 228" fill="none" stroke="#FFB347" stroke-width="30" stroke-linecap="round" />
+  <path d="M228 186 L240 216 L270 228 L240 240 L228 270 L216 240 L186 228 L216 216 Z" fill="#FFFFFF" />
+</svg>

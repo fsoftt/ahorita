@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Retícula de 4/8 dp y radios generosos. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+  <x:Double x:Key="SpaceXs">4</x:Double>
+  <x:Double x:Key="SpaceSm">8</x:Double>
+  <x:Double x:Key="SpaceMd">16</x:Double>
+  <x:Double x:Key="SpaceLg">24</x:Double>
+  <x:Double x:Key="SpaceXl">32</x:Double>
+
+  <Thickness x:Key="PagePadding">20,16,20,32</Thickness>
+  <Thickness x:Key="CardPadding">20</Thickness>
+  <Thickness x:Key="HeroPadding">24</Thickness>
+
+  <CornerRadius x:Key="RadiusSm">12</CornerRadius>
+  <CornerRadius x:Key="RadiusMd">20</CornerRadius>
+  <CornerRadius x:Key="RadiusLg">28</CornerRadius>
+  <CornerRadius x:Key="RadiusPill">999</CornerRadius>
+
+  <!-- Áreas táctiles mínimas (accesibilidad) -->
+  <x:Double x:Key="TouchTarget">48</x:Double>
+  <x:Double x:Key="BigActionHeight">64</x:Double>
+</ResourceDictionary>

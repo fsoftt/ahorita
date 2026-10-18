@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="Ahorita.App.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:today="clr-namespace:Ahorita.App.Features.Today"
+       xmlns:routines="clr-namespace:Ahorita.App.Features.Routines"
+       xmlns:progress="clr-namespace:Ahorita.App.Features.Progress"
+       xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+       Title="Ahorita">
+
+  <TabBar>
+    <ShellContent Title="{x:Static strings:AppResources.Tab_Today}"
+                  Icon="tab_today.png"
+                  Route="today"
+                  ContentTemplate="{DataTemplate today:TodayPage}" />
+    <ShellContent Title="{x:Static strings:AppResources.Tab_Routines}"
+                  Icon="tab_routines.png"
+                  Route="routines"
+                  ContentTemplate="{DataTemplate routines:RoutinesPage}" />
+    <ShellContent Title="{x:Static strings:AppResources.Tab_Progress}"
+                  Icon="tab_progress.png"
+                  Route="progress"
+                  ContentTemplate="{DataTemplate progress:ProgressPage}" />
+  </TabBar>
+</Shell>

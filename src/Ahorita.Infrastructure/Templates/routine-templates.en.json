@@ -1,0 +1,92 @@
+{
+  "templates": [
+    {
+      "key": "morning",
+      "name": "Morning routine",
+      "emoji": "🌅",
+      "accent": "Tangerine",
+      "days": "Weekdays",
+      "startTime": "07:00",
+      "steps": [
+        { "title": "Drink a glass of water", "emoji": "💧", "minutes": 1 },
+        { "title": "Medication", "emoji": "💊", "minutes": 1, "optional": true },
+        { "title": "Shower", "emoji": "🚿", "minutes": 10 },
+        { "title": "Get dressed", "emoji": "👕", "minutes": 5 },
+        { "title": "Have breakfast", "emoji": "🥣", "minutes": 15 },
+        { "title": "Brush your teeth", "emoji": "🪥", "minutes": 3 }
+      ]
+    },
+    {
+      "key": "leave-home",
+      "name": "Leaving home",
+      "emoji": "🎒",
+      "accent": "Sky",
+      "days": "None",
+      "steps": [
+        { "title": "Phone and charger", "emoji": "📱", "minutes": 1 },
+        { "title": "Keys", "emoji": "🔑", "minutes": 1 },
+        { "title": "Wallet", "emoji": "👛", "minutes": 1 },
+        { "title": "Headphones", "emoji": "🎧", "minutes": 1, "optional": true },
+        { "title": "Check stove and lights", "emoji": "💡", "minutes": 2 }
+      ]
+    },
+    {
+      "key": "study",
+      "name": "Study block",
+      "emoji": "📚",
+      "accent": "Mint",
+      "days": "Weekdays",
+      "startTime": "16:00",
+      "steps": [
+        { "title": "Clear your desk", "emoji": "🧹", "minutes": 3 },
+        { "title": "Pick ONE task", "emoji": "🎯", "minutes": 2 },
+        { "title": "Focus", "emoji": "🍅", "minutes": 25 },
+        { "title": "Break: move a little", "emoji": "🚶", "minutes": 5 },
+        { "title": "Focus", "emoji": "🍅", "minutes": 25 },
+        { "title": "Long break", "emoji": "🌿", "minutes": 10, "optional": true }
+      ]
+    },
+    {
+      "key": "night",
+      "name": "Night routine",
+      "emoji": "🌙",
+      "accent": "Indigo",
+      "days": "Everyday",
+      "startTime": "22:30",
+      "steps": [
+        { "title": "Charge your phone away from bed", "emoji": "🔌", "minutes": 1 },
+        { "title": "Lay out tomorrow's clothes", "emoji": "🧺", "minutes": 5 },
+        { "title": "Brush your teeth", "emoji": "🪥", "minutes": 3 },
+        { "title": "Skincare", "emoji": "🧴", "minutes": 3, "optional": true },
+        { "title": "Read for a bit", "emoji": "📖", "minutes": 15, "optional": true },
+        { "title": "Lights out", "emoji": "😴", "minutes": 1 }
+      ]
+    },
+    {
+      "key": "quick-clean",
+      "name": "Speed clean",
+      "emoji": "🧽",
+      "accent": "Lemon",
+      "days": "None",
+      "steps": [
+        { "title": "Take out the trash", "emoji": "🗑️", "minutes": 2 },
+        { "title": "Dishes to the sink", "emoji": "🍽️", "minutes": 3 },
+        { "title": "Clothes to the hamper", "emoji": "🧦", "minutes": 2 },
+        { "title": "Wipe one surface", "emoji": "✨", "minutes": 3 }
+      ]
+    },
+    {
+      "key": "active-break",
+      "name": "Active break",
+      "emoji": "🧘",
+      "accent": "Raspberry",
+      "days": "None",
+      "steps": [
+        { "title": "Stand up", "emoji": "🧍", "minutes": 1 },
+        { "title": "Drink water", "emoji": "💧", "minutes": 1 },
+        { "title": "Stretch", "emoji": "🙆", "minutes": 3 },
+        { "title": "Look into the distance", "emoji": "👀", "minutes": 1 }
+      ]
+    }
+  ]
+}

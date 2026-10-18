@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Estilos de componentes construidos solo con tokens. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:controls="clr-namespace:Ahorita.App.Controls">
+
+  <!-- ===== Páginas y Shell ===== -->
+
+  <Style TargetType="Page" ApplyToDerivedTypes="True">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundLight}, Dark={StaticResource PageBackgroundDark}}" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+  <Style TargetType="Shell" ApplyToDerivedTypes="True">
+    <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource PageBackgroundLight}, Dark={StaticResource PageBackgroundDark}}" />
+    <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="Shell.NavBarHasShadow" Value="False" />
+    <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+    <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+    <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource InkSecondaryLight}, Dark={StaticResource InkSecondaryDark}}" />
+  </Style>
+
+  <!-- ===== Texto ===== -->
+
+  <Style TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontBody}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeBody}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="LineBreakMode" Value="WordWrap" />
+  </Style>
+
+  <Style x:Key="TextDisplay" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontDisplay}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeDisplay}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="SemanticProperties.HeadingLevel" Value="Level1" />
+  </Style>
+
+  <Style x:Key="TextTitle" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontTitle}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeTitle}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+  </Style>
+
+  <Style x:Key="TextHeadline" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontTitle}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeHeadline}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+  </Style>
+
+  <Style x:Key="TextSecondary" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontBody}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeLabel}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkSecondaryLight}, Dark={StaticResource InkSecondaryDark}}" />
+  </Style>
+
+  <!-- Encabezado de sección: pequeño, en mayúsculas y espaciado. -->
+  <Style x:Key="TextSection" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodySemiBold}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeCaption}" />
+    <Setter Property="CharacterSpacing" Value="1.2" />
+    <Setter Property="TextTransform" Value="Uppercase" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkSecondaryLight}, Dark={StaticResource InkSecondaryDark}}" />
+    <Setter Property="SemanticProperties.HeadingLevel" Value="Level2" />
+  </Style>
+
+  <Style x:Key="TextOnAccentTitle" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontDisplay}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeTitle}" />
+    <Setter Property="TextColor" Value="{StaticResource OnAccent}" />
+  </Style>
+
+  <Style x:Key="TextOnAccent" TargetType="Label">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodyMedium}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeLabel}" />
+    <Setter Property="TextColor" Value="{StaticResource OnAccentSecondary}" />
+  </Style>
+
+  <Style x:Key="TextEmoji" TargetType="Label">
+    <Setter Property="FontSize" Value="{StaticResource SizeEmojiCard}" />
+    <Setter Property="HorizontalTextAlignment" Value="Center" />
+    <Setter Property="VerticalTextAlignment" Value="Center" />
+    <!-- El emoji es decorativo: el nombre ya describe la rutina. -->
+    <Setter Property="AutomationProperties.IsInAccessibleTree" Value="False" />
+  </Style>
+
+  <!-- ===== Botones ===== -->
+
+  <Style TargetType="Button">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodySemiBold}" />
+    <Setter Property="FontSize" Value="{StaticResource SizeBody}" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="Padding" Value="24,12" />
+    <Setter Property="MinimumHeightRequest" Value="{StaticResource TouchTarget}" />
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnBrand}, Dark={StaticResource OnAccent}}" />
+  </Style>
+
+  <!-- Botón protagonista sobre una tarjeta de acento: píldora blanca enorme. -->
+  <Style x:Key="BigActionOnAccent" TargetType="controls:BigActionButton">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodySemiBold}" />
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="HeightRequest" Value="{StaticResource BigActionHeight}" />
+    <Setter Property="BackgroundColor" Value="#FFFFFF" />
+    <Setter Property="TextColor" Value="{StaticResource OnAccent}" />
+  </Style>
+
+  <!-- ===== Superficies ===== -->
+
+  <Style x:Key="BentoCard" TargetType="Border">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 28" />
+    <Setter Property="Padding" Value="{StaticResource CardPadding}" />
+  </Style>
+
+  <Style x:Key="HeroCard" TargetType="Border">
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 32" />
+    <Setter Property="Padding" Value="{StaticResource HeroPadding}" />
+  </Style>
+
+  <Style x:Key="Chip" TargetType="Border">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource OutlineLight}, Dark={StaticResource OutlineDark}}" />
+    <Setter Property="StrokeThickness" Value="1" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 999" />
+    <Setter Property="Padding" Value="16,10" />
+    <Setter Property="MinimumHeightRequest" Value="{StaticResource TouchTarget}" />
+  </Style>
+
+  <Style x:Key="EmojiBadge" TargetType="Border">
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 18" />
+    <Setter Property="WidthRequest" Value="56" />
+    <Setter Property="HeightRequest" Value="56" />
+  </Style>
+
+  <Style TargetType="ActivityIndicator">
+    <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+  </Style>
+</ResourceDictionary>
