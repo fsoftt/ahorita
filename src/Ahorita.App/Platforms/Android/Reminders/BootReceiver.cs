@@ -7,7 +7,7 @@ namespace Ahorita.App.Droid.Reminders;
 
 /// <summary>
 /// Android borra las alarmas al reiniciar o actualizar la app, y la hora puede cambiar:
-/// en todos esos casos se vuelve a planificar desde la base de datos.
+/// en todos esos casos (y al conceder alarmas exactas) se vuelve a planificar desde la base de datos.
 /// </summary>
 [BroadcastReceiver(Enabled = true, Exported = true)]
 [IntentFilter([
@@ -15,6 +15,7 @@ namespace Ahorita.App.Droid.Reminders;
     Intent.ActionMyPackageReplaced,
     Intent.ActionTimeChanged,
     Intent.ActionTimezoneChanged,
+    "android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED",
 ])]
 public sealed class BootReceiver : BroadcastReceiver
 {

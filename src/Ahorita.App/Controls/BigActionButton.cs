@@ -63,7 +63,7 @@ public sealed class BigActionButton : Button
 
         _isBreathing = false;
         _breathCycle++;
-        this.AbortAnimation("ScaleTo");
+        this.CancelAnimations();
         Scale = 1;
     }
 

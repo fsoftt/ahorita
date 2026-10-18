@@ -26,8 +26,15 @@ public sealed class ConfettiView : GraphicsView, IDrawable
 
     public void Burst()
     {
-        if (Motion.IsReduced || Width <= 0 || Dispatcher is null)
+        if (Motion.IsReduced || Dispatcher is null)
             return;
+
+        if (Width <= 0)
+        {
+            // Aún sin medir: lanzarlo en cuanto tenga tamaño.
+            SizeChanged += BurstWhenSized;
+            return;
+        }
 
         var colors = Enum.GetValues<RoutineAccent>().SelectMany(a => new[] { AccentPalette.For(a).Start, AccentPalette.For(a).End }).ToArray();
         var random = Random.Shared;
@@ -63,6 +70,15 @@ public sealed class ConfettiView : GraphicsView, IDrawable
                 Stop();
         };
         _timer.Start();
+    }
+
+    private void BurstWhenSized(object? sender, EventArgs e)
+    {
+        if (Width <= 0)
+            return;
+
+        SizeChanged -= BurstWhenSized;
+        Burst();
     }
 
     public void Draw(ICanvas canvas, RectF dirtyRect)

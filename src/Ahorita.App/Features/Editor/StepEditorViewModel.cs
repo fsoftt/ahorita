@@ -30,7 +30,8 @@ public sealed partial class StepEditorViewModel : ViewModelBase, IQueryAttributa
 
     public IReadOnlyList<string> EmojiOptions { get; } = EmojiCatalog.Steps;
 
-    public IReadOnlyList<MinutesOption> Durations { get; }
+    [ObservableProperty]
+    public partial IReadOnlyList<MinutesOption> Durations { get; set; }
 
     [ObservableProperty]
     public partial string Title { get; set; }
@@ -56,7 +57,15 @@ public sealed partial class StepEditorViewModel : ViewModelBase, IQueryAttributa
         Title = request.Step.Title;
         Emoji = request.Step.Emoji;
         IsOptional = request.Step.IsOptional;
-        MinutesOption.Select(Durations, request.Step.Minutes);
+        if (request.Step.Minutes is { } minutes && !DurationValues.Contains(minutes))
+        {
+            var values = DurationValues.Append(minutes).OrderBy(v => v ?? -1).ToArray();
+            Durations = MinutesOption.Create(values, DurationLabel, minutes);
+        }
+        else
+        {
+            MinutesOption.Select(Durations, request.Step.Minutes);
+        }
         OnPropertyChanged(nameof(PageTitle));
     }
 

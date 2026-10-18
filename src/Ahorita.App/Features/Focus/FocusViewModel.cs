@@ -17,6 +17,9 @@ namespace Ahorita.App.Features.Focus;
 /// Modo Ahora: un paso a la vez. El estado vive en el dominio; aquí solo se
 /// proyecta el tiempo cada fracción de segundo a partir de la última foto.
 /// </summary>
+// La voz se cancela y libera en OnDisappearing. No se implementa IDisposable a propósito:
+// el contenedor de DI retendría el ViewModel (transitorio) hasta cerrar la app.
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1001", Justification = "Se libera en OnDisappearing.")]
 public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 {
     public const string RoutineIdParameter = "routineId";
@@ -39,6 +42,7 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
     private int _ticks;
     private bool _syncing;
     private bool _acting;
+    private CancellationTokenSource? _speech;
 
     public FocusViewModel(
         IUseCaseExecutor useCases,
@@ -140,7 +144,7 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
         Apply(result.Value, animate: false);
         IsReady = true;
         StartTicking();
-        await SpeakCurrentStepAsync();
+        SpeakCurrentStep();
 
         // La notificación persistente se publicó al empezar; si el permiso llega ahora, se vuelve a mostrar.
         if (await _permissions.EnsureActiveRoutineAsync())
@@ -149,6 +153,9 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
 
     public override void OnDisappearing()
     {
+        _speech?.Cancel();
+        _speech?.Dispose();
+        _speech = null;
         StopTicking();
         KeepScreenOn(false);
     }
@@ -221,7 +228,7 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
             if (action == SessionAction.CompleteStep)
                 Haptics.Confirm();
 
-            await SpeakCurrentStepAsync();
+            SpeakCurrentStep();
         }
     }
 
@@ -346,14 +353,28 @@ public sealed partial class FocusViewModel : ViewModelBase, IQueryAttributable
         _timer = null;
     }
 
-    private async Task SpeakCurrentStepAsync()
+    /// <summary>
+    /// Lee el paso sin esperar a que termine: los botones siguen respondiendo mientras habla,
+    /// y una frase nueva interrumpe la anterior.
+    /// </summary>
+    private void SpeakCurrentStep()
     {
+        _speech?.Cancel();
+        _speech?.Dispose();
+        _speech = null;
+
         if (!_settings.ReadStepsAloud || string.IsNullOrWhiteSpace(StepTitle))
             return;
 
+        _speech = new CancellationTokenSource();
+        _ = SpeakAsync(StepTitle, _speech.Token);
+    }
+
+    private static async Task SpeakAsync(string text, CancellationToken cancellationToken)
+    {
         try
         {
-            await TextToSpeech.Default.SpeakAsync(StepTitle);
+            await TextToSpeech.Default.SpeakAsync(text, cancelToken: cancellationToken);
         }
 #pragma warning disable CA1031 // Leer en voz alta es un extra: si falla, seguimos en silencio.
         catch (Exception)

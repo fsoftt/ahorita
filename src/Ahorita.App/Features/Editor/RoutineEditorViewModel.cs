@@ -98,8 +98,13 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        _routineId = query.TryGetValue(RoutineIdParameter, out var id) && id is Guid guid ? guid : null;
-        IsExisting = _routineId is not null;
+        // Shell vuelve a llamar con un diccionario vacío al regresar del editor de paso:
+        // solo una llamada con id cambia la rutina que se edita.
+        if (!query.TryGetValue(RoutineIdParameter, out var id) || id is not Guid routineId)
+            return;
+
+        _routineId = routineId;
+        IsExisting = true;
         OnPropertyChanged(nameof(Title));
     }
 

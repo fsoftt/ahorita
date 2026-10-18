@@ -119,7 +119,8 @@ public sealed partial class SettingsViewModel : ViewModelBase
     [RelayCommand]
     private async Task EnableNotificationsAsync()
     {
-        // Si Android ya no muestra el diálogo (se rechazó antes), abrimos los ajustes de la app.
+        // Si Android ya no muestra el diálogo (se rechazó antes), abrimos los ajustes de la app;
+        // al volver, la página se refresca sola.
         if (!await _permissions.RequestNotificationsAsync())
             AppInfo.Current.ShowSettingsUI();
 

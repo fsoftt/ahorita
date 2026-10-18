@@ -19,7 +19,12 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        HandleDeepLink(Intent);
+
+        // Al volver desde "Recientes" (o tras recrear la actividad) Android reentrega el
+        // intent original: abrirlo otra vez reiniciaría una rutina que quizá ya terminaste.
+        var fromHistory = Intent is not null && Intent.Flags.HasFlag(ActivityFlags.LaunchedFromHistory);
+        if (savedInstanceState is null && !fromHistory)
+            HandleDeepLink(Intent);
     }
 
     protected override void OnNewIntent(Intent? intent)
