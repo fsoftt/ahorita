@@ -71,6 +71,8 @@ Usa una rutina programada 3–5 minutos en el futuro con aviso previo de 5 min (
 - [ ] Tamaño de letra del sistema al máximo: nada se corta ni se encima.
 - [ ] TalkBack: los botones principales se leen con sentido (Listo, Saltar, nombre de la rutina…).
 - [ ] Idioma del teléfono en inglés: toda la app y las plantillas aparecen en inglés.
+- [ ] Ajustes → **Idioma** → English / Español / Del teléfono: la app cambia al instante (sin cerrarla) y vuelve a Ajustes.
+- [ ] Tras cambiar el idioma, las notificaciones nuevas y las fechas ("Terminas a las…", días de la semana) usan ese idioma.
 
 ## 7. Casos raros
 

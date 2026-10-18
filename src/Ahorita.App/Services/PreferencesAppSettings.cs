@@ -52,6 +52,16 @@ public sealed class PreferencesAppSettings(IPreferences preferences) : IAppSetti
         }
     }
 
+    public AppLanguage Language
+    {
+        get => Localization.Read(preferences);
+        set
+        {
+            preferences.Set(Localization.PreferenceKey, value.ToString());
+            Localization.Apply(value);
+        }
+    }
+
     public bool OnboardingCompleted
     {
         get => preferences.Get(nameof(OnboardingCompleted), false);

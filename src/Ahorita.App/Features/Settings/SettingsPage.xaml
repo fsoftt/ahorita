@@ -82,6 +82,20 @@
         </VerticalStackLayout>
 
         <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.Settings_Language}" Style="{StaticResource TextSection}" />
+          <HorizontalStackLayout Spacing="8" BindableLayout.ItemsSource="{Binding Languages}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="settings:LanguageOption">
+                <controls:ChipView Text="{Binding Label}"
+                                   IsSelected="{Binding IsSelected}"
+                                   Command="{Binding PickLanguageCommand, Source={RelativeSource AncestorType={x:Type settings:SettingsViewModel}}, x:DataType=settings:SettingsViewModel}"
+                                   CommandParameter="{Binding .}" />
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
           <Label Text="{x:Static strings:AppResources.Settings_Reminders}" Style="{StaticResource TextSection}" />
           <Border Style="{StaticResource BentoCard}" Padding="16,8">
             <VerticalStackLayout>

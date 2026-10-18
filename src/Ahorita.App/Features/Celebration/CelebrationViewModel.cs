@@ -16,7 +16,8 @@ public sealed partial class CelebrationViewModel : ViewModelBase, IQueryAttribut
 {
     public const string SessionIdParameter = "sessionId";
 
-    private static readonly string[] Messages =
+    // Se arma en cada instancia: así respeta el idioma elegido en Ajustes.
+    private static string[] Messages =>
     [
         AppResources.Celebrate_Msg1, AppResources.Celebrate_Msg2, AppResources.Celebrate_Msg3,
         AppResources.Celebrate_Msg4, AppResources.Celebrate_Msg5, AppResources.Celebrate_Msg6,

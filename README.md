@@ -16,7 +16,8 @@ App Android (.NET MAUI) para crear y seguir rutinas, diseñada para personas con
 - **Recordatorios**: aviso previo y "es hora" con Empezar / En 5 min / Hoy no; notificación de la rutina en curso con cuenta regresiva y botón Listo.
 - **Progreso amable**: "5 de 7 días" (sin rachas rotas), mapa de 4 semanas y sugerencias de duración basadas en lo que realmente tardas.
 - **Ajustes**: bajo estímulo, celebraciones, vibración, lectura en voz alta, tema claro/oscuro.
-- Offline y privada: sin cuentas, sin internet, sin rastreo. Español e inglés.
+- **Multilenguaje**: español e inglés (interfaz, plantillas, fechas y notificaciones); sigue el idioma del teléfono o se elige en Ajustes.
+- Offline y privada: sin cuentas, sin internet, sin rastreo.
 
 ## Requisitos
 

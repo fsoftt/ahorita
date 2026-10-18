@@ -615,4 +615,10 @@
   <data name="Onboarding_NotNow" xml:space="preserve">
     <value>Not now</value>
   </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_LanguageSystem" xml:space="preserve">
+    <value>Phone default</value>
+  </data>
 </root>

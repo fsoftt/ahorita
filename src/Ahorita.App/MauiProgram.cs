@@ -20,6 +20,9 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+        // Antes que nada: la UI, las plantillas y las notificaciones usan este idioma.
+        Localization.Apply(Localization.Read(Preferences.Default));
+
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()
@@ -52,10 +55,11 @@ public static class MauiProgram
         services.AddSingleton<IToastService, ToastService>();
         services.AddSingleton<INavigationService, ShellNavigationService>();
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<AppShell>();
+        services.AddTransient<AppShell>();
         services.AddSingleton<DeepLinks>();
         services.AddSingleton<AppStartup>();
         services.AddSingleton<PermissionPrompts>();
+        services.AddSingleton<UiRestarter>();
 #if ANDROID
         services.AddSingleton<IReminderScheduler, Droid.Reminders.AndroidReminderScheduler>();
         services.AddSingleton<IActiveRoutineNotifier, Droid.ActiveRoutine.AndroidActiveRoutineNotifier>();

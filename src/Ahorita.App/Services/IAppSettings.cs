@@ -21,5 +21,7 @@ public interface IAppSettings
 
     ThemePreference Theme { get; set; }
 
+    AppLanguage Language { get; set; }
+
     bool OnboardingCompleted { get; set; }
 }

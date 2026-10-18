@@ -598,7 +598,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 - ✅ **Fase 1 — Rutinas:** editor con vista previa en vivo, emojis, color, días/hora/aviso previo, pasos reordenables (arrastrar o subir/bajar), plantillas, archivar.
 - ✅ **Fase 2 — Modo Ahora:** un paso a la vez, anillo que se vacía, "Terminas a las…", saltar/posponer/pausar/terminar antes, pantalla encendida, voz opcional, celebración con confeti.
 - ✅ **Fase 3 — Recordatorios:** aviso previo y de inicio con acciones (Empezar / En 5 min / Hoy no), alarmas exactas con respaldo inexacto, reprogramación tras reinicio y cambio de hora, notificación persistente con cuenta regresiva y botones Listo/Saltar.
-- ✅ **Fase 4 — MVP pulido:** progreso amable (constancia flexible, mapa de 4 semanas, sugerencias de duración con "Ajustar"), ajustes (bajo estímulo, celebraciones, vibración, voz, tema, permisos), bienvenida en 3 pasos.
+- ✅ **Fase 4 — MVP pulido:** progreso amable (constancia flexible, mapa de 4 semanas, sugerencias de duración con "Ajustar"), ajustes (bajo estímulo, celebraciones, vibración, voz, tema, idioma, permisos), bienvenida en 3 pasos. Español e inglés con selector de idioma en la app.
 - ⏭️ **Siguiente:** pruebas en dispositivos reales ([`docs/PRUEBAS.md`](PRUEBAS.md)), beta cerrada y v1.1 (versión día malo, sub-pasos, widget, exportar/importar).
 
 ### Definición de "MVP listo"
