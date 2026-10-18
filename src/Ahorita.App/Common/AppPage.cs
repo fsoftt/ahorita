@@ -1,3 +1,4 @@
+using Ahorita.App.Theming;
 using CommunityToolkit.Maui.Behaviors;
 using CommunityToolkit.Maui.Core;
 
@@ -27,13 +28,8 @@ public abstract class AppPage : ContentPage
     private static StatusBarBehavior CreateStatusBarBehavior()
     {
         var behavior = new StatusBarBehavior();
-        behavior.SetAppThemeColor(StatusBarBehavior.StatusBarColorProperty, Resource<Color>("PageBackgroundLight"), Resource<Color>("PageBackgroundDark"));
+        ThemeResources.SetThemeColor(behavior, StatusBarBehavior.StatusBarColorProperty, "PageBackgroundLight", "PageBackgroundDark");
         behavior.SetAppTheme(StatusBarBehavior.StatusBarStyleProperty, StatusBarStyle.DarkContent, StatusBarStyle.LightContent);
         return behavior;
     }
-
-    private static T Resource<T>(string key) =>
-        Microsoft.Maui.Controls.Application.Current!.Resources.TryGetValue(key, out var value) && value is T typed
-            ? typed
-            : throw new InvalidOperationException($"Falta el recurso '{key}'.");
 }

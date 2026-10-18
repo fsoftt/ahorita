@@ -123,4 +123,175 @@
   <data name="A11y_AddTemplate" xml:space="preserve">
     <value>Agregar la plantilla {0}</value>
   </data>
+  <data name="Step_Minutes" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="Step_NoTimer" xml:space="preserve">
+    <value>Sin temporizador</value>
+  </data>
+  <data name="Step_Optional" xml:space="preserve">
+    <value>Opcional</value>
+  </data>
+  <data name="Editor_NewTitle" xml:space="preserve">
+    <value>Nueva rutina</value>
+  </data>
+  <data name="Editor_EditTitle" xml:space="preserve">
+    <value>Editar rutina</value>
+  </data>
+  <data name="Editor_NamePlaceholder" xml:space="preserve">
+    <value>Ponle nombre a tu rutina</value>
+  </data>
+  <data name="Editor_NameLabel" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Editor_EmojiLabel" xml:space="preserve">
+    <value>Ícono</value>
+  </data>
+  <data name="Editor_ColorLabel" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Editor_WhenLabel" xml:space="preserve">
+    <value>¿Cuándo?</value>
+  </data>
+  <data name="Editor_Scheduled" xml:space="preserve">
+    <value>Programada</value>
+  </data>
+  <data name="Editor_StartTime" xml:space="preserve">
+    <value>Hora de inicio</value>
+  </data>
+  <data name="Editor_HeadsUp" xml:space="preserve">
+    <value>Aviso previo</value>
+  </data>
+  <data name="Editor_NoHeadsUp" xml:space="preserve">
+    <value>Sin aviso</value>
+  </data>
+  <data name="Editor_StepsLabel" xml:space="preserve">
+    <value>Pasos</value>
+  </data>
+  <data name="Editor_StepsHint" xml:space="preserve">
+    <value>Toca un paso para editarlo. Mantén presionado y arrastra para reordenar.</value>
+  </data>
+  <data name="Editor_NoStepsYet" xml:space="preserve">
+    <value>Aún sin pasos</value>
+  </data>
+  <data name="Editor_AddStep" xml:space="preserve">
+    <value>+ Agregar paso</value>
+  </data>
+  <data name="Editor_Save" xml:space="preserve">
+    <value>Guardar rutina</value>
+  </data>
+  <data name="Editor_Delete" xml:space="preserve">
+    <value>Eliminar rutina</value>
+  </data>
+  <data name="Editor_DeleteTitle" xml:space="preserve">
+    <value>¿Eliminar esta rutina?</value>
+  </data>
+  <data name="Editor_DeleteMessage" xml:space="preserve">
+    <value>Dejará de aparecer y de avisarte. Tu historial se conserva.</value>
+  </data>
+  <data name="Editor_DeleteConfirm" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="StepEditor_NewTitle" xml:space="preserve">
+    <value>Nuevo paso</value>
+  </data>
+  <data name="StepEditor_EditTitle" xml:space="preserve">
+    <value>Editar paso</value>
+  </data>
+  <data name="StepEditor_TitleLabel" xml:space="preserve">
+    <value>¿Qué hay que hacer?</value>
+  </data>
+  <data name="StepEditor_TitlePlaceholder" xml:space="preserve">
+    <value>Ej.: Lavarte los dientes</value>
+  </data>
+  <data name="StepEditor_EmojiLabel" xml:space="preserve">
+    <value>Ícono (opcional)</value>
+  </data>
+  <data name="StepEditor_DurationLabel" xml:space="preserve">
+    <value>¿Cuánto tarda más o menos?</value>
+  </data>
+  <data name="StepEditor_OptionalLabel" xml:space="preserve">
+    <value>Paso opcional</value>
+  </data>
+  <data name="StepEditor_OptionalHint" xml:space="preserve">
+    <value>"Si me da tiempo": se puede saltar sin que cuente en contra.</value>
+  </data>
+  <data name="StepEditor_MoveUp" xml:space="preserve">
+    <value>↑ Subir</value>
+  </data>
+  <data name="StepEditor_MoveDown" xml:space="preserve">
+    <value>↓ Bajar</value>
+  </data>
+  <data name="StepEditor_Moved" xml:space="preserve">
+    <value>Paso movido</value>
+  </data>
+  <data name="StepEditor_Delete" xml:space="preserve">
+    <value>Quitar paso</value>
+  </data>
+  <data name="StepEditor_Done" xml:space="preserve">
+    <value>Listo</value>
+  </data>
+  <data name="Routines_New" xml:space="preserve">
+    <value>+ Nueva rutina</value>
+  </data>
+  <data name="A11y_Selected" xml:space="preserve">
+    <value>seleccionado</value>
+  </data>
+  <data name="A11y_Reorder" xml:space="preserve">
+    <value>Arrastrar para reordenar</value>
+  </data>
+  <data name="Error_Routine_NameRequired" xml:space="preserve">
+    <value>Ponle un nombre a tu rutina.</value>
+  </data>
+  <data name="Error_Routine_NameTooLong" xml:space="preserve">
+    <value>El nombre es un poco largo: máximo 40 caracteres.</value>
+  </data>
+  <data name="Error_Routine_EmojiRequired" xml:space="preserve">
+    <value>Elige un ícono para tu rutina.</value>
+  </data>
+  <data name="Error_Routine_InvalidDays" xml:space="preserve">
+    <value>Revisa los días elegidos.</value>
+  </data>
+  <data name="Error_Routine_ScheduledWithoutTime" xml:space="preserve">
+    <value>Elige una hora de inicio.</value>
+  </data>
+  <data name="Error_Routine_InvalidReminderLeadTime" xml:space="preserve">
+    <value>El aviso previo debe ser de 2 horas como máximo.</value>
+  </data>
+  <data name="Error_Routine_TooManySteps" xml:space="preserve">
+    <value>¡Son muchos pasos! Máximo 30 por rutina.</value>
+  </data>
+  <data name="Error_Routine_StepNotFound" xml:space="preserve">
+    <value>Ese paso ya no existe.</value>
+  </data>
+  <data name="Error_Routine_StepTitleRequired" xml:space="preserve">
+    <value>Escribe qué hay que hacer en el paso.</value>
+  </data>
+  <data name="Error_Routine_StepTitleTooLong" xml:space="preserve">
+    <value>El paso es un poco largo: máximo 60 caracteres.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepDuration" xml:space="preserve">
+    <value>La duración debe ser de 4 horas como máximo.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepPosition" xml:space="preserve">
+    <value>No pudimos mover el paso.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepOrder" xml:space="preserve">
+    <value>No pudimos reordenar los pasos.</value>
+  </data>
+  <data name="Error_Routine_NotFound" xml:space="preserve">
+    <value>Esa rutina ya no existe.</value>
+  </data>
+  <data name="Error_Template_NotFound" xml:space="preserve">
+    <value>Esa plantilla no existe.</value>
+  </data>
 </root>

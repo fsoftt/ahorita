@@ -27,12 +27,13 @@ public sealed class CreateRoutineFromTemplateTests
 
     private readonly InMemoryRoutineRepository _repository = new();
     private readonly IRoutineTemplateProvider _templates = Substitute.For<IRoutineTemplateProvider>();
+    private readonly IRemindersRefresher _reminders = Substitute.For<IRemindersRefresher>();
     private readonly CreateRoutineFromTemplate _useCase;
 
     public CreateRoutineFromTemplateTests()
     {
         _templates.GetAll().Returns([Morning]);
-        _useCase = new CreateRoutineFromTemplate(_templates, _repository, _repository, new FakeTimeProvider(Now));
+        _useCase = new CreateRoutineFromTemplate(_templates, _repository, _repository, _reminders, new FakeTimeProvider(Now));
     }
 
     [Fact]
@@ -54,6 +55,7 @@ public sealed class CreateRoutineFromTemplateTests
         result.Value.StepCount.ShouldBe(3);
         result.Value.EstimatedDuration.ShouldBe(TimeSpan.FromMinutes(12));
         _repository.SaveCount.ShouldBe(1);
+        await _reminders.Received(1).RefreshAsync(Arg.Any<CancellationToken>());
     }
 
     [Fact]

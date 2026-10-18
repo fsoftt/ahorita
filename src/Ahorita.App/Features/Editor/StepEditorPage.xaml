@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:editor="clr-namespace:Ahorita.App.Features.Editor"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Editor.StepEditorPage"
+                x:DataType="editor:StepEditorViewModel"
+                Title="{Binding PageTitle}">
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid Padding="16,8" ColumnDefinitions="Auto,*" ColumnSpacing="12">
+      <Button Text="‹"
+              Style="{StaticResource IconButton}"
+              CornerRadius="24"
+              FontSize="28"
+              Command="{Binding CancelCommand}"
+              SemanticProperties.Description="{x:Static strings:AppResources.Common_Back}" />
+      <Label Grid.Column="1" Text="{Binding PageTitle}" Style="{StaticResource TextHeadline}" VerticalOptions="Center" />
+    </Grid>
+
+    <ScrollView Grid.Row="1">
+      <VerticalStackLayout Padding="20,8,20,40" Spacing="{StaticResource SpaceLg}">
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.StepEditor_TitleLabel}" Style="{StaticResource TextSection}" />
+          <Border Style="{StaticResource InputField}">
+            <Entry x:Name="TitleEntry"
+                   Text="{Binding Title}"
+                   Placeholder="{x:Static strings:AppResources.StepEditor_TitlePlaceholder}"
+                   MaxLength="60"
+                   ReturnType="Done"
+                   ReturnCommand="{Binding SaveCommand}" />
+          </Border>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
+          <Grid ColumnDefinitions="*,Auto">
+            <Label Text="{x:Static strings:AppResources.StepEditor_EmojiLabel}" Style="{StaticResource TextSection}" VerticalOptions="Center" />
+            <Label Grid.Column="1" Text="{Binding Emoji}" FontSize="28" />
+          </Grid>
+          <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding EmojiOptions}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="x:String">
+                <Border Style="{StaticResource EmojiOption}" SemanticProperties.Description="{Binding .}">
+                  <Border.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding PickEmojiCommand, Source={RelativeSource AncestorType={x:Type editor:StepEditorViewModel}}, x:DataType=editor:StepEditorViewModel}"
+                                          CommandParameter="{Binding .}" />
+                  </Border.GestureRecognizers>
+                  <Label Text="{Binding .}" Style="{StaticResource TextEmoji}" FontSize="24" />
+                </Border>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </FlexLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="8">
+          <Label Text="{x:Static strings:AppResources.StepEditor_DurationLabel}" Style="{StaticResource TextSection}" />
+          <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Durations}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="editor:MinutesOption">
+                <controls:ChipView Text="{Binding Label}"
+                                   IsSelected="{Binding IsSelected}"
+                                   Margin="0,0,8,8"
+                                   Command="{Binding PickDurationCommand, Source={RelativeSource AncestorType={x:Type editor:StepEditorViewModel}}, x:DataType=editor:StepEditorViewModel}"
+                                   CommandParameter="{Binding .}" />
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </FlexLayout>
+        </VerticalStackLayout>
+
+        <Border Style="{StaticResource BentoCard}" Padding="16">
+          <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+            <VerticalStackLayout Spacing="2">
+              <Label Text="{x:Static strings:AppResources.StepEditor_OptionalLabel}" FontFamily="{StaticResource FontBodySemiBold}" />
+              <Label Text="{x:Static strings:AppResources.StepEditor_OptionalHint}" Style="{StaticResource TextSecondary}" />
+            </VerticalStackLayout>
+            <Switch Grid.Column="1" IsToggled="{Binding IsOptional}" VerticalOptions="Center" />
+          </Grid>
+        </Border>
+
+        <Grid ColumnDefinitions="*,*" ColumnSpacing="12" IsVisible="{Binding IsExisting}">
+          <Button Text="{x:Static strings:AppResources.StepEditor_MoveUp}" Style="{StaticResource SecondaryButton}" Command="{Binding MoveUpCommand}" />
+          <Button Grid.Column="1" Text="{x:Static strings:AppResources.StepEditor_MoveDown}" Style="{StaticResource SecondaryButton}" Command="{Binding MoveDownCommand}" />
+        </Grid>
+
+        <controls:BigActionButton Text="{x:Static strings:AppResources.StepEditor_Done}"
+                                  Style="{StaticResource BigActionPrimary}"
+                                  Command="{Binding SaveCommand}" />
+
+        <Button Text="{x:Static strings:AppResources.StepEditor_Delete}"
+                Style="{StaticResource TextButton}"
+                IsVisible="{Binding IsExisting}"
+                Command="{Binding DeleteCommand}" />
+      </VerticalStackLayout>
+    </ScrollView>
+  </Grid>
+</common:AppPage>

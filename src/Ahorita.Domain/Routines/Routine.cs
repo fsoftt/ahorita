@@ -131,6 +131,25 @@ public sealed class Routine : Entity<Guid>
         return Result.Success();
     }
 
+    /// <summary>Aplica un orden completo de pasos (p. ej. tras arrastrar y soltar en el editor).</summary>
+    public Result ReorderSteps(IReadOnlyList<Guid> orderedStepIds)
+    {
+        if (orderedStepIds.Count != _steps.Count || orderedStepIds.Distinct().Count() != _steps.Count)
+            return RoutineErrors.InvalidStepOrder;
+
+        var ordered = new List<RoutineStep>(orderedStepIds.Count);
+        foreach (var id in orderedStepIds)
+        {
+            if (FindStep(id) is not { } step)
+                return RoutineErrors.InvalidStepOrder;
+
+            ordered.Add(step);
+        }
+
+        Reindex(ordered);
+        return Result.Success();
+    }
+
     private RoutineStep? FindStep(Guid stepId) => _steps.Find(s => s.Id == stepId);
 
     private static void Reindex(IReadOnlyList<RoutineStep> ordered)

@@ -15,5 +15,6 @@ public static class RoutineErrors
     public static readonly Error StepTitleRequired = new("Routine.StepTitleRequired", "El paso necesita un título.");
     public static readonly Error StepTitleTooLong = new("Routine.StepTitleTooLong", $"El título del paso admite hasta {RoutineStep.MaxTitleLength} caracteres.");
     public static readonly Error InvalidStepDuration = new("Routine.InvalidStepDuration", "La duración del paso debe ser mayor a 0 y de máximo 4 horas.");
+    public static readonly Error InvalidStepOrder = new("Routine.InvalidStepOrder", "El nuevo orden debe incluir cada paso exactamente una vez.");
     public static readonly Error InvalidStepPosition = new("Routine.InvalidStepPosition", "La posición del paso no es válida.");
 }

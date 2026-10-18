@@ -1,4 +1,5 @@
 using Ahorita.Application.Abstractions;
+using Ahorita.Application.Reminders;
 using Ahorita.Application.Routines;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +15,12 @@ public static class DependencyInjection
         services.AddScoped<ListRoutines>();
         services.AddScoped<ListRoutineTemplates>();
         services.AddScoped<CreateRoutineFromTemplate>();
+        services.AddScoped<GetRoutineForEditing>();
+        services.AddScoped<SaveRoutine>();
+        services.AddScoped<ArchiveRoutine>();
+
+        services.AddScoped<IRemindersRefresher, RemindersRefresher>();
+        services.AddScoped<RefreshReminders>();
 
         return services;
     }

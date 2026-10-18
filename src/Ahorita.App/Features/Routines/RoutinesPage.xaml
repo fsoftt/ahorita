@@ -17,6 +17,8 @@
         <Label Text="{x:Static strings:AppResources.Routines_Subtitle}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
       </VerticalStackLayout>
 
+      <Button Text="{x:Static strings:AppResources.Routines_New}" Command="{Binding NewRoutineCommand}" HorizontalOptions="Start" />
+
       <Border Style="{StaticResource BentoCard}" IsVisible="{Binding IsEmpty}">
         <Label Text="{x:Static strings:AppResources.Routines_EmptyBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
       </Border>

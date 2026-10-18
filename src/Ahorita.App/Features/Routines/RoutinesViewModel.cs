@@ -1,6 +1,6 @@
 using Ahorita.App.Common;
+using Ahorita.App.Features.Editor;
 using Ahorita.App.Features.Shared;
-using Ahorita.App.Resources.Strings;
 using Ahorita.App.Services;
 using Ahorita.Application.Abstractions;
 using Ahorita.Application.Routines;
@@ -13,11 +13,13 @@ namespace Ahorita.App.Features.Routines;
 public sealed partial class RoutinesViewModel : ViewModelBase
 {
     private readonly IUseCaseExecutor _useCases;
+    private readonly INavigationService _navigation;
 
-    public RoutinesViewModel(IUseCaseExecutor useCases, IToastService toast, ILogger<RoutinesViewModel> logger)
+    public RoutinesViewModel(IUseCaseExecutor useCases, INavigationService navigation, IToastService toast, ILogger<RoutinesViewModel> logger)
         : base(toast, logger)
     {
         _useCases = useCases;
+        _navigation = navigation;
         Routines = [];
         Templates = [];
     }
@@ -35,8 +37,13 @@ public sealed partial class RoutinesViewModel : ViewModelBase
 
     [RelayCommand]
     private Task OpenRoutineAsync(RoutineRowModel routine) =>
-        // El editor de rutinas (Fase 1) se conectará aquí.
-        Toast.ShowAsync(AppResources.Routines_EditorComingSoon);
+        _navigation.GoToAsync(Routes.RoutineEditor, new Dictionary<string, object>
+        {
+            [RoutineEditorViewModel.RoutineIdParameter] = routine.Id,
+        });
+
+    [RelayCommand]
+    private Task NewRoutineAsync() => _navigation.GoToAsync(Routes.RoutineEditor);
 
     [RelayCommand]
     private Task AddTemplateAsync(TemplateCardModel template) => RunSafelyAsync(async () =>

@@ -108,6 +108,81 @@
     <Setter Property="TextColor" Value="{StaticResource OnAccent}" />
   </Style>
 
+  <!-- Botón secundario: contorno, para acciones que no son la principal. -->
+  <Style x:Key="SecondaryButton" TargetType="Button">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+    <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource OutlineLight}, Dark={StaticResource OutlineDark}}" />
+    <Setter Property="BorderWidth" Value="1.5" />
+  </Style>
+
+  <!-- Botón de texto: acciones discretas (eliminar, saltar). Nunca rojo: sin alarma ni culpa. -->
+  <Style x:Key="TextButton" TargetType="Button">
+    <Setter Property="BackgroundColor" Value="Transparent" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkSecondaryLight}, Dark={StaticResource InkSecondaryDark}}" />
+    <Setter Property="Padding" Value="16,10" />
+  </Style>
+
+  <Style x:Key="IconButton" TargetType="Button">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="FontFamily" Value="{StaticResource FontTitle}" />
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="WidthRequest" Value="{StaticResource TouchTarget}" />
+    <Setter Property="HeightRequest" Value="{StaticResource TouchTarget}" />
+  </Style>
+
+  <!-- Botón protagonista sobre el fondo de la página (color de marca). -->
+  <Style x:Key="BigActionPrimary" TargetType="controls:BigActionButton">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodySemiBold}" />
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="CornerRadius" Value="999" />
+    <Setter Property="HeightRequest" Value="{StaticResource BigActionHeight}" />
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource OnBrand}, Dark={StaticResource OnAccent}}" />
+  </Style>
+
+  <!-- ===== Campos ===== -->
+
+  <Style x:Key="InputField" TargetType="Border">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource OutlineLight}, Dark={StaticResource OutlineDark}}" />
+    <Setter Property="StrokeThickness" Value="1.5" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 18" />
+    <Setter Property="Padding" Value="14,2" />
+    <Setter Property="MinimumHeightRequest" Value="56" />
+  </Style>
+
+  <Style TargetType="Entry">
+    <Setter Property="FontFamily" Value="{StaticResource FontBodyMedium}" />
+    <Setter Property="FontSize" Value="17" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource InkSecondaryLight}, Dark={StaticResource InkSecondaryDark}}" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+  </Style>
+
+  <Style TargetType="TimePicker">
+    <Setter Property="FontFamily" Value="{StaticResource FontTitle}" />
+    <Setter Property="FontSize" Value="22" />
+    <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}" />
+    <Setter Property="BackgroundColor" Value="Transparent" />
+  </Style>
+
+  <Style TargetType="Switch">
+    <Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource BrandLight}, Dark={StaticResource BrandDark}}" />
+  </Style>
+
+  <!-- Opción de emoji en las cuadrículas de selección. -->
+  <Style x:Key="EmojiOption" TargetType="Border">
+    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <Setter Property="StrokeThickness" Value="0" />
+    <Setter Property="StrokeShape" Value="RoundRectangle 14" />
+    <Setter Property="WidthRequest" Value="52" />
+    <Setter Property="HeightRequest" Value="52" />
+    <Setter Property="Margin" Value="0,0,8,8" />
+  </Style>
+
   <!-- ===== Superficies ===== -->
 
   <Style x:Key="BentoCard" TargetType="Border">

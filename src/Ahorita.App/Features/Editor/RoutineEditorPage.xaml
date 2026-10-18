@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:editor="clr-namespace:Ahorita.App.Features.Editor"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Editor.RoutineEditorPage"
+                x:DataType="editor:RoutineEditorViewModel"
+                Title="{Binding Title}">
+
+  <Grid RowDefinitions="Auto,*">
+
+    <!-- Barra superior -->
+    <Grid Padding="16,8" ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+      <Button Text="‹"
+              Style="{StaticResource IconButton}"
+              CornerRadius="24"
+              FontSize="28"
+              Command="{Binding CancelCommand}"
+              SemanticProperties.Description="{x:Static strings:AppResources.Common_Back}" />
+      <Label Grid.Column="1" Text="{Binding Title}" Style="{StaticResource TextHeadline}" VerticalOptions="Center" />
+      <Button Grid.Column="2" Text="{x:Static strings:AppResources.Common_Save}" Padding="20,8" Command="{Binding SaveCommand}" />
+    </Grid>
+
+    <CollectionView Grid.Row="1"
+                    ItemsSource="{Binding Steps}"
+                    CanReorderItems="True"
+                    SelectionMode="None">
+      <CollectionView.ItemsLayout>
+        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+      </CollectionView.ItemsLayout>
+
+      <CollectionView.Header>
+        <VerticalStackLayout Padding="20,8,20,12" Spacing="{StaticResource SpaceLg}">
+
+          <!-- Vista previa en vivo -->
+          <Border Style="{StaticResource HeroCard}" Background="{Binding Accent, Converter={StaticResource AccentToGradient}}">
+            <Border.Shadow>
+              <Shadow Brush="{Binding Accent, Converter={StaticResource AccentToColor}}" Offset="0,10" Radius="24" Opacity="0.4" />
+            </Border.Shadow>
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+              <Label Text="{Binding Emoji}" Style="{StaticResource TextEmoji}" FontSize="48" />
+              <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                <Label Text="{Binding PreviewName}" Style="{StaticResource TextOnAccentTitle}" FontSize="22" />
+                <Label Text="{Binding StepsSummary}" Style="{StaticResource TextOnAccent}" />
+              </VerticalStackLayout>
+            </Grid>
+          </Border>
+
+          <!-- Nombre -->
+          <VerticalStackLayout Spacing="8">
+            <Label Text="{x:Static strings:AppResources.Editor_NameLabel}" Style="{StaticResource TextSection}" />
+            <Border Style="{StaticResource InputField}">
+              <Entry Text="{Binding Name}"
+                     Placeholder="{x:Static strings:AppResources.Editor_NamePlaceholder}"
+                     MaxLength="40"
+                     ReturnType="Done" />
+            </Border>
+          </VerticalStackLayout>
+
+          <!-- Ícono -->
+          <VerticalStackLayout Spacing="8">
+            <Label Text="{x:Static strings:AppResources.Editor_EmojiLabel}" Style="{StaticResource TextSection}" />
+            <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding EmojiOptions}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="x:String">
+                  <Border Style="{StaticResource EmojiOption}" SemanticProperties.Description="{Binding .}">
+                    <Border.GestureRecognizers>
+                      <TapGestureRecognizer Command="{Binding PickEmojiCommand, Source={RelativeSource AncestorType={x:Type editor:RoutineEditorViewModel}}, x:DataType=editor:RoutineEditorViewModel}"
+                                            CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
+                    <Label Text="{Binding .}" Style="{StaticResource TextEmoji}" FontSize="26" />
+                  </Border>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </FlexLayout>
+          </VerticalStackLayout>
+
+          <!-- Color -->
+          <VerticalStackLayout Spacing="8">
+            <Label Text="{x:Static strings:AppResources.Editor_ColorLabel}" Style="{StaticResource TextSection}" />
+            <HorizontalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Accents}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="editor:AccentOption">
+                  <Border WidthRequest="46"
+                          HeightRequest="46"
+                          StrokeShape="RoundRectangle 23"
+                          StrokeThickness="0"
+                          Stroke="{AppThemeBinding Light={StaticResource InkLight}, Dark={StaticResource InkDark}}"
+                          Background="{Binding Accent, Converter={StaticResource AccentToGradient}}"
+                          SemanticProperties.Description="{Binding Name}">
+                    <Border.Triggers>
+                      <DataTrigger TargetType="Border" Binding="{Binding IsSelected}" Value="True">
+                        <Setter Property="StrokeThickness" Value="3" />
+                        <Setter Property="Scale" Value="1.1" />
+                      </DataTrigger>
+                    </Border.Triggers>
+                    <Border.GestureRecognizers>
+                      <TapGestureRecognizer Command="{Binding PickAccentCommand, Source={RelativeSource AncestorType={x:Type editor:RoutineEditorViewModel}}, x:DataType=editor:RoutineEditorViewModel}"
+                                            CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
+                  </Border>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </HorizontalStackLayout>
+          </VerticalStackLayout>
+
+          <!-- Cuándo -->
+          <VerticalStackLayout Spacing="12">
+            <Label Text="{x:Static strings:AppResources.Editor_WhenLabel}" Style="{StaticResource TextSection}" />
+            <HorizontalStackLayout Spacing="8">
+              <controls:ChipView Text="{x:Static strings:AppResources.Routine_OnDemand}"
+                                 IsSelected="{Binding IsScheduled, Converter={StaticResource InvertedBool}}"
+                                 Command="{Binding SetScheduledCommand}">
+                <controls:ChipView.CommandParameter>
+                  <x:Boolean>False</x:Boolean>
+                </controls:ChipView.CommandParameter>
+              </controls:ChipView>
+              <controls:ChipView Text="{x:Static strings:AppResources.Editor_Scheduled}"
+                                 IsSelected="{Binding IsScheduled}"
+                                 Command="{Binding SetScheduledCommand}">
+                <controls:ChipView.CommandParameter>
+                  <x:Boolean>True</x:Boolean>
+                </controls:ChipView.CommandParameter>
+              </controls:ChipView>
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout Spacing="12" IsVisible="{Binding IsScheduled}">
+              <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding Days}">
+                <BindableLayout.ItemTemplate>
+                  <DataTemplate x:DataType="editor:DayOption">
+                    <controls:ChipView Text="{Binding Label}"
+                                       IsSelected="{Binding IsSelected}"
+                                       Padding="0"
+                                       WidthRequest="44"
+                                       Margin="0,0,6,6"
+                                       SemanticProperties.Hint="{Binding FullName}"
+                                       Command="{Binding ToggleDayCommand, Source={RelativeSource AncestorType={x:Type editor:RoutineEditorViewModel}}, x:DataType=editor:RoutineEditorViewModel}"
+                                       CommandParameter="{Binding .}" />
+                  </DataTemplate>
+                </BindableLayout.ItemTemplate>
+              </FlexLayout>
+
+              <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                <Label Text="{x:Static strings:AppResources.Editor_StartTime}" VerticalOptions="Center" FontFamily="{StaticResource FontBodySemiBold}" />
+                <Border Grid.Column="1" Style="{StaticResource InputField}" Padding="16,0">
+                  <TimePicker Time="{Binding StartTime}" Format="t" />
+                </Border>
+              </Grid>
+
+              <Label Text="{x:Static strings:AppResources.Editor_HeadsUp}" FontFamily="{StaticResource FontBodySemiBold}" />
+              <FlexLayout Wrap="Wrap" BindableLayout.ItemsSource="{Binding LeadTimes}">
+                <BindableLayout.ItemTemplate>
+                  <DataTemplate x:DataType="editor:MinutesOption">
+                    <controls:ChipView Text="{Binding Label}"
+                                       IsSelected="{Binding IsSelected}"
+                                       Margin="0,0,8,8"
+                                       Command="{Binding PickLeadTimeCommand, Source={RelativeSource AncestorType={x:Type editor:RoutineEditorViewModel}}, x:DataType=editor:RoutineEditorViewModel}"
+                                       CommandParameter="{Binding .}" />
+                  </DataTemplate>
+                </BindableLayout.ItemTemplate>
+              </FlexLayout>
+            </VerticalStackLayout>
+          </VerticalStackLayout>
+
+          <!-- Pasos -->
+          <VerticalStackLayout Spacing="4">
+            <Label Text="{x:Static strings:AppResources.Editor_StepsLabel}" Style="{StaticResource TextSection}" />
+            <Label Text="{x:Static strings:AppResources.Editor_StepsHint}" Style="{StaticResource TextSecondary}" />
+          </VerticalStackLayout>
+        </VerticalStackLayout>
+      </CollectionView.Header>
+
+      <CollectionView.ItemTemplate>
+        <DataTemplate x:DataType="editor:StepItem">
+          <ContentView Padding="20,0">
+            <Border Style="{StaticResource BentoCard}" Padding="12" SemanticProperties.Description="{Binding Title}">
+              <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding EditStepCommand, Source={RelativeSource AncestorType={x:Type editor:RoutineEditorViewModel}}, x:DataType=editor:RoutineEditorViewModel}"
+                                      CommandParameter="{Binding .}" />
+              </Border.GestureRecognizers>
+              <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12">
+                <Border Style="{StaticResource EmojiBadge}"
+                        WidthRequest="46"
+                        HeightRequest="46"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceMutedLight}, Dark={StaticResource SurfaceMutedDark}}">
+                  <Label Text="{Binding DisplayEmoji}" Style="{StaticResource TextEmoji}" FontSize="22" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                  <Label Text="{Binding Title}" FontFamily="{StaticResource FontBodySemiBold}" />
+                  <Label Text="{Binding Details}" Style="{StaticResource TextSecondary}" />
+                </VerticalStackLayout>
+                <Label Grid.Column="2"
+                       Text="⋮⋮"
+                       FontSize="20"
+                       VerticalOptions="Center"
+                       Style="{StaticResource TextSecondary}"
+                       SemanticProperties.Description="{x:Static strings:AppResources.A11y_Reorder}" />
+              </Grid>
+            </Border>
+          </ContentView>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+
+      <CollectionView.Footer>
+        <VerticalStackLayout Padding="20,12,20,40" Spacing="12">
+          <Button Text="{x:Static strings:AppResources.Editor_AddStep}" Style="{StaticResource SecondaryButton}" Command="{Binding AddStepCommand}" />
+          <controls:BigActionButton Text="{x:Static strings:AppResources.Editor_Save}"
+                                    Style="{StaticResource BigActionPrimary}"
+                                    Command="{Binding SaveCommand}" />
+          <Button Text="{x:Static strings:AppResources.Editor_Delete}"
+                  Style="{StaticResource TextButton}"
+                  IsVisible="{Binding IsExisting}"
+                  Command="{Binding DeleteCommand}" />
+        </VerticalStackLayout>
+      </CollectionView.Footer>
+    </CollectionView>
+  </Grid>
+</common:AppPage>

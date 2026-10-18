@@ -9,6 +9,7 @@ public sealed class CreateRoutineFromTemplate(
     IRoutineTemplateProvider templates,
     IRoutineRepository routines,
     IUnitOfWork unitOfWork,
+    IRemindersRefresher reminders,
     TimeProvider time)
 {
     public async Task<Result<RoutineSummary>> ExecuteAsync(string templateKey, CancellationToken cancellationToken = default)
@@ -35,6 +36,7 @@ public sealed class CreateRoutineFromTemplate(
 
         routines.Add(routine);
         await unitOfWork.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        await reminders.RefreshAsync(cancellationToken).ConfigureAwait(false);
 
         return RoutineSummary.From(routine);
     }

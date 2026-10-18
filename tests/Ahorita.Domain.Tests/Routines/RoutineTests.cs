@@ -200,4 +200,31 @@ public sealed class RoutineTests
         routine.Emoji.ShouldBe("🌙");
         routine.Accent.ShouldBe(RoutineAccent.Indigo);
     }
+
+    [Fact]
+    public void ReorderSteps_applies_a_full_permutation()
+    {
+        var routine = NewRoutine();
+        var a = routine.AddStep("A").Value;
+        var b = routine.AddStep("B").Value;
+        var c = routine.AddStep("C").Value;
+
+        routine.ReorderSteps([c.Id, a.Id, b.Id]).IsSuccess.ShouldBeTrue();
+
+        routine.Steps.Select(s => s.Title).ShouldBe(["C", "A", "B"]);
+        routine.Steps.Select(s => s.Position).ShouldBe([0, 1, 2]);
+    }
+
+    [Fact]
+    public void ReorderSteps_rejects_partial_duplicated_or_unknown_orders()
+    {
+        var routine = NewRoutine();
+        var a = routine.AddStep("A").Value;
+        var b = routine.AddStep("B").Value;
+
+        routine.ReorderSteps([a.Id]).Error.ShouldBe(RoutineErrors.InvalidStepOrder);
+        routine.ReorderSteps([a.Id, a.Id]).Error.ShouldBe(RoutineErrors.InvalidStepOrder);
+        routine.ReorderSteps([a.Id, Guid.NewGuid()]).Error.ShouldBe(RoutineErrors.InvalidStepOrder);
+        routine.Steps.Select(s => s.Id).ShouldBe([a.Id, b.Id]);
+    }
 }

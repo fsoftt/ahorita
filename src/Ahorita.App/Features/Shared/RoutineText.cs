@@ -28,6 +28,10 @@ public static class RoutineText
         return Days(days) + AppResources.Routine_Separator + Time(startTime.Value);
     }
 
+    /// <summary>Duración exacta de un paso: "5 min".</summary>
+    public static string Minutes(int minutes) =>
+        string.Format(CultureInfo.CurrentCulture, AppResources.Step_Minutes, minutes);
+
     public static string Time(TimeOnly time) => time.ToString("t", CultureInfo.CurrentCulture);
 
     private static string Days(WeekDays days) => days switch

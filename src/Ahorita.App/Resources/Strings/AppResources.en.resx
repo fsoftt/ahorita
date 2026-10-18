@@ -123,4 +123,175 @@
   <data name="A11y_AddTemplate" xml:space="preserve">
     <value>Add the template {0}</value>
   </data>
+  <data name="Step_Minutes" xml:space="preserve">
+    <value>{0} min</value>
+  </data>
+  <data name="Step_NoTimer" xml:space="preserve">
+    <value>No timer</value>
+  </data>
+  <data name="Step_Optional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="Editor_NewTitle" xml:space="preserve">
+    <value>New routine</value>
+  </data>
+  <data name="Editor_EditTitle" xml:space="preserve">
+    <value>Edit routine</value>
+  </data>
+  <data name="Editor_NamePlaceholder" xml:space="preserve">
+    <value>Name your routine</value>
+  </data>
+  <data name="Editor_NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Editor_EmojiLabel" xml:space="preserve">
+    <value>Icon</value>
+  </data>
+  <data name="Editor_ColorLabel" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Editor_WhenLabel" xml:space="preserve">
+    <value>When?</value>
+  </data>
+  <data name="Editor_Scheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="Editor_StartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="Editor_HeadsUp" xml:space="preserve">
+    <value>Heads-up</value>
+  </data>
+  <data name="Editor_NoHeadsUp" xml:space="preserve">
+    <value>No heads-up</value>
+  </data>
+  <data name="Editor_StepsLabel" xml:space="preserve">
+    <value>Steps</value>
+  </data>
+  <data name="Editor_StepsHint" xml:space="preserve">
+    <value>Tap a step to edit it. Long-press and drag to reorder.</value>
+  </data>
+  <data name="Editor_NoStepsYet" xml:space="preserve">
+    <value>No steps yet</value>
+  </data>
+  <data name="Editor_AddStep" xml:space="preserve">
+    <value>+ Add a step</value>
+  </data>
+  <data name="Editor_Save" xml:space="preserve">
+    <value>Save routine</value>
+  </data>
+  <data name="Editor_Delete" xml:space="preserve">
+    <value>Delete routine</value>
+  </data>
+  <data name="Editor_DeleteTitle" xml:space="preserve">
+    <value>Delete this routine?</value>
+  </data>
+  <data name="Editor_DeleteMessage" xml:space="preserve">
+    <value>It will stop showing up and reminding you. Your history is kept.</value>
+  </data>
+  <data name="Editor_DeleteConfirm" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="StepEditor_NewTitle" xml:space="preserve">
+    <value>New step</value>
+  </data>
+  <data name="StepEditor_EditTitle" xml:space="preserve">
+    <value>Edit step</value>
+  </data>
+  <data name="StepEditor_TitleLabel" xml:space="preserve">
+    <value>What needs doing?</value>
+  </data>
+  <data name="StepEditor_TitlePlaceholder" xml:space="preserve">
+    <value>E.g. Brush your teeth</value>
+  </data>
+  <data name="StepEditor_EmojiLabel" xml:space="preserve">
+    <value>Icon (optional)</value>
+  </data>
+  <data name="StepEditor_DurationLabel" xml:space="preserve">
+    <value>Roughly how long does it take?</value>
+  </data>
+  <data name="StepEditor_OptionalLabel" xml:space="preserve">
+    <value>Optional step</value>
+  </data>
+  <data name="StepEditor_OptionalHint" xml:space="preserve">
+    <value>"If I have time": skipping it never counts against you.</value>
+  </data>
+  <data name="StepEditor_MoveUp" xml:space="preserve">
+    <value>↑ Move up</value>
+  </data>
+  <data name="StepEditor_MoveDown" xml:space="preserve">
+    <value>↓ Move down</value>
+  </data>
+  <data name="StepEditor_Moved" xml:space="preserve">
+    <value>Step moved</value>
+  </data>
+  <data name="StepEditor_Delete" xml:space="preserve">
+    <value>Remove step</value>
+  </data>
+  <data name="StepEditor_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="Routines_New" xml:space="preserve">
+    <value>+ New routine</value>
+  </data>
+  <data name="A11y_Selected" xml:space="preserve">
+    <value>selected</value>
+  </data>
+  <data name="A11y_Reorder" xml:space="preserve">
+    <value>Drag to reorder</value>
+  </data>
+  <data name="Error_Routine_NameRequired" xml:space="preserve">
+    <value>Give your routine a name.</value>
+  </data>
+  <data name="Error_Routine_NameTooLong" xml:space="preserve">
+    <value>The name is a bit long: 40 characters max.</value>
+  </data>
+  <data name="Error_Routine_EmojiRequired" xml:space="preserve">
+    <value>Pick an icon for your routine.</value>
+  </data>
+  <data name="Error_Routine_InvalidDays" xml:space="preserve">
+    <value>Check the selected days.</value>
+  </data>
+  <data name="Error_Routine_ScheduledWithoutTime" xml:space="preserve">
+    <value>Pick a start time.</value>
+  </data>
+  <data name="Error_Routine_InvalidReminderLeadTime" xml:space="preserve">
+    <value>The heads-up can be 2 hours at most.</value>
+  </data>
+  <data name="Error_Routine_TooManySteps" xml:space="preserve">
+    <value>That's a lot of steps! 30 per routine max.</value>
+  </data>
+  <data name="Error_Routine_StepNotFound" xml:space="preserve">
+    <value>That step no longer exists.</value>
+  </data>
+  <data name="Error_Routine_StepTitleRequired" xml:space="preserve">
+    <value>Write what the step is about.</value>
+  </data>
+  <data name="Error_Routine_StepTitleTooLong" xml:space="preserve">
+    <value>The step is a bit long: 60 characters max.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepDuration" xml:space="preserve">
+    <value>Duration can be 4 hours at most.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepPosition" xml:space="preserve">
+    <value>We couldn't move the step.</value>
+  </data>
+  <data name="Error_Routine_InvalidStepOrder" xml:space="preserve">
+    <value>We couldn't reorder the steps.</value>
+  </data>
+  <data name="Error_Routine_NotFound" xml:space="preserve">
+    <value>That routine no longer exists.</value>
+  </data>
+  <data name="Error_Template_NotFound" xml:space="preserve">
+    <value>That template doesn't exist.</value>
+  </data>
 </root>
