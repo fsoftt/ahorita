@@ -663,7 +663,7 @@ If you'd like to give me a tip, tap the button below — it'll show a short ad.<
     <value>Support with ads</value>
   </data>
   <data name="Settings_SupportWithAdsHint" xml:space="preserve">
-    <value>A small banner at the bottom of the screens. Never in Now mode.</value>
+    <value>A small banner at the bottom of the screens. Never while you're doing a routine.</value>
   </data>
   <data name="Settings_AdPrivacyOptions" xml:space="preserve">
     <value>Ad Privacy Options</value>
