@@ -61,8 +61,9 @@ jobs:
       - name: Instalar workload MAUI Android
         run: dotnet workload install maui-android
 
-      - name: Compilar APK (Release)
-        run: dotnet build src/Ahorita.App -c Release -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT"
+      # Anuncios de prueba: los APK de CI son para probar, nunca deben generar impresiones reales.
+      - name: Compilar APK (Release, anuncios de prueba)
+        run: dotnet build src/Ahorita.App -c Release -p:AhoritaTestAds=true -p:AndroidSdkDirectory="$ANDROID_SDK_ROOT"
 
       # Si el APK no quedó firmado con la llave versionada, no se podría instalar
       # encima de versiones anteriores: mejor fallar aquí que en el teléfono.
@@ -84,5 +85,5 @@ jobs:
       - name: Subir APK
         uses: actions/upload-artifact@v4
         with:
-          name: ahorita-apk-${{ github.sha }}
+          name: ahorita-apk-test-ads-${{ github.sha }}
           path: src/Ahorita.App/bin/Release/net10.0-android/*-Signed.apk

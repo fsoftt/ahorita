@@ -1,22 +1,18 @@
 namespace Ahorita.App.Services;
 
 /// <summary>
-/// Identificadores de AdMob de Ahorita. Mientras no estén configurados se usan los
-/// anuncios de prueba de Google (nunca generan impresiones reales).
-/// El id de la app va además en <c>AdMobAppId</c> del .csproj (AndroidManifest).
+/// Identificadores de AdMob de Ahorita (el id de la app va en <c>AdMobAppId</c> del .csproj).
+/// Debug y los builds de prueba (<c>-p:AhoritaTestAds=true</c>, el que usa CI) muestran los
+/// anuncios de prueba de Google: probar nunca genera impresiones ni clics reales.
 /// </summary>
 public static class AdMobIds
 {
-    public static readonly string? Banner;
-    public static readonly string? Rewarded;
+    public const string Banner = "ca-app-pub-5615495156288390/9666750728";
+    public const string Rewarded = "ca-app-pub-5615495156288390/2885719952";
 
-    // Ids de prueba públicos de Google (https://developers.google.com/admob/android/test-ads).
-    private const string TestBanner = "ca-app-pub-3940256099942544/9214589741";
-    private const string TestRewarded = "ca-app-pub-3940256099942544/5224354917";
-
-    public static bool IsConfigured => !string.IsNullOrEmpty(Banner) && !string.IsNullOrEmpty(Rewarded);
-
-    public static string BannerOrTest => IsConfigured ? Banner! : TestBanner;
-
-    public static string RewardedOrTest => IsConfigured ? Rewarded! : TestRewarded;
+#if DEBUG || TEST_ADS
+    public const bool UseTestAds = true;
+#else
+    public const bool UseTestAds = false;
+#endif
 }

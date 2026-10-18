@@ -22,9 +22,9 @@ App Android (.NET MAUI) para crear y seguir rutinas, diseñada para personas con
 
 ### AdMob
 
-Mientras Ahorita no tenga ids propios se muestran **anuncios de prueba** de Google. Para activar los reales, crea la app en AdMob y completa:
-- `AdMobAppId` en `src/Ahorita.App/Ahorita.App.csproj` (id de la app, `ca-app-pub-…~…`).
-- `Banner` y `Rewarded` en `src/Ahorita.App/Services/AdMobIds.cs` (ids de bloque, `ca-app-pub-…/…`).
+- Ids de Ahorita: `AdMobAppId` en `src/Ahorita.App/Ahorita.App.csproj` y los bloques (banner y bonificado) en `src/Ahorita.App/Services/AdMobIds.cs`.
+- **Debug** y `-p:AhoritaTestAds=true` (lo usa CI) muestran **anuncios de prueba** de Google: probar nunca genera impresiones ni clics reales.
+- Solo el Release normal (`dotnet publish src/Ahorita.App -c Release`) muestra anuncios reales.
 
 ## Requisitos
 

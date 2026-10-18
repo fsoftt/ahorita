@@ -26,9 +26,8 @@
          que cada máquina o runner de CI genera al azar: así un APK de CI se instala
          encima de uno compilado en local sin el error de firma distinta.
          Solo para sideload/QA; Google Play usa otra llave que nunca se versiona. -->
-    <!-- Id de la app en AdMob. Mientras Ahorita no tenga el suyo se usa el de prueba de
-         Google; al configurarlo, completa también AdMobIds.cs. -->
-    <AdMobAppId Condition="'$(AdMobAppId)' == ''">ca-app-pub-3940256099942544~3347511713</AdMobAppId>
+    <!-- Id de la app en AdMob (los bloques de anuncios están en Services/AdMobIds.cs). -->
+    <AdMobAppId>ca-app-pub-5615495156288390~8054286154</AdMobAppId>
     <AndroidManifestPlaceholders>admobAppId=$(AdMobAppId)</AndroidManifestPlaceholders>
 
     <AndroidKeyStore>True</AndroidKeyStore>
@@ -36,6 +35,12 @@
     <AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>android</AndroidSigningKeyPass>
     <AndroidSigningStorePass>android</AndroidSigningStorePass>
+  </PropertyGroup>
+
+  <!-- Build de prueba (dotnet build -c Release -p:AhoritaTestAds=true): mismo APK pero con
+       anuncios de prueba de Google, para QA y CI sin impresiones ni clics reales. -->
+  <PropertyGroup Condition="'$(AhoritaTestAds)' == 'true'">
+    <DefineConstants>$(DefineConstants);TEST_ADS</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">

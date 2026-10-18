@@ -31,8 +31,8 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseAdMob(
-                androidDefaultBannerAdUnitId: AdMobIds.BannerOrTest,
-                androidDefaultRewardedAdUnitId: AdMobIds.RewardedOrTest)
+                androidDefaultBannerAdUnitId: AdMobIds.Banner,
+                androidDefaultRewardedAdUnitId: AdMobIds.Rewarded)
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("Lexend-Regular.ttf", "LexendRegular");
@@ -53,8 +53,8 @@ public static class MauiProgram
 
         PlatformTweaks.Apply();
 
-        // Sin ids propios configurados, solo anuncios de prueba de Google.
-        AdConfig.UseTestAdUnitIds = !AdMobIds.IsConfigured;
+        // Debug y builds de prueba: anuncios de prueba de Google (ver AdMobIds).
+        AdConfig.UseTestAdUnitIds = AdMobIds.UseTestAds;
 
         return builder.Build();
     }

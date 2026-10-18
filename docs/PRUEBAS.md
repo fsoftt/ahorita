@@ -76,7 +76,7 @@ Usa una rutina programada 3–5 minutos en el futuro con aviso previo de 5 min (
 
 ## 7. Donar y apoyar con anuncios
 
-Por ahora son **anuncios de prueba** de Google (dicen "Test Ad").
+Los APK de prueba (Debug y CI) muestran **anuncios de prueba** de Google (dicen "Test Ad"). **Nunca toques anuncios reales de tu propia app**: AdMob lo considera tráfico inválido.
 
 - [ ] "Apoyar con anuncios" está **apagado** al instalar: no aparece ningún banner.
 - [ ] Ajustes → *Apoyar con anuncios* encendido: aparece un banner pequeño al pie de Hoy, Rutinas, Progreso y Ajustes, sin tapar contenido.
