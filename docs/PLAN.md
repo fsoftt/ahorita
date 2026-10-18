@@ -29,6 +29,7 @@ App Android en **.NET MAUI** para crear y seguir rutinas, pensada para personas 
 5. **Recordatorios que no se ignoran… pero que no agobian.** Escalamiento suave y configurable.
 6. **Offline-first y privado.** Todo funciona sin cuenta ni internet. Los datos son del usuario.
 7. **Accesible por defecto.** Tipografía grande, alto contraste, modo de bajo estímulo.
+8. **Moderna y llamativa, con propósito.** Color, movimiento y celebraciones que motiven, sin distraer de la tarea (ver §5).
 
 ---
 
@@ -115,6 +116,8 @@ Priorizadas con **MoSCoW**: `M` = Must (MVP), `S` = Should (v1.1), `C` = Could (
 | Prio | Feature | Descripción |
 |---|---|---|
 | M | **Tema claro/oscuro + alto contraste** | Respeta el tema del sistema. |
+| M | **Color propio por rutina** | Toda la UI se re-tematiza con el color de la rutina activa (ver §5). |
+| C | **Temas y packs desbloqueables** | Paletas, sonidos y celebraciones nuevas como recompensa. |
 | M | **Escalado de fuente del sistema** | Toda la UI soporta tamaños grandes sin romperse. |
 | S | **Modo bajo estímulo** | Sin animaciones, colores apagados, sin sonidos. |
 | S | **Fuente amigable para dislexia** (opcional) | Comorbilidad frecuente con TDAH. |
@@ -182,9 +185,133 @@ Priorizadas con **MoSCoW**: `M` = Must (MVP), `S` = Should (v1.1), `C` = Could (
 
 ---
 
-## 5. Arquitectura técnica
+## 5. Diseño visual: moderno y llamativo
 
-### 5.1 Stack
+### 5.1 Dirección de arte: *"Dopamina con calma"*
+
+Una UI **vibrante, juguetona y con mucha personalidad**, que dé ganas de abrirla, pero que **nunca compita con la tarea**. La regla:
+
+> **Llamativa en los bordes, calmada en el centro.** El color, el movimiento y la diversión van en las transiciones, las celebraciones y la pantalla "Hoy". La pantalla de enfoque se queda limpia: un paso, un anillo y un botón.
+
+**Referencias de estilo:** Material 3 *Expressive*, tarjetas tipo *bento*, formas redondeadas y suaves, colores saturados sobre fondos neutros, micro-interacciones con háptica (estilo Duolingo, Headspace y Finch).
+
+### 5.2 Rasgos visuales
+
+| Elemento | Decisión |
+|---|---|
+| **Color** | Paleta saturada con un **color propio por rutina** (Mañana = mandarina, Noche = índigo, Estudio = menta…). Al entrar a una rutina, toda la UI **toma su color**: fondo, anillo y botón. Da identidad y ayuda a la memoria visual. |
+| **Gradientes** | Gradientes suaves de dos tonos en la tarjeta principal, el anillo del temporizador y el botón "Empezar ahorita". Nunca sobre texto largo. |
+| **Formas** | Esquinas muy redondeadas (radio de 24–32 dp en las tarjetas y forma de píldora en los botones). Blobs orgánicos de fondo en el onboarding y las celebraciones. |
+| **Tipografía** | **Lexend** para el cuerpo: fue diseñada para reducir la fatiga lectora y se lleva bien con TDAH y dislexia. **Outfit** o **Bricolage Grotesque** en peso 700–800 para títulos grandes y con carácter. Números del temporizador con cifras tabulares. |
+| **Emoji e íconos** | Cada rutina y cada paso lleva un emoji grande (3D tipo *Fluent Emoji*, con licencia MIT). Íconos de UI con trazo redondeado (*Phosphor* o *Material Symbols Rounded*). |
+| **Profundidad** | Sombras suaves de color (tintadas con el color de la rutina, no grises) y capas, sin bordes duros. |
+| **Modo oscuro** | Es de primera clase y no una inversión: fondo casi negro azulado (`#0F1020`) con los colores de rutina en versión neón suave. |
+| **Material You** | Opcional en Android 12+: un tema "Usar colores de mi fondo de pantalla" que adapta los neutros y conserva los colores de las rutinas. |
+| **Edge-to-edge** | Contenido detrás de la barra de estado y de navegación, con la barra de estado del color de la pantalla. |
+
+### 5.3 Pantallas clave con su toque llamativo
+
+**Hoy**
+```
+┌──────────────────────────────┐
+│ Buenos días, Vale ☀️          │  ← título grande, Outfit 800
+│ ┌──────────────────────────┐ │
+│ │ ░░ gradiente mandarina ░░ │ │  ← tarjeta héroe (bento grande)
+│ │ 🌅 Rutina de mañana       │ │
+│ │ 6 pasos · ~25 min         │ │
+│ │ ┌──────────────────────┐  │ │
+│ │ │  ▶ EMPEZAR AHORITA   │  │ │  ← píldora blanca, "respira" suavemente
+│ │ └──────────────────────┘  │ │
+│ └──────────────────────────┘ │
+│ ┌───────────┐ ┌────────────┐ │
+│ │ 📚 Estudio │ │ 🌙 Noche    │ │  ← bento pequeño, cada uno con su color
+│ │ 16:00      │ │ 22:30      │ │
+│ └───────────┘ └────────────┘ │
+│ ┌──────────────────────────┐ │
+│ │ ●●●●○○○  5 de 7 días 🔥   │ │  ← constancia flexible, nunca en rojo
+│ └──────────────────────────┘ │
+└──────────────────────────────┘
+```
+
+**Enfoque (Modo Ahora)**
+- Fondo con el color de la rutina en un tono muy suave.
+- **Anillo grueso con gradiente** que se vacía, con un punto brillante en la punta. Al llegar al 10 % cambia de tono con suavidad, sin parpadear.
+- Emoji del paso a 96 dp, con un pequeño rebote al aparecer.
+- Botón "LISTO ✓" gigante. Al tocarlo se encoge un poco, vibra, se llena de color y el siguiente paso **entra deslizándose desde la derecha**.
+- **Deslizar hacia arriba para terminar el paso** como gesto alternativo, muy satisfactorio.
+
+**Celebración**
+- Confeti o fuegos artificiales en **Lottie** (2–3 s), con una variante distinta cada vez para que no aburra.
+- Un número grande animado ("¡6/6!") y un mensaje positivo aleatorio.
+- La háptica sigue un patrón "tada" en lugar de una vibración genérica.
+
+**Editor de rutina**
+- Los pasos son tarjetas que se arrastran con una animación elástica.
+- Elegir el color de la rutina con círculos grandes, y el emoji con un buscador.
+- Vista previa en vivo de cómo se verá la tarjeta en "Hoy".
+
+### 5.4 Movimiento (motion)
+
+| Momento | Animación | Duración |
+|---|---|---|
+| Tocar un botón | Escala 0.95 → 1 con rebote + háptica ligera | 120 ms |
+| Paso completado | El check se dibuja y la tarjeta sale deslizándose | 250 ms |
+| Paso siguiente | Entra deslizándose con *ease-out* y el emoji rebota | 300 ms |
+| Botón "Empezar" | "Respira" (escala 1 ↔ 1.03) en loop lento para invitar a tocarlo | 2 s |
+| Fin de rutina | Celebración Lottie + contador animado | 2–3 s |
+| Navegación | Transiciones compartidas: la tarjeta de "Hoy" se expande a la pantalla de enfoque | 350 ms |
+
+**Reglas:**
+- Todo el movimiento **tiene un propósito**: confirmar, orientar o premiar. Nada de animaciones decorativas permanentes en el modo enfoque, salvo el anillo.
+- Respetar la escala de animaciones del sistema y "Quitar animaciones" de Android. **El modo de bajo estímulo** las apaga todas, junto con el confeti, los gradientes y los sonidos, y deja una UI plana y tranquila.
+
+### 5.5 Sonido y háptica
+
+- Un set propio de sonidos cortos y suaves (pop al completar, campanita al terminar) con un selector de "pack de sonidos" como recompensa desbloqueable.
+- Patrones hápticos distintos para *tap*, *paso completado*, *aviso de tiempo* y *celebración*. Se aprenden sin mirar la pantalla.
+
+### 5.6 Design system en MAUI
+
+```
+Resources/
+├── Styles/
+│   ├── Tokens.Colors.xaml      Paleta base + colores de rutina (claro/oscuro con AppThemeBinding)
+│   ├── Tokens.Typography.xaml  Escala tipográfica: Display, Title, Body, Label, Timer
+│   ├── Tokens.Spacing.xaml     Grid de 4/8 dp, radios (Sm 12, Md 20, Lg 28, Pill 999)
+│   ├── Tokens.Motion.xaml      Duraciones y easings con nombre
+│   └── Components.xaml         Estilos de BigActionButton, BentoCard, Chip, StepCard…
+└── Fonts/                      Lexend, Outfit (OFL)
+```
+
+- **Tokens semánticos, no literales:** `SurfaceColor`, `OnSurfaceColor`, `RoutineAccent`, `RoutineAccentSoft`, `RoutineGradient`. El color de rutina se inyecta como recurso dinámico (`DynamicResource`) al entrar a la rutina, y así toda la pantalla se re-tematiza sin tocar las vistas.
+- **Componentes propios reutilizables** en `Controls/`:
+  - `BentoCard` (Border + RoundRectangle + Shadow de color).
+  - `BigActionButton` (con animación de *press* y háptica integradas).
+  - `VisualTimerView` (`GraphicsView`/`IDrawable` con arco de gradiente a 60 fps).
+  - `EmojiBadge`.
+  - `CelebrationOverlay`.
+- **Librerías:**
+  - **CommunityToolkit.Maui**: animaciones, `StatusBarBehavior`, popups.
+  - **SkiaSharp.Extended.UI.Maui**: `SKLottieView` para las celebraciones y `SKConfettiView`.
+  - **Microsoft.Maui.Graphics**: el anillo.
+- **Handlers personalizados** para quitar el subrayado nativo de `Entry` y `Picker` y lograr campos redondeados limpios.
+- **Rendimiento:**
+  - Lottie de menos de 100 KB.
+  - No usar blur real (es caro en Android). El efecto "glass" se simula con superficies semitransparentes y sombra.
+  - Medir los frames con el GPU profiler. La meta es no bajar de 60 fps en gama media.
+
+### 5.7 Llamativo sin dejar de ser accesible
+
+- Contraste **AA (4.5:1)** en todo el texto, incluido el texto sobre gradientes (se verifica contra el tono más claro).
+- **El color nunca es la única señal:** cada rutina tiene color **y** emoji, y cada estado tiene color **y** ícono **y** texto.
+- Las animaciones se pueden desactivar, el texto escala hasta 200 % sin cortes y las áreas táctiles miden 48 dp o más.
+- Se valida con usuarios: lo "llamativo" se ajusta si distrae o sobreestimula.
+
+---
+
+## 6. Arquitectura técnica
+
+### 6.1 Stack
 
 | Área | Elección | Motivo |
 |---|---|---|
@@ -201,7 +328,7 @@ Priorizadas con **MoSCoW**: `M` = Must (MVP), `S` = Should (v1.1), `C` = Could (
 | Tests | **xUnit** + **FluentAssertions/Shouldly** + **NSubstitute** | Dominio y casos de uso 100 % testeables sin emulador. |
 | CI | GitHub Actions: build, tests, `dotnet format --verify-no-changes`, APK firmado en tags | |
 
-### 5.2 Clean Architecture
+### 6.2 Clean Architecture
 
 ```
             ┌──────────────────────────┐
@@ -223,7 +350,7 @@ Priorizadas con **MoSCoW**: `M` = Must (MVP), `S` = Should (v1.1), `C` = Could (
 
 **Regla de dependencias:** `Domain` no referencia nada; `Application` solo a `Domain`; `Infrastructure` implementa interfaces de `Application`; la app MAUI compone todo en `MauiProgram`. Las APIs de Android (alarmas, foreground service, widget) son **adaptadores** detrás de interfaces de `Application` (`IReminderScheduler`, `IActiveRoutineHost`, `IHapticFeedback`).
 
-### 5.3 Estructura de la solución
+### 6.3 Estructura de la solución
 
 ```
 Ahorita.sln
@@ -269,7 +396,7 @@ Ahorita.sln
 
 Organización **por feature** (vertical slices) dentro de la app, no por tipo de archivo: todo lo de "Focus" vive junto.
 
-### 5.4 Modelo de dominio
+### 6.4 Modelo de dominio
 
 ```
 Routine (aggregate root)
@@ -292,7 +419,7 @@ Reglas que viven en el **dominio** (testeables sin UI):
 - `FinishSession` es válido con cualquier progreso; el 0 % se registra como "Abandoned" pero **nunca** se muestra como fallo.
 - `EstimatedEnd = now + restante del paso actual + Σ duración de pasos pendientes`.
 
-### 5.5 Ejemplos de código (estilo de referencia)
+### 6.5 Ejemplos de código (estilo de referencia)
 
 **Dominio — entidad con invariantes y sin dependencias:**
 
@@ -410,7 +537,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 #endif
 ```
 
-### 5.6 Buenas prácticas y convenciones
+### 6.6 Buenas prácticas y convenciones
 
 - **SOLID** y **casos de uso pequeños** (un archivo = una intención del usuario). Sin "Services" gigantes.
 - **`Result<T>`** para errores esperados; excepciones solo para lo excepcional.
@@ -425,7 +552,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 - **Rendimiento:** trimming + AOT/ R2R en Release, arranque en frío objetivo < 1.5 s en gama media.
 - **Commits convencionales** (`feat:`, `fix:`, `refactor:`), PRs pequeños, ramas por feature.
 
-### 5.7 Detalles específicos de Android
+### 6.7 Detalles específicos de Android
 
 | Tema | Decisión |
 |---|---|
@@ -438,7 +565,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 
 ---
 
-## 6. Estrategia de pruebas
+## 7. Estrategia de pruebas
 
 | Nivel | Qué | Herramienta | Meta |
 |---|---|---|---|
@@ -452,13 +579,13 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 
 ---
 
-## 7. Roadmap
+## 8. Roadmap
 
 | Fase | Duración aprox. | Entregables |
 |---|---|---|
-| **0. Fundaciones** | 1 semana | Solución y capas, CI, `.editorconfig`, design tokens, Shell con 3 pestañas, DB + migración inicial. |
+| **0. Fundaciones** | 1 semana | Solución y capas, CI, `.editorconfig`, design system (tokens, fuentes, `BentoCard`, `BigActionButton`), Shell con 3 pestañas, DB + migración inicial. |
 | **1. Rutinas** | 2 semanas | CRUD de rutinas y pasos, reordenar, plantillas, programación por días/hora. |
-| **2. Modo Ahora** | 2 semanas | Pantalla de enfoque, temporizador visual, saltar/posponer, hora estimada de fin, celebración. |
+| **2. Modo Ahora** | 2 semanas | Pantalla de enfoque con re-tematizado por rutina, temporizador visual con gradiente, micro-animaciones y háptica, saltar/posponer, hora estimada de fin, celebración Lottie. |
 | **3. Recordatorios** | 1–2 semanas | Alarmas exactas, acciones en notificación, foreground service, boot receiver, onboarding de permisos. |
 | **4. MVP pulido** | 1 semana | Progreso básico, accesibilidad, español/inglés, beta cerrada en Play Console (pista interna). |
 | **5. v1.1** | 3–4 semanas | Versión día malo, sub-pasos, rachas flexibles, aviso a mitad de paso, TTS, widget, ajuste de estimaciones, exportar/importar. |
@@ -472,7 +599,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 
 ---
 
-## 8. Métricas de éxito (locales, sin rastreo)
+## 9. Métricas de éxito (locales, sin rastreo)
 
 - % de recordatorios que terminan en "Empezar" (vs. "Hoy no").
 - Tiempo desde abrir la app hasta iniciar una rutina.
@@ -481,12 +608,13 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 
 ---
 
-## 9. Riesgos y mitigaciones
+## 10. Riesgos y mitigaciones
 
 | Riesgo | Mitigación |
 |---|---|
 | Fabricantes Android que matan alarmas | Guía por fabricante (dontkillmyapp), alarmas exactas, prueba en Xiaomi/Samsung reales. |
 | Política de Google Play sobre `USE_EXACT_ALARM` / foreground services | Declarar uso con justificación clara; fallback a `SCHEDULE_EXACT_ALARM` solicitado al usuario. |
 | MAUI sin soporte nativo para widgets | Implementación nativa aislada en `Platforms/Android`, fuera del MVP. |
+| UI llamativa que sobreestimula | Modo enfoque minimalista, modo de bajo estímulo, respetar la configuración de animaciones del sistema, pruebas con usuarios. |
 | Sobrecarga de features (irónicamente, muy TDAH) | MoSCoW estricto; cualquier feature nueva debe pasar el filtro "¿reduce la fricción para empezar?". |
 | Gamificación que genera culpa | Revisar todo el microcopy con usuarios; opciones para desactivar rachas y celebraciones. |
