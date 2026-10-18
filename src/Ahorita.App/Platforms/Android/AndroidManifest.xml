@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Sin INTERNET: Ahorita es offline y privada por diseño.
+<!-- Ahorita funciona sin internet: la red solo la usan los anuncios opcionales
+     ("Apoyar con anuncios" y la página Donar), nunca tus rutinas.
      Los permisos de notificaciones y alarmas se piden en contexto, con explicación. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -7,13 +8,18 @@
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
   <application
       android:allowBackup="true"
       android:icon="@mipmap/appicon"
       android:roundIcon="@mipmap/appicon_round"
       android:label="Ahorita"
-      android:supportsRtl="true" />
+      android:supportsRtl="true">
+    <!-- Id de la app en AdMob: se define en AdMobAppId (Ahorita.App.csproj). -->
+    <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="${admobAppId}" />
+  </application>
 
   <queries>
     <intent>

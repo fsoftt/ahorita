@@ -5,6 +5,7 @@ using Ahorita.App.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
+using Plugin.AdMob.Services;
 
 namespace Ahorita.App.Features.Settings;
 
@@ -14,12 +15,16 @@ public sealed partial class SettingsViewModel : ViewModelBase
     private readonly IDevicePermissions _permissions;
     private readonly INavigationService _navigation;
     private readonly UiRestarter _languageChanged;
+    private readonly SupportAdsPreference _supportAds;
+    private readonly IAdConsentService _adConsent;
 
     public SettingsViewModel(
         IAppSettings settings,
         IDevicePermissions permissions,
         INavigationService navigation,
         UiRestarter languageChanged,
+        SupportAdsPreference supportAds,
+        IAdConsentService adConsent,
         IToastService toast,
         ILogger<SettingsViewModel> logger)
         : base(toast, logger)
@@ -28,6 +33,9 @@ public sealed partial class SettingsViewModel : ViewModelBase
         _permissions = permissions;
         _navigation = navigation;
         _languageChanged = languageChanged;
+        _supportAds = supportAds;
+        _adConsent = adConsent;
+        SupportWithAds = supportAds.IsEnabled;
 
         LowStimulus = settings.LowStimulus;
         Celebrations = settings.Celebrations;
@@ -71,6 +79,13 @@ public sealed partial class SettingsViewModel : ViewModelBase
     public partial bool ReadStepsAloud { get; set; }
 
     [ObservableProperty]
+    public partial bool SupportWithAds { get; set; }
+
+    /// <summary>Solo donde la ley lo exige (p. ej. UE/RU) hay formulario de consentimiento.</summary>
+    [ObservableProperty]
+    public partial bool IsAdPrivacyOptionsRequired { get; set; }
+
+    [ObservableProperty]
     public partial bool HasNotifications { get; set; }
 
     [ObservableProperty]
@@ -88,7 +103,16 @@ public sealed partial class SettingsViewModel : ViewModelBase
         HasExactAlarms = _permissions.HasExactAlarms;
         NotificationsStatus = HasNotifications ? AppResources.Settings_Enabled : AppResources.Settings_Disabled;
         ExactAlarmsStatus = HasExactAlarms ? AppResources.Settings_Enabled : AppResources.Settings_Disabled;
+        IsAdPrivacyOptionsRequired = _adConsent.IsPrivacyOptionsRequired();
     }
+
+    partial void OnSupportWithAdsChanged(bool value) => _supportAds.IsEnabled = value;
+
+    [RelayCommand]
+    private Task OpenDonateAsync() => _navigation.GoToAsync(Routes.Donate);
+
+    [RelayCommand]
+    private void OpenAdPrivacyOptions() => _adConsent.ShowPrivacyOptionsForm();
 
     partial void OnLowStimulusChanged(bool value) => _settings.LowStimulus = value;
 

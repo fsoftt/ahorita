@@ -26,6 +26,11 @@
          que cada máquina o runner de CI genera al azar: así un APK de CI se instala
          encima de uno compilado en local sin el error de firma distinta.
          Solo para sideload/QA; Google Play usa otra llave que nunca se versiona. -->
+    <!-- Id de la app en AdMob. Mientras Ahorita no tenga el suyo se usa el de prueba de
+         Google; al configurarlo, completa también AdMobIds.cs. -->
+    <AdMobAppId Condition="'$(AdMobAppId)' == ''">ca-app-pub-3940256099942544~3347511713</AdMobAppId>
+    <AndroidManifestPlaceholders>admobAppId=$(AdMobAppId)</AndroidManifestPlaceholders>
+
     <AndroidKeyStore>True</AndroidKeyStore>
     <AndroidSigningKeyStore>debug.keystore</AndroidSigningKeyStore>
     <AndroidSigningKeyAlias>androiddebugkey</AndroidSigningKeyAlias>
@@ -68,6 +73,18 @@
     <PackageReference Include="CommunityToolkit.Maui" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+    <PackageReference Include="Plugin.AdMob" />
+  </ItemGroup>
+
+  <ItemGroup Label="AndroidX alineado (ver Directory.Packages.props)">
+    <PackageReference Include="Xamarin.AndroidX.Activity.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.Collection.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Process" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.Runtime.Ktx.Android" />
+    <PackageReference Include="Xamarin.AndroidX.Lifecycle.ViewModel.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.SavedState.SavedState.Ktx" />
   </ItemGroup>
 
   <ItemGroup>

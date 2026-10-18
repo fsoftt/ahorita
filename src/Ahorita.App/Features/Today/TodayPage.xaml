@@ -33,121 +33,132 @@
     </DataTemplate>
   </common:AppPage.Resources>
 
-  <ScrollView>
-    <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
+  <Grid RowDefinitions="*,Auto">
+    <ScrollView>
+      <VerticalStackLayout Padding="{StaticResource PagePadding}" Spacing="{StaticResource SpaceLg}">
 
-      <!-- Encabezado -->
-      <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
-        <VerticalStackLayout Spacing="2">
-          <Label Text="{Binding DateText}" Style="{StaticResource TextSection}" />
-          <Label Text="{Binding Greeting}" Style="{StaticResource TextDisplay}" />
-        </VerticalStackLayout>
-        <Button Grid.Column="1"
-                Text="⚙"
-                Style="{StaticResource IconButton}"
-                CornerRadius="24"
-                VerticalOptions="Start"
-                Command="{Binding OpenSettingsCommand}"
-                SemanticProperties.Description="{x:Static strings:AppResources.Settings_Open}" />
-      </Grid>
+        <!-- Encabezado -->
+        <Grid ColumnDefinitions="*,Auto" Margin="0,8,0,0">
+          <VerticalStackLayout Spacing="2">
+            <Label Text="{Binding DateText}" Style="{StaticResource TextSection}" />
+            <Label Text="{Binding Greeting}" Style="{StaticResource TextDisplay}" />
+          </VerticalStackLayout>
+          <HorizontalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Start">
+            <Button Text="💜"
+                    Style="{StaticResource IconButton}"
+                    CornerRadius="24"
+                    FontSize="18"
+                    Command="{Binding OpenDonateCommand}"
+                    SemanticProperties.Description="{x:Static strings:AppResources.Donate_Title}" />
+            <Button Text="⚙"
+                    Style="{StaticResource IconButton}"
+                    CornerRadius="24"
+                    Command="{Binding OpenSettingsCommand}"
+                    SemanticProperties.Description="{x:Static strings:AppResources.Settings_Open}" />
+          </HorizontalStackLayout>
+        </Grid>
 
-      <!-- Tarjeta protagonista -->
-      <Border Style="{StaticResource HeroCard}"
-              IsVisible="{Binding HasFeatured}"
-              Background="{Binding Featured.Accent, Converter={StaticResource AccentToGradient}}">
-        <Border.Shadow>
-          <Shadow Brush="{Binding Featured.Accent, Converter={StaticResource AccentToColor}}"
-                  Offset="0,12"
-                  Radius="28"
-                  Opacity="0.45" />
-        </Border.Shadow>
+        <!-- Tarjeta protagonista -->
+        <Border Style="{StaticResource HeroCard}"
+                IsVisible="{Binding HasFeatured}"
+                Background="{Binding Featured.Accent, Converter={StaticResource AccentToGradient}}">
+          <Border.Shadow>
+            <Shadow Brush="{Binding Featured.Accent, Converter={StaticResource AccentToColor}}"
+                    Offset="0,12"
+                    Radius="28"
+                    Opacity="0.45" />
+          </Border.Shadow>
 
-        <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="{StaticResource SpaceSm}">
-          <Grid ColumnDefinitions="*,Auto">
-            <Label Text="{Binding FeaturedLabel}"
-                   Style="{StaticResource TextOnAccent}"
-                   FontFamily="{StaticResource FontBodySemiBold}"
-                   TextTransform="Uppercase"
-                   CharacterSpacing="1.2"
-                   VerticalOptions="Center" />
-            <Border Grid.Column="1"
-                    StrokeThickness="0"
-                    StrokeShape="RoundRectangle 999"
-                    Padding="12,6"
-                    BackgroundColor="#66FFFFFF">
-              <Label Text="{Binding Featured.When}"
+          <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="{StaticResource SpaceSm}">
+            <Grid ColumnDefinitions="*,Auto">
+              <Label Text="{Binding FeaturedLabel}"
                      Style="{StaticResource TextOnAccent}"
                      FontFamily="{StaticResource FontBodySemiBold}"
-                     TextColor="{StaticResource OnAccent}" />
-            </Border>
+                     TextTransform="Uppercase"
+                     CharacterSpacing="1.2"
+                     VerticalOptions="Center" />
+              <Border Grid.Column="1"
+                      StrokeThickness="0"
+                      StrokeShape="RoundRectangle 999"
+                      Padding="12,6"
+                      BackgroundColor="#66FFFFFF">
+                <Label Text="{Binding Featured.When}"
+                       Style="{StaticResource TextOnAccent}"
+                       FontFamily="{StaticResource FontBodySemiBold}"
+                       TextColor="{StaticResource OnAccent}" />
+              </Border>
+            </Grid>
+
+            <Label Grid.Row="1"
+                   Text="{Binding Featured.Emoji}"
+                   Style="{StaticResource TextEmoji}"
+                   FontSize="{StaticResource SizeEmojiHero}"
+                   HorizontalOptions="Start"
+                   Margin="0,8,0,0" />
+
+            <VerticalStackLayout Grid.Row="2" Spacing="2">
+              <Label Text="{Binding Featured.Name}" Style="{StaticResource TextOnAccentTitle}" />
+              <Label Text="{Binding Featured.Meta}" Style="{StaticResource TextOnAccent}" />
+            </VerticalStackLayout>
+
+            <controls:BigActionButton Grid.Row="3"
+                                      Margin="0,12,0,0"
+                                      Style="{StaticResource BigActionOnAccent}"
+                                      Text="{Binding HeroActionText}"
+                                      Breathes="True"
+                                      Command="{Binding StartRoutineCommand}"
+                                      CommandParameter="{Binding Featured}"
+                                      SemanticProperties.Hint="{Binding Featured.Name}" />
           </Grid>
+        </Border>
 
-          <Label Grid.Row="1"
-                 Text="{Binding Featured.Emoji}"
-                 Style="{StaticResource TextEmoji}"
-                 FontSize="{StaticResource SizeEmojiHero}"
-                 HorizontalOptions="Start"
-                 Margin="0,8,0,0" />
-
-          <VerticalStackLayout Grid.Row="2" Spacing="2">
-            <Label Text="{Binding Featured.Name}" Style="{StaticResource TextOnAccentTitle}" />
-            <Label Text="{Binding Featured.Meta}" Style="{StaticResource TextOnAccent}" />
+        <!-- Día libre: sin culpa -->
+        <Border Style="{StaticResource BentoCard}" IsVisible="{Binding IsFreeDay}">
+          <VerticalStackLayout Spacing="6">
+            <Label Text="🌤️" Style="{StaticResource TextEmoji}" FontSize="40" HorizontalOptions="Start" />
+            <Label Text="{x:Static strings:AppResources.Today_FreeDayTitle}" Style="{StaticResource TextHeadline}" />
+            <Label Text="{x:Static strings:AppResources.Today_FreeDayBody}" Style="{StaticResource TextSecondary}" />
           </VerticalStackLayout>
+        </Border>
 
-          <controls:BigActionButton Grid.Row="3"
-                                    Margin="0,12,0,0"
-                                    Style="{StaticResource BigActionOnAccent}"
-                                    Text="{Binding HeroActionText}"
-                                    Breathes="True"
-                                    Command="{Binding StartRoutineCommand}"
-                                    CommandParameter="{Binding Featured}"
-                                    SemanticProperties.Hint="{Binding Featured.Name}" />
-        </Grid>
-      </Border>
-
-      <!-- Día libre: sin culpa -->
-      <Border Style="{StaticResource BentoCard}" IsVisible="{Binding IsFreeDay}">
-        <VerticalStackLayout Spacing="6">
-          <Label Text="🌤️" Style="{StaticResource TextEmoji}" FontSize="40" HorizontalOptions="Start" />
-          <Label Text="{x:Static strings:AppResources.Today_FreeDayTitle}" Style="{StaticResource TextHeadline}" />
-          <Label Text="{x:Static strings:AppResources.Today_FreeDayBody}" Style="{StaticResource TextSecondary}" />
+        <!-- Primer uso: plantillas -->
+        <VerticalStackLayout IsVisible="{Binding IsFirstRun}" Spacing="{StaticResource SpaceMd}">
+          <VerticalStackLayout Spacing="4">
+            <Label Text="🌱" Style="{StaticResource TextEmoji}" FontSize="44" HorizontalOptions="Start" />
+            <Label Text="{x:Static strings:AppResources.Today_FirstRunTitle}" Style="{StaticResource TextTitle}" />
+            <Label Text="{x:Static strings:AppResources.Today_FirstRunBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+          </VerticalStackLayout>
+          <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Templates}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="shared:TemplateCardModel">
+                <shared:TemplateRowView Command="{Binding AddTemplateCommand, Source={RelativeSource AncestorType={x:Type today:TodayViewModel}}, x:DataType=today:TodayViewModel}" />
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </VerticalStackLayout>
         </VerticalStackLayout>
-      </Border>
 
-      <!-- Primer uso: plantillas -->
-      <VerticalStackLayout IsVisible="{Binding IsFirstRun}" Spacing="{StaticResource SpaceMd}">
-        <VerticalStackLayout Spacing="4">
-          <Label Text="🌱" Style="{StaticResource TextEmoji}" FontSize="44" HorizontalOptions="Start" />
-          <Label Text="{x:Static strings:AppResources.Today_FirstRunTitle}" Style="{StaticResource TextTitle}" />
-          <Label Text="{x:Static strings:AppResources.Today_FirstRunBody}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+        <!-- Más tarde hoy -->
+        <VerticalStackLayout Spacing="12" IsVisible="{Binding Upcoming.Count, Converter={StaticResource CountToVisible}}">
+          <Label Text="{x:Static strings:AppResources.Today_LaterToday}" Style="{StaticResource TextSection}" />
+          <FlexLayout Wrap="Wrap"
+                      JustifyContent="SpaceBetween"
+                      BindableLayout.ItemsSource="{Binding Upcoming}"
+                      BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
         </VerticalStackLayout>
-        <VerticalStackLayout Spacing="12" BindableLayout.ItemsSource="{Binding Templates}">
-          <BindableLayout.ItemTemplate>
-            <DataTemplate x:DataType="shared:TemplateCardModel">
-              <shared:TemplateRowView Command="{Binding AddTemplateCommand, Source={RelativeSource AncestorType={x:Type today:TodayViewModel}}, x:DataType=today:TodayViewModel}" />
-            </DataTemplate>
-          </BindableLayout.ItemTemplate>
+
+        <!-- Cuando quieras -->
+        <VerticalStackLayout Spacing="12" IsVisible="{Binding AnyTime.Count, Converter={StaticResource CountToVisible}}">
+          <Label Text="{x:Static strings:AppResources.Today_AnyTime}" Style="{StaticResource TextSection}" />
+          <FlexLayout Wrap="Wrap"
+                      JustifyContent="SpaceBetween"
+                      BindableLayout.ItemsSource="{Binding AnyTime}"
+                      BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
         </VerticalStackLayout>
-      </VerticalStackLayout>
 
-      <!-- Más tarde hoy -->
-      <VerticalStackLayout Spacing="12" IsVisible="{Binding Upcoming.Count, Converter={StaticResource CountToVisible}}">
-        <Label Text="{x:Static strings:AppResources.Today_LaterToday}" Style="{StaticResource TextSection}" />
-        <FlexLayout Wrap="Wrap"
-                    JustifyContent="SpaceBetween"
-                    BindableLayout.ItemsSource="{Binding Upcoming}"
-                    BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
       </VerticalStackLayout>
+    </ScrollView>
 
-      <!-- Cuando quieras -->
-      <VerticalStackLayout Spacing="12" IsVisible="{Binding AnyTime.Count, Converter={StaticResource CountToVisible}}">
-        <Label Text="{x:Static strings:AppResources.Today_AnyTime}" Style="{StaticResource TextSection}" />
-        <FlexLayout Wrap="Wrap"
-                    JustifyContent="SpaceBetween"
-                    BindableLayout.ItemsSource="{Binding AnyTime}"
-                    BindableLayout.ItemTemplate="{StaticResource SmallRoutineCard}" />
-      </VerticalStackLayout>
-
-    </VerticalStackLayout>
-  </ScrollView>
+    <!-- "Apoyar con anuncios": solo si la persona lo activó en Ajustes. -->
+    <controls:SupportBanner Grid.Row="1" />
+  </Grid>
 </common:AppPage>

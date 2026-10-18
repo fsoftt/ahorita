@@ -580,7 +580,7 @@
     <value>About</value>
   </data>
   <data name="Settings_Privacy" xml:space="preserve">
-    <value>Your routines live only on this phone. Ahorita has no accounts, ads or tracking.</value>
+    <value>Your routines live only on this phone. Ahorita has no accounts or tracking. Ads are optional: they only show up if you turn them on or tap "See ad".</value>
   </data>
   <data name="Settings_Version" xml:space="preserve">
     <value>Version {0}</value>
@@ -620,5 +620,43 @@
   </data>
   <data name="Settings_LanguageSystem" xml:space="preserve">
     <value>Phone default</value>
+  </data>
+  <data name="Donate_Title" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="Donate_Explanation" xml:space="preserve">
+    <value>I don't like subscriptions. I built this app to be free because that's the right choice.
+
+If you'd like to give me a tip, tap the button below — it'll show a short ad.</value>
+  </data>
+  <data name="Donate_SeeAd" xml:space="preserve">
+    <value>See ad</value>
+  </data>
+  <data name="Donate_SupportWithAdsExplanation" xml:space="preserve">
+    <value>There's also a "Support with ads" option in Settings — turn it on and a small ad banner will show up while you use the app. It helps me out.</value>
+  </data>
+  <data name="Donate_Thanks" xml:space="preserve">
+    <value>Thanks for the tip! 💜</value>
+  </data>
+  <data name="Donate_NoAd" xml:space="preserve">
+    <value>No ads are available right now. Please try again later.</value>
+  </data>
+  <data name="Donate_Open" xml:space="preserve">
+    <value>Donate</value>
+  </data>
+  <data name="Settings_Support" xml:space="preserve">
+    <value>Support Ahorita</value>
+  </data>
+  <data name="Settings_SupportWithAds" xml:space="preserve">
+    <value>Support with ads</value>
+  </data>
+  <data name="Settings_SupportWithAdsHint" xml:space="preserve">
+    <value>A small banner at the bottom of the screens. Never in Focus mode.</value>
+  </data>
+  <data name="Settings_AdPrivacyOptions" xml:space="preserve">
+    <value>Ad Privacy Options</value>
+  </data>
+  <data name="Settings_AdPrivacyOptionsHint" xml:space="preserve">
+    <value>Review or change your consent for personalized ads</value>
   </data>
 </root>

@@ -9,6 +9,7 @@ public static class Routes
     public const string Celebration = "celebration";
     public const string Settings = "settings";
     public const string Onboarding = "onboarding";
+    public const string Donate = "donate";
 
     public const string Today = "//today";
 }

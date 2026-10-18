@@ -130,6 +130,7 @@ Priorizadas con **MoSCoW**: `M` = Must (MVP), `S` = Should (v1.1), `C` = Could (
 | M | **Sin cuenta, offline** | SQLite local. |
 | S | **Exportar / importar** | Archivo JSON; compartir rutinas con otra persona. |
 | W | **Analítica de terceros** | No. Como mucho, telemetría de crashes opt-in. |
+| M | **Donar con anuncios (opcional)** | Página Donar con anuncio bonificado y "Apoyar con anuncios" (banner discreto, apagado por defecto, nunca en el modo Ahora). Sin suscripciones. |
 
 ### Fuera de alcance (Won't, v1)
 
@@ -599,6 +600,7 @@ builder.Services.AddSingleton<IActiveRoutineHost, AndroidActiveRoutineHost>();
 - ✅ **Fase 2 — Modo Ahora:** un paso a la vez, anillo que se vacía, "Terminas a las…", saltar/posponer/pausar/terminar antes, pantalla encendida, voz opcional, celebración con confeti.
 - ✅ **Fase 3 — Recordatorios:** aviso previo y de inicio con acciones (Empezar / En 5 min / Hoy no), alarmas exactas con respaldo inexacto, reprogramación tras reinicio y cambio de hora, notificación persistente con cuenta regresiva y botones Listo/Saltar.
 - ✅ **Fase 4 — MVP pulido:** progreso amable (constancia flexible, mapa de 4 semanas, sugerencias de duración con "Ajustar"), ajustes (bajo estímulo, celebraciones, vibración, voz, tema, idioma, permisos), bienvenida en 3 pasos. Español e inglés con selector de idioma en la app.
+- ✅ **Donaciones:** página Donar con anuncio bonificado y "Apoyar con anuncios" (banner opcional, apagado por defecto), con los mismos textos que PiccoloReader.
 - ⏭️ **Siguiente:** pruebas en dispositivos reales ([`docs/PRUEBAS.md`](PRUEBAS.md)), beta cerrada y v1.1 (versión día malo, sub-pasos, widget, exportar/importar).
 
 ### Definición de "MVP listo"

@@ -580,7 +580,7 @@
     <value>Acerca de</value>
   </data>
   <data name="Settings_Privacy" xml:space="preserve">
-    <value>Tus rutinas viven solo en este teléfono. Ahorita no tiene cuentas, anuncios ni rastreo.</value>
+    <value>Tus rutinas viven solo en este teléfono. Ahorita no tiene cuentas ni rastreo. Los anuncios son opcionales: solo aparecen si los activas o tocas "Ver anuncio".</value>
   </data>
   <data name="Settings_Version" xml:space="preserve">
     <value>Versión {0}</value>
@@ -620,5 +620,43 @@
   </data>
   <data name="Settings_LanguageSystem" xml:space="preserve">
     <value>Del teléfono</value>
+  </data>
+  <data name="Donate_Title" xml:space="preserve">
+    <value>Donar</value>
+  </data>
+  <data name="Donate_Explanation" xml:space="preserve">
+    <value>No me gustan las suscripciones. Hice esta app gratis porque es lo correcto.
+
+Si quieres darme una propina, toca el botón de abajo — se mostrará un anuncio corto.</value>
+  </data>
+  <data name="Donate_SeeAd" xml:space="preserve">
+    <value>Ver anuncio</value>
+  </data>
+  <data name="Donate_SupportWithAdsExplanation" xml:space="preserve">
+    <value>También existe la opción "Apoyar con anuncios" en Ajustes — actívala y aparecerá un pequeño banner de anuncios mientras usas la app. Es una gran ayuda.</value>
+  </data>
+  <data name="Donate_Thanks" xml:space="preserve">
+    <value>¡Gracias por tu propina! 💜</value>
+  </data>
+  <data name="Donate_NoAd" xml:space="preserve">
+    <value>Ahora mismo no hay anuncios disponibles. Intenta más tarde.</value>
+  </data>
+  <data name="Donate_Open" xml:space="preserve">
+    <value>Donar</value>
+  </data>
+  <data name="Settings_Support" xml:space="preserve">
+    <value>Apoyar Ahorita</value>
+  </data>
+  <data name="Settings_SupportWithAds" xml:space="preserve">
+    <value>Apoyar con anuncios</value>
+  </data>
+  <data name="Settings_SupportWithAdsHint" xml:space="preserve">
+    <value>Un banner pequeño al pie de las pantallas. Nunca en el modo Ahora.</value>
+  </data>
+  <data name="Settings_AdPrivacyOptions" xml:space="preserve">
+    <value>Opciones de privacidad de anuncios</value>
+  </data>
+  <data name="Settings_AdPrivacyOptionsHint" xml:space="preserve">
+    <value>Revisa o cambia tu consentimiento para anuncios personalizados</value>
   </data>
 </root>

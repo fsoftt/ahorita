@@ -1,4 +1,5 @@
 using Ahorita.App.Features.Celebration;
+using Ahorita.App.Features.Donate;
 using Ahorita.App.Features.Editor;
 using Ahorita.App.Features.Focus;
 using Ahorita.App.Features.Onboarding;
@@ -27,6 +28,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(Routes.Celebration, typeof(CelebrationPage));
         Routing.RegisterRoute(Routes.Settings, typeof(SettingsPage));
         Routing.RegisterRoute(Routes.Onboarding, typeof(OnboardingPage));
+        Routing.RegisterRoute(Routes.Donate, typeof(DonatePage));
     }
 
     protected override void OnNavigated(ShellNavigatedEventArgs args)

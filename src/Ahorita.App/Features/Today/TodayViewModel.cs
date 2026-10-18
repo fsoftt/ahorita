@@ -90,6 +90,9 @@ public sealed partial class TodayViewModel : ViewModelBase
     private Task OpenSettingsAsync() => _navigation.GoToAsync(Routes.Settings);
 
     [RelayCommand]
+    private Task OpenDonateAsync() => _navigation.GoToAsync(Routes.Donate);
+
+    [RelayCommand]
     private Task AddTemplateAsync(TemplateCardModel template) => RunSafelyAsync(async () =>
     {
         if (await TemplateAdding.AddAsync(_useCases, Toast, _permissions, template))

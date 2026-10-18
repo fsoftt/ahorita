@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<common:AppPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:common="clr-namespace:Ahorita.App.Common"
+                xmlns:controls="clr-namespace:Ahorita.App.Controls"
+                xmlns:donate="clr-namespace:Ahorita.App.Features.Donate"
+                xmlns:strings="clr-namespace:Ahorita.App.Resources.Strings"
+                x:Class="Ahorita.App.Features.Donate.DonatePage"
+                x:DataType="donate:DonateViewModel"
+                Title="{x:Static strings:AppResources.Donate_Title}">
+
+  <Grid RowDefinitions="Auto,*,Auto">
+    <Grid Padding="16,8" ColumnDefinitions="Auto,*" ColumnSpacing="12">
+      <Button Text="‹"
+              Style="{StaticResource IconButton}"
+              CornerRadius="24"
+              FontSize="28"
+              Command="{Binding CloseCommand}"
+              SemanticProperties.Description="{x:Static strings:AppResources.Common_Back}" />
+      <Label Grid.Column="1" Text="{x:Static strings:AppResources.Donate_Title}" Style="{StaticResource TextHeadline}" VerticalOptions="Center" />
+    </Grid>
+
+    <ScrollView Grid.Row="1">
+      <VerticalStackLayout Padding="20,8,20,24" Spacing="{StaticResource SpaceMd}">
+
+        <Border Style="{StaticResource HeroCard}">
+          <Border.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+              <GradientStop Color="#FFB8DD" Offset="0" />
+              <GradientStop Color="#B9C2FF" Offset="1" />
+            </LinearGradientBrush>
+          </Border.Background>
+          <VerticalStackLayout Spacing="16">
+            <Label Text="💜" Style="{StaticResource TextEmoji}" FontSize="48" HorizontalOptions="Start" />
+            <Label Text="{x:Static strings:AppResources.Donate_Explanation}"
+                   Style="{StaticResource TextOnAccent}"
+                   TextColor="{StaticResource OnAccent}"
+                   FontSize="{StaticResource SizeBody}" />
+            <controls:BigActionButton Text="{x:Static strings:AppResources.Donate_SeeAd}"
+                                      Style="{StaticResource BigActionOnAccent}"
+                                      IsEnabled="{Binding CanSeeAd}"
+                                      Command="{Binding SeeAdCommand}" />
+            <ActivityIndicator IsRunning="{Binding IsAdLoading}" IsVisible="{Binding IsAdLoading}" Color="{StaticResource OnAccent}" />
+          </VerticalStackLayout>
+        </Border>
+
+        <Border Style="{StaticResource BentoCard}">
+          <Label Text="{x:Static strings:AppResources.Donate_SupportWithAdsExplanation}" Style="{StaticResource TextSecondary}" FontSize="{StaticResource SizeBody}" />
+        </Border>
+      </VerticalStackLayout>
+    </ScrollView>
+
+    <controls:SupportBanner Grid.Row="2" AlwaysShow="True" />
+  </Grid>
+</common:AppPage>
