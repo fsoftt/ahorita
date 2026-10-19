@@ -29,6 +29,15 @@ internal sealed class AndroidDevicePermissions : IDevicePermissions
     private static bool AreNotificationsEnabled() =>
         NotificationManagerCompat.From(global::Android.App.Application.Context)!.AreNotificationsEnabled();
 
+    public void OpenNotificationSettings()
+    {
+        var context = global::Android.App.Application.Context;
+        var intent = new Intent(Settings.ActionAppNotificationSettings)
+            .PutExtra(Settings.ExtraAppPackage, context.PackageName)
+            .AddFlags(ActivityFlags.NewTask);
+        context.StartActivity(intent);
+    }
+
     public void OpenExactAlarmSettings()
     {
         if (!OperatingSystem.IsAndroidVersionAtLeast(31))

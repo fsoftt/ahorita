@@ -16,6 +16,9 @@ public sealed record RoutineSummary(
 {
     public bool IsOnDemand => Days == WeekDays.None;
 
+    /// <summary>Mismas condiciones con las que se planifican los recordatorios.</summary>
+    public bool HasReminders => CanStart && !IsOnDemand && StartTime is not null;
+
     public static RoutineSummary From(Routine routine) => new(
         routine.Id,
         routine.Name,

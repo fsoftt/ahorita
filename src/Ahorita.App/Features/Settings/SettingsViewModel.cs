@@ -97,6 +97,8 @@ public sealed partial class SettingsViewModel : ViewModelBase
     [ObservableProperty]
     public partial string ExactAlarmsStatus { get; set; }
 
+    public override Task OnResumedAsync() => OnAppearingAsync();
+
     public override async Task OnAppearingAsync()
     {
         HasNotifications = await _permissions.HasNotificationsAsync();

@@ -161,6 +161,8 @@
                   </DataTemplate>
                 </BindableLayout.ItemTemplate>
               </FlexLayout>
+
+              <controls:MissingPermissionsBanner BindingContext="{Binding Permissions}" />
             </VerticalStackLayout>
           </VerticalStackLayout>
 

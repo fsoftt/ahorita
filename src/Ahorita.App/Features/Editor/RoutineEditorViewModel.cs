@@ -39,6 +39,7 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         INavigationService navigation,
         IDialogService dialogs,
         PermissionPrompts permissions,
+        MissingPermissionsModel missingPermissions,
         IToastService toast,
         ILogger<RoutineEditorViewModel> logger)
         : base(toast, logger)
@@ -47,6 +48,7 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         _navigation = navigation;
         _dialogs = dialogs;
         _permissions = permissions;
+        Permissions = missingPermissions;
 
         Name = string.Empty;
         Emoji = EmojiCatalog.Routines[^1];
@@ -59,6 +61,9 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         Steps.CollectionChanged += (_, _) => OnPropertyChanged(nameof(StepsSummary));
         SelectAccent(Accent);
     }
+
+    /// <summary>Aviso de permisos faltantes mientras el borrador tenga días.</summary>
+    public MissingPermissionsModel Permissions { get; }
 
     public IReadOnlyList<string> EmojiOptions { get; } = EmojiCatalog.Routines;
 
@@ -108,7 +113,15 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
         OnPropertyChanged(nameof(Title));
     }
 
-    public override Task OnAppearingAsync()
+    public override async Task OnAppearingAsync()
+    {
+        await LoadRoutineAsync();
+        await RefreshPermissionsAsync();
+    }
+
+    public override Task OnResumedAsync() => RefreshPermissionsAsync();
+
+    private Task LoadRoutineAsync()
     {
         // Al volver del editor de paso no recargamos: perderíamos los cambios locales.
         if (_loaded || _routineId is not { } id)
@@ -156,10 +169,16 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
             foreach (var day in Days.Where(d => WeekDays.Weekdays.Includes(d.Day)))
                 day.IsSelected = true;
         }
+
+        _ = RefreshPermissionsAsync();
     }
 
     [RelayCommand]
-    private static void ToggleDay(DayOption day) => day.IsSelected = !day.IsSelected;
+    private void ToggleDay(DayOption day)
+    {
+        day.IsSelected = !day.IsSelected;
+        _ = RefreshPermissionsAsync();
+    }
 
     [RelayCommand]
     private void PickLeadTime(MinutesOption option) => MinutesOption.Select(LeadTimes, option.Minutes);
@@ -253,6 +272,10 @@ public sealed partial class RoutineEditorViewModel : ViewModelBase, IQueryAttrib
             days == WeekDays.None ? null : TimeSpan.FromMinutes(leadMinutes),
             Steps.Select(s => s.ToDraft()).ToArray());
     }
+
+    // El aviso aparece en cuanto el borrador tiene días, antes de guardar.
+    private Task RefreshPermissionsAsync() =>
+        RunSafelyAsync(() => Permissions.RefreshAsync(IsScheduled && Days.Any(d => d.IsSelected)));
 
     private void SelectAccent(RoutineAccent accent)
     {

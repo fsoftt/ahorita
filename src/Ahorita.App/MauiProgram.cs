@@ -6,6 +6,7 @@ using Ahorita.App.Features.Onboarding;
 using Ahorita.App.Features.Progress;
 using Ahorita.App.Features.Routines;
 using Ahorita.App.Features.Settings;
+using Ahorita.App.Features.Shared;
 using Ahorita.App.Features.Today;
 using Ahorita.App.Services;
 using Ahorita.App.Theming;
@@ -68,6 +69,8 @@ public static class MauiProgram
         services.AddSingleton<DeepLinks>();
         services.AddSingleton<AppStartup>();
         services.AddSingleton<PermissionPrompts>();
+        services.AddSingleton<ReminderPermissionsMonitor>();
+        services.AddTransient<MissingPermissionsModel>();
         services.AddSingleton<UiRestarter>();
         services.AddSingleton<SupportAdsPreference>();
         services.AddSingleton<IDonateAdService, AdMobDonateAdService>();

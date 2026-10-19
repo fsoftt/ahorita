@@ -16,11 +16,12 @@ public sealed partial class RoutinesViewModel : ViewModelBase
     private readonly PermissionPrompts _permissions;
     private readonly INavigationService _navigation;
 
-    public RoutinesViewModel(IUseCaseExecutor useCases, PermissionPrompts permissions, INavigationService navigation, IToastService toast, ILogger<RoutinesViewModel> logger)
+    public RoutinesViewModel(IUseCaseExecutor useCases, PermissionPrompts permissions, MissingPermissionsModel missingPermissions, INavigationService navigation, IToastService toast, ILogger<RoutinesViewModel> logger)
         : base(toast, logger)
     {
         _useCases = useCases;
         _permissions = permissions;
+        Permissions = missingPermissions;
         _navigation = navigation;
         Routines = [];
         Templates = [];
@@ -35,7 +36,12 @@ public sealed partial class RoutinesViewModel : ViewModelBase
     [ObservableProperty]
     public partial bool IsEmpty { get; set; }
 
+    /// <summary>Aviso de permisos faltantes: solo si alguna rutina avisa.</summary>
+    public MissingPermissionsModel Permissions { get; }
+
     public override Task OnAppearingAsync() => RunSafelyAsync(LoadAsync);
+
+    public override Task OnResumedAsync() => RunSafelyAsync(RefreshPermissionsAsync);
 
     [RelayCommand]
     private Task OpenRoutineAsync(RoutineRowModel routine) =>
@@ -54,11 +60,18 @@ public sealed partial class RoutinesViewModel : ViewModelBase
             await LoadAsync();
     });
 
+    private async Task RefreshPermissionsAsync()
+    {
+        var routines = await _useCases.ExecuteAsync((ListRoutines useCase) => useCase.ExecuteAsync());
+        await Permissions.RefreshAsync(routines.Any(r => r.HasReminders));
+    }
+
     private async Task LoadAsync()
     {
         var routines = await _useCases.ExecuteAsync((ListRoutines useCase) => useCase.ExecuteAsync());
         Routines = routines.Select(RoutineRowModel.From).ToArray();
         IsEmpty = Routines.Count == 0;
+        await Permissions.RefreshAsync(routines.Any(r => r.HasReminders));
 
         if (Templates.Count == 0)
         {
