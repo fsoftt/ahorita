@@ -6,10 +6,12 @@ namespace Ahorita.App.Common;
 
 /// <summary>
 /// Página base: sin barra de navegación (cada pantalla tiene su propio título grande),
-/// respeta el área segura, barra de estado del color del fondo y carga del ViewModel al aparecer.
+/// respeta el área segura, barra de estado del color del fondo y carga del ViewModel al aparecer y al volver a la app.
 /// </summary>
 public abstract class AppPage : ContentPage
 {
+    private Window? _window;
+
     protected AppPage(ViewModelBase viewModel)
     {
         BindingContext = ViewModel = viewModel;
@@ -25,14 +27,26 @@ public abstract class AppPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+
+        // Volver de los ajustes de Android no dispara OnAppearing: se escucha al volver la app.
+        _window = Window;
+        if (_window is not null)
+            _window.Resumed += OnResumed;
+
         await ViewModel.OnAppearingAsync();
     }
 
     protected override void OnDisappearing()
     {
+        if (_window is not null)
+            _window.Resumed -= OnResumed;
+
+        _window = null;
         base.OnDisappearing();
         ViewModel.OnDisappearing();
     }
+
+    private async void OnResumed(object? sender, EventArgs e) => await ViewModel.OnResumedAsync();
 
     private static StatusBarBehavior CreateStatusBarBehavior()
     {

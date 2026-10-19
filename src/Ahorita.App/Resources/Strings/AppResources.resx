@@ -671,4 +671,22 @@ Si quieres darme una propina, toca el botón de abajo — se mostrará un anunci
   <data name="Settings_AdPrivacyOptionsHint" xml:space="preserve">
     <value>Revisa o cambia tu consentimiento para anuncios personalizados</value>
   </data>
+  <data name="MissingPermissions_Title" xml:space="preserve">
+    <value>Tus recordatorios no sonarán</value>
+  </data>
+  <data name="MissingPermissions_Body" xml:space="preserve">
+    <value>Faltan permisos en tu teléfono, así que Ahorita no podrá avisarte a tiempo.</value>
+  </data>
+  <data name="MissingPermissions_Notifications" xml:space="preserve">
+    <value>Notificaciones: sin ellas no recibirás ningún aviso.</value>
+  </data>
+  <data name="MissingPermissions_ExactAlarms" xml:space="preserve">
+    <value>Alarmas y recordatorios: sin ellas los avisos pueden llegar tarde.</value>
+  </data>
+  <data name="MissingPermissions_OpenNotifications" xml:space="preserve">
+    <value>Activar notificaciones</value>
+  </data>
+  <data name="MissingPermissions_OpenExactAlarms" xml:space="preserve">
+    <value>Activar alarmas y recordatorios</value>
+  </data>
 </root>

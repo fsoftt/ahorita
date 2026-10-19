@@ -671,4 +671,22 @@ If you'd like to give me a tip, tap the button below — it'll show a short ad.<
   <data name="Settings_AdPrivacyOptionsHint" xml:space="preserve">
     <value>Review or change your consent for personalized ads</value>
   </data>
+  <data name="MissingPermissions_Title" xml:space="preserve">
+    <value>Your reminders won't ring</value>
+  </data>
+  <data name="MissingPermissions_Body" xml:space="preserve">
+    <value>Some permissions are missing on your phone, so Ahorita can't notify you on time.</value>
+  </data>
+  <data name="MissingPermissions_Notifications" xml:space="preserve">
+    <value>Notifications: without them you won't get any reminder.</value>
+  </data>
+  <data name="MissingPermissions_ExactAlarms" xml:space="preserve">
+    <value>Alarms &amp; reminders: without them reminders may arrive late.</value>
+  </data>
+  <data name="MissingPermissions_OpenNotifications" xml:space="preserve">
+    <value>Turn on notifications</value>
+  </data>
+  <data name="MissingPermissions_OpenExactAlarms" xml:space="preserve">
+    <value>Turn on Alarms &amp; reminders</value>
+  </data>
 </root>

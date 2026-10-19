@@ -15,6 +15,9 @@ public abstract partial class ViewModelBase(IToastService toast, ILogger logger)
     /// <summary>Se llama cada vez que la página aparece.</summary>
     public virtual Task OnAppearingAsync() => Task.CompletedTask;
 
+    /// <summary>Se llama al volver a la app mientras la página se ve (p. ej. tras visitar los ajustes del sistema).</summary>
+    public virtual Task OnResumedAsync() => Task.CompletedTask;
+
     /// <summary>Se llama cada vez que la página deja de verse.</summary>
     public virtual void OnDisappearing()
     {
