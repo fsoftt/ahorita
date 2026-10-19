@@ -29,7 +29,8 @@ public abstract class AppPage : ContentPage
         base.OnAppearing();
 
         // Volver de los ajustes de Android no dispara OnAppearing: se escucha al volver la app.
-        _window = Window;
+        // En una página recién empujada (el editor) Window aún es null al aparecer: se usa la de la app.
+        _window = Window ?? Microsoft.Maui.Controls.Application.Current?.Windows.FirstOrDefault();
         if (_window is not null)
             _window.Resumed += OnResumed;
 
