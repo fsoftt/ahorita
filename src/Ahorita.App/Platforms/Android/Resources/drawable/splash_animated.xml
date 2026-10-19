@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="288dp"
+            android:height="288dp"
+            android:viewportWidth="456"
+            android:viewportHeight="456">
+            <path
+                android:name="track"
+                android:pathData="M228,136 a92,92 0 1,1 0,184 a92,92 0 1,1 0,-184"
+                android:strokeColor="#FFFFFF"
+                android:strokeAlpha="0"
+                android:strokeWidth="30" />
+            <path
+                android:name="arc"
+                android:pathData="M228,136 A92,92 0 1,1 136,228"
+                android:strokeColor="#FFB347"
+                android:strokeWidth="30"
+                android:strokeLineCap="round"
+                android:trimPathEnd="0" />
+            <group
+                android:name="spark_group"
+                android:pivotX="228"
+                android:pivotY="228"
+                android:scaleX="0"
+                android:scaleY="0">
+                <path
+                    android:name="spark"
+                    android:pathData="M228,186 L240,216 L270,228 L240,240 L228,270 L216,240 L186,228 L216,216 Z"
+                    android:fillColor="#FFFFFF" />
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="track">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeAlpha"
+                android:valueFrom="0"
+                android:valueTo="0.25"
+                android:duration="200"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="arc">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="trimPathEnd"
+                android:valueFrom="0"
+                android:valueTo="1"
+                android:startOffset="100"
+                android:duration="550"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+        </aapt:attr>
+    </target>
+    <target android:name="spark_group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:startOffset="400"
+                    android:duration="350"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/overshoot_interpolator" />
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:valueFrom="0"
+                    android:valueTo="1"
+                    android:startOffset="400"
+                    android:duration="350"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/overshoot_interpolator" />
+                <objectAnimator
+                    android:propertyName="rotation"
+                    android:valueFrom="-45"
+                    android:valueTo="0"
+                    android:startOffset="400"
+                    android:duration="350"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/overshoot_interpolator" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>
