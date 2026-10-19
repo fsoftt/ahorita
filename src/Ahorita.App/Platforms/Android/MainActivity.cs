@@ -10,7 +10,7 @@ using Android.Provider;
 namespace Ahorita.App;
 
 [Activity(
-    Theme = "@style/Maui.SplashTheme",
+    Theme = "@style/Ahorita.SplashTheme",
     MainLauncher = true,
     LaunchMode = LaunchMode.SingleTop,
     ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
