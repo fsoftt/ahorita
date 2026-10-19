@@ -3,6 +3,6 @@
     <style name="Ahorita.SplashTheme" parent="Maui.SplashTheme">
         <item name="android:windowSplashScreenBackground">#6D4AFF</item>
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash_animated</item>
-        <item name="android:windowSplashScreenAnimationDuration">800</item>
+        <item name="android:windowSplashScreenAnimationDuration">2400</item>
     </style>
 </resources>

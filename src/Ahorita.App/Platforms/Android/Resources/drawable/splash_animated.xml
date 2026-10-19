@@ -7,19 +7,24 @@
             android:height="288dp"
             android:viewportWidth="456"
             android:viewportHeight="456">
-            <path
-                android:name="track"
-                android:pathData="M228,136 a92,92 0 1,1 0,184 a92,92 0 1,1 0,-184"
-                android:strokeColor="#FFFFFF"
-                android:strokeAlpha="0"
-                android:strokeWidth="30" />
-            <path
-                android:name="arc"
-                android:pathData="M228,136 A92,92 0 1,1 136,228"
-                android:strokeColor="#FFB347"
-                android:strokeWidth="30"
-                android:strokeLineCap="round"
-                android:trimPathEnd="0" />
+            <group
+                android:name="ring"
+                android:pivotX="228"
+                android:pivotY="228">
+                <path
+                    android:name="track"
+                    android:pathData="M228,136 a92,92 0 1,1 0,184 a92,92 0 1,1 0,-184"
+                    android:strokeColor="#FFFFFF"
+                    android:strokeAlpha="0"
+                    android:strokeWidth="30" />
+                <path
+                    android:name="arc"
+                    android:pathData="M228,136 A92,92 0 1,1 136,228"
+                    android:strokeColor="#FFB347"
+                    android:strokeWidth="30"
+                    android:strokeLineCap="round"
+                    android:trimPathEnd="0" />
+            </group>
             <group
                 android:name="spark_group"
                 android:pivotX="228"
@@ -33,6 +38,17 @@
             </group>
         </vector>
     </aapt:attr>
+    <target android:name="ring">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="rotation"
+                android:valueFrom="0"
+                android:valueTo="1080"
+                android:duration="2400"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in" />
+        </aapt:attr>
+    </target>
     <target android:name="track">
         <aapt:attr name="android:animation">
             <objectAnimator
@@ -49,8 +65,8 @@
                 android:propertyName="trimPathEnd"
                 android:valueFrom="0"
                 android:valueTo="1"
-                android:startOffset="100"
-                android:duration="550"
+                android:startOffset="0"
+                android:duration="800"
                 android:valueType="floatType"
                 android:interpolator="@android:interpolator/fast_out_slow_in" />
         </aapt:attr>
@@ -70,14 +86,6 @@
                     android:propertyName="scaleY"
                     android:valueFrom="0"
                     android:valueTo="1"
-                    android:startOffset="400"
-                    android:duration="350"
-                    android:valueType="floatType"
-                    android:interpolator="@android:anim/overshoot_interpolator" />
-                <objectAnimator
-                    android:propertyName="rotation"
-                    android:valueFrom="-45"
-                    android:valueTo="0"
                     android:startOffset="400"
                     android:duration="350"
                     android:valueType="floatType"
